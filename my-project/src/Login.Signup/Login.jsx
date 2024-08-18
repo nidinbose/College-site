@@ -165,14 +165,7 @@ function Login() {
                 >
                   {loading ? "Logging in..." : "Login"}
                 </button>
-                <Link to="/signup">
-                  <button
-                    type="button"
-                    className="w-full py-3 bg-gray-200 text-gray-500 font-semibold rounded-full hover:bg-gray-300"
-                  >
-                    Create Account
-                  </button>
-                </Link>
+                
               </div>
             </form>
           </div>

@@ -3,7 +3,8 @@ import userSchema from "./models/user.model.js"
 import bcrypt from 'bcrypt'
 import pkg from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
-
+import studentsSchema from './models/students.model.js'
+import staffSchema from './models/staff.model.js'
 
 
 const transporter = nodemailer.createTransport({
@@ -69,13 +70,35 @@ export async function userLogin(req, res) {
 
 
 
-export async function Home(req,res){
-  const {id,username}=req.user
-  console.log(req.user);
-  res.status(200).send({username})
+export async function Home(req, res) {
+  try {
+      if (!req.user) {
+          return res.status(401).send({ error: "Unauthorized" });
+      }
+
+      const { username } = req.user;
+
+      console.log(req.user);
+      res.status(200).send({ username });
+  } catch (error) {
+      console.error('Error in Home function:', error);
+      res.status(500).send({ error: "Internal Server Error" });
+  }
 }
 
+export async function Logout(req, res) {
+  try {
+    // If you want to blacklist tokens or manage sessions on the server side:
+    // You can store the token in a blacklist or manage a token expiration strategy.
 
+    // If using sessions (for example, with cookies):
+    req.session = null; // If you're using sessions, this will clear the session.
+
+    res.status(200).send({ message: 'Logged out successfully' });
+  } catch (error) {
+    res.status(500).send({ error: error.message });
+  }
+}
 
 
 
@@ -103,4 +126,68 @@ console.log("Message sent: %s", info.messageId);
 
 
 
+}
+
+
+
+export async function addStudents(req,res){
+  try{
+      console.log(req.body);
+      const {...FormData} = req.body;
+
+      await studentsSchema
+      .create({...FormData})
+          .then(()=>{
+              res.status(200).send({msg:"sucessfully created"})
+          })
+          .catch((error)=>{
+              res.status(400).send({error:error})
+          });
+  }catch(error){
+      res.status(500).send(error)
+  }
+}
+
+export async function getStudents(req,res){
+  try{
+
+      const data=await studentsSchema.find();
+      res.status(200).send(data)
+      console.log(data);
+  }catch (error){
+      res.status(500).send(error)
+  }
+}
+
+
+
+// staff
+export async function addStaff(req,res){
+  try{
+      console.log(req.body);
+      const {...FormData} = req.body;
+
+      await staffSchema
+      .create({...FormData})
+          .then(()=>{
+              res.status(200).send({msg:"sucessfully created"})
+          })
+          .catch((error)=>{
+              res.status(400).send({error:error})
+          });
+  }catch(error){
+      res.status(500).send(error)
+  }
+}
+
+
+export async function getStaff(req,res){
+  try{
+
+      const data=await staffSchema.find();
+      res.status(200).send(data)
+      console.log(data);
+  }catch (error){
+      res.status(500).send(error)
+  }
 }

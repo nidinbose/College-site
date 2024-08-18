@@ -14,7 +14,14 @@ function Signup() {
     role: 'student',
   });
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
+  const handleLoginClick = () => {
+    // Logic for login validation and handling goes here
+
+    // Navigate to the target page
+    navigate("/login");
+  };
+  // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -211,9 +218,10 @@ function Signup() {
                 </button>
                 <button
                   type="button"
+                  onClick={handleLoginClick}
                   className="w-full py-3 bg-gray-200 text-gray-500 font-semibold rounded-full hover:bg-gray-300"
                 >
-                  Create Account
+                  Login
                 </button>
               </div>
             </form>

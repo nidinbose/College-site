@@ -1,10 +1,21 @@
 import React from "react";
+import Start from "../Components/Start";
+import Categories from "../Components/Category";
+import Addss from "../Components/Admin/AddSection";
+import Navbar from "../additionals/Navbar";
+import StudentView from "../Components/StudentView";
 
 
 const Admin = ()=>{
+    
     return(
         <div>
-            <h1>Admin page</h1>
+            <Navbar/>
+               <Addss/>
+            <Start/>
+            <Categories/>
+            <StudentView/>
+         
         </div>
     )
 }
