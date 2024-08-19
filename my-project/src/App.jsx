@@ -19,6 +19,7 @@ import SSignup from './Components/Staff/Slogin';
 import ViewStaff from './additionals/Staff/ViewStaff';
 import StudentsEdit from './additionals/Students/StudentEdit';
 import EditStaff from './additionals/Staff/EditStaff';
+import ForgotEmail from './Login.Signup/ForgotPassword/ForgotEmail';
 
 
 const App=()=>{
@@ -29,15 +30,17 @@ const App=()=>{
 
 
       <Route path='/' Component={Site}/>
-      <Route path='/login' Component={Login}/>
-      <Route path='/signup' Component={Signup}/>
-      <Route path='/ssignup' Component={SSignup}/>
+
+      <Route  path='/login' Component={Login}/>
       <Route path='/students' Component={Students}/>
       <Route path='/staff' Component={Staff}/>
-      <Route path='/admin' roles={['admin']}  Component={Admin}/>
+      <Route path='/admin'  Component={Admin}/>
+      <Route path='/signup' Component={Signup}/>
+      <Route path='/forgot-password' Component={ForgotEmail}/>
+      <Route path='/ssignup' Component={SSignup}/>
+     
       <Route path='/addstudents' Component={AddStudents}/>
-      {/* <Route path='/addstudents' Component={AddStudents}/> */}
-      <Route path='/addstaff' Component={AddStaff}/>
+     <Route path='/addstaff' Component={AddStaff}/>
       <Route path='/addadmin' Component={AddAdmin}/>
       <Route path='/vstudent' Component={StudentView}/>
       <Route path='/vstaff' Component={StaffView}/>

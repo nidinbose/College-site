@@ -34,7 +34,6 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate form
     const formErrors = validateForm();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
@@ -45,7 +44,6 @@ function Login() {
     setErrors({});
 
     try {
-      // Submit the form data to the server
       const response = await fetch("http://localhost:3003/api/login", {
         method: "POST",
         headers: {
@@ -62,11 +60,8 @@ function Login() {
         throw new Error(result.error || "Something went wrong");
       }
 
-      // Assuming the backend returns the user role and other info
-      const { role } = result;
-
-      // Handle success and navigate based on the role
-      console.log("Login successful:", result);
+      const { role, token } = result;
+      localStorage.setItem("token", token); // Store the token in localStorage
 
       switch (role) {
         case "admin":
@@ -79,7 +74,7 @@ function Login() {
           navigate("/students");
           break;
         default:
-          navigate("/"); // Fallback route
+          navigate("/"); 
           break;
       }
     } catch (error) {
@@ -165,7 +160,6 @@ function Login() {
                 >
                   {loading ? "Logging in..." : "Login"}
                 </button>
-                
               </div>
             </form>
           </div>

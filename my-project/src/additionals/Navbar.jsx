@@ -17,7 +17,6 @@ const Navbar = () => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate(); 
 
- 
     useEffect(() => { 
         async function fetchUser() {
             try {
@@ -40,11 +39,19 @@ const Navbar = () => {
         }
     };
 
+    const handleToggle = () => {
+        setToggle(!toggle);
+    };
+
+    const closeMenu = () => {
+        setToggle(false);
+    };
+
     return (
         <div className='w-full h-[96px] bg-white shadow-sm'>
             <div className='p-4 md:max-w-[1080px] max-w-[400px] m-auto w-full h-full flex justify-between items-center'>
                 <Link to="/">
-                    <img src="" alt="logo" className='h-[25px] cursor-pointer' />
+                    <img src="/path/to/logo.png" alt="Logo" className='h-[25px] cursor-pointer' />
                 </Link>
                 <div className="flex items-center">
                     <ul className='hidden md:flex gap-4'>
@@ -61,8 +68,7 @@ const Navbar = () => {
                     {user ? (
                         <div className='flex items-center gap-4'>
                             <h1 className="font-bold">{user.username}</h1>
-                            <img src={user.photo || "images/a.avif"} alt="User Avatar" className="w-10 h-10 rounded-full" />
-                            <h1 className="text-black">{user.username}</h1>
+                            <img src={user.photo || "/path/to/default-avatar.png"} alt="User Avatar" className="w-10 h-10 rounded-full" />
                             <button
                                 onClick={handleLogout}
                                 className='px-4 py-2 bg-red-600 text-white rounded'
@@ -73,7 +79,7 @@ const Navbar = () => {
                     ) : (
                         <Link to="/login">
                             <button className='flex justify-center items-center bg-transparent px-6 gap-2'>
-                                <img src="" alt='lock' />
+                                <img src="/path/to/lock-icon.png" alt='Lock Icon' />
                                 Login
                             </button>
                         </Link>
@@ -82,9 +88,9 @@ const Navbar = () => {
                 <motion.div
                     whileTap={{ scale: 0.6 }}
                     className="md:hidden cursor-pointer"
-                    onClick={() => setToggle(!toggle)}
+                    onClick={handleToggle}
                 >
-                    <img src="" alt="hamburger" />
+                    <img src="/path/to/hamburger-icon.png" alt="Menu" />
                 </motion.div>
             </div>
             <div>
@@ -95,7 +101,7 @@ const Navbar = () => {
                     className={toggle ? 'absolute z-10 p-4 bg-white w-full px-8 md:hidden' : 'hidden'}
                 >
                     {nav.map((item, index) => (
-                        <li key={index} className='p-4 '>
+                        <li key={index} className='p-4' onClick={closeMenu}>
                             <Link to={item.path} className="hover:bg-gray-500">
                                 {item.name}
                             </Link>
@@ -112,7 +118,7 @@ const Navbar = () => {
                         ) : (
                             <Link to="/login">
                                 <button className='flex border border-[#240136] justify-center items-center bg-transparent px-6 gap-2 py-4'>
-                                    <img src="" alt='lock' />
+                                    <img src="/path/to/lock-icon.png" alt='Lock Icon' />
                                     Login
                                 </button>
                             </Link>
@@ -128,3 +134,4 @@ const Navbar = () => {
 }
 
 export default Navbar;
+

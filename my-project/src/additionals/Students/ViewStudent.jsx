@@ -57,7 +57,7 @@ const ViewStudent = () => {
         <motion.img
           src={data.photo}
           alt="Student Photo"
-          className="w-full h-[70vh] object-cover w-[60vh]"
+          className="w-full h-[60vh] object-cover w-[60vh]"
           initial={{ opacity: 0.8 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}

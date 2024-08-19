@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-
-const Students = ()=>{
+const Students = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -10,14 +10,24 @@ const Students = ()=>{
 
         if (!isAuthenticated) {
             alert("Please log in to continue.");
-            navigate('/login');
+            navigate('/');
         }
     }, [navigate]);
-    return(
-        <div>
-            <h1>Students page</h1>
-        </div>
-    )
-}
 
-export default Students
+    const handleLogout = () => {
+        // Remove token and redirect to login page
+        localStorage.removeItem('token');
+        navigate('/login');
+    };
+
+    return (
+        <div>
+            <h1>Students Page</h1>
+            <button onClick={handleLogout} className='px-4 py-2 bg-red-600 text-white rounded'>
+                Logout
+            </button>
+        </div>
+    );
+};
+
+export default Students;
