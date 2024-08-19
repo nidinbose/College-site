@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Asb = () => {
     return (
         <Link to="/addstudents">
-            <button>Add students</button>
+            {/* <button>Add students</button> */}
         </Link>
     );
 }

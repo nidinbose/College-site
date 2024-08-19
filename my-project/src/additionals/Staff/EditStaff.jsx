@@ -74,11 +74,11 @@ const EditStaff = () => {
 
                     {/* Student ID Field */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700">Student ID</label>
+                        <label className="text-gray-700">Staff ID</label>
                         <input
                             type="text"
                             name="studentid"
-                            value={data.studentid || ""}
+                            value={data.staffid || ""}
                             onChange={handleChange}
                             className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
@@ -86,11 +86,24 @@ const EditStaff = () => {
 
                     {/* Class Field */}
                     <div className="flex flex-col">
-                        <label className="text-gray-700">Class</label>
+                        <label className="text-gray-700">Qualification</label>
                         <input
                             type="text"
                             name="class"
-                            value={data.class || ""}
+                            value={data.qualification || ""}
+                            onChange={handleChange}
+                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                        />
+                    </div>
+                    {/* education field */}
+
+
+                    <div className="flex flex-col">
+                        <label className="text-gray-700">experience</label>
+                        <input
+                            type="text"
+                            name="class"
+                            value={data.experience || ""}
                             onChange={handleChange}
                             className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />

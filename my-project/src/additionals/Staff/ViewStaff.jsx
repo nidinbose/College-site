@@ -72,7 +72,8 @@ const ViewStaff = () => {
             {data.name}
           </motion.h1>
           <p className="text-gray-600 mt-2"><strong>Staff ID:</strong> {data.staffid}</p>
-          <p className="text-gray-600 mt-2"><strong>Class:</strong> {data.class}</p>
+          <p className="text-gray-600 mt-2"><strong>Experience:</strong> {data.experience}</p>
+          <p className="text-gray-600 mt-2"><strong>Qualification:</strong> {data.qualification}</p>
           <p className="text-gray-600 mt-2"><strong>Department:</strong> {data.department}</p>
           <p className="text-gray-600 mt-2"><strong>Semester:</strong> {data.semester}</p>
           <p className="text-gray-600 mt-2"><strong>Blood Type:</strong> {data.bloodType}</p>
