@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
-const Addss = () => {
+const StaffSA = () => {
   const navigate = useNavigate();
 
   // Function to handle navigation
@@ -26,19 +26,12 @@ const Addss = () => {
         >
           Add Student
         </motion.button>
+     
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
-          onClick={() => handleNavigate("/addstaff")}
-        >
-          Add Staff
-        </motion.button>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
-          onClick={() => handleNavigate("/signup")}
+          onClick={() => handleNavigate("/ssignup")}
         >
        Create account
         </motion.button>
@@ -67,5 +60,5 @@ const Addss = () => {
   );
 };
 
-export default Addss;
+export default StaffSA;
 

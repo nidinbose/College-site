@@ -10,8 +10,8 @@ const AddStaff = () => {
     staffid: "",
     experience: "",
     qualification: "",
-    department: "",
-    semester: "",
+    department: "Computer Science", // Default value
+    semester: "1st Semester", // Default value
     bloodType: "",
     dateOfBirth: "",
     photo: null
@@ -147,26 +147,38 @@ const AddStaff = () => {
           {/* Department Field */}
           <div className="flex flex-col">
             <label className="text-gray-700">Department</label>
-            <input
-              type="text"
+            <select
               name="department"
               value={formData.department}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
+            >
+              <option value="Computer Science">Computer Science</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Electrical Engineering">Electrical Engineering</option>
+            </select>
             {errors.department && <p className="text-red-500 text-sm">{errors.department}</p>}
           </div>
 
           {/* Semester Field */}
           <div className="flex flex-col">
             <label className="text-gray-700">Semester</label>
-            <input
-              type="text"
+            <select
               name="semester"
               value={formData.semester}
               onChange={handleChange}
               className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-            />
+            >
+              <option value="1st Semester">1st Semester</option>
+              <option value="2nd Semester">2nd Semester</option>
+              <option value="3rd Semester">3rd Semester</option>
+              <option value="4th Semester">4th Semester</option>
+              <option value="5th Semester">5th Semester</option>
+              <option value="6th Semester">6th Semester</option>
+              <option value="7th Semester">7th Semester</option>
+              <option value="8th Semester">8th Semester</option>
+            </select>
             {errors.semester && <p className="text-red-500 text-sm">{errors.semester}</p>}
           </div>
 

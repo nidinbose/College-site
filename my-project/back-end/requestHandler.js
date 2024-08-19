@@ -159,7 +159,46 @@ export async function getStudents(req,res){
   }
 }
 
+export async function getStudentEdit(req,res) {
+  try {
+      const {id}=req.params;
+      console.log(id);
+      const data = await studentsSchema.findOne({_id:id})
+      console.log(data);
+      res.status(200).send(data)
+  } catch (error) {
+      res.status(400).send(error)
+  }
+}
 
+export async function deleteStudent(req, res) {
+  try {
+      const { id } = req.params;
+      console.log(id);    
+
+    await studentsSchema.deleteOne({_id:id});
+     res.status(200).send({msg:"successfully deleted"})
+  } catch (error) {
+      console.error(error);
+      res.status(400).send({ error});
+  }
+  
+}
+
+
+
+
+export async function updateStudent(req,res) {
+  try {
+      const {id}=req.params;
+      console.log(id);
+  const {...FormData}=req.body
+  await studentsSchema.updateOne({_id:id},{$set:{...FormData}})
+      res.status(201).send({msg:"updated"})
+  } catch (error) {
+      res.status(400).send(error)
+  }
+}
 
 // staff
 export async function addStaff(req,res){
@@ -189,5 +228,46 @@ export async function getStaff(req,res){
       console.log(data);
   }catch (error){
       res.status(500).send(error)
+  }
+}
+
+export async function getStaffEdit(req,res) {
+  try {
+      const {id}=req.params;
+      console.log(id);
+      const data = await staffSchema.findOne({_id:id})
+      console.log(data);
+      res.status(200).send(data)
+  } catch (error) {
+      res.status(400).send(error)
+  }
+}
+
+export async function deleteStaff(req, res) {
+  try {
+      const { id } = req.params;
+      console.log(id);    
+
+    await staffSchema.deleteOne({_id:id});
+     res.status(200).send({msg:"successfully deleted"})
+  } catch (error) {
+      console.error(error);
+      res.status(400).send({ error});
+  }
+  
+}
+
+
+
+
+export async function updateStaff(req,res) {
+  try {
+      const {id}=req.params;
+      console.log(id);
+  const {...FormData}=req.body
+  await staffSchema.updateOne({_id:id},{$set:{...FormData}})
+      res.status(201).send({msg:"updated"})
+  } catch (error) {
+      res.status(400).send(error)
   }
 }

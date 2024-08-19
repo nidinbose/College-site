@@ -62,6 +62,7 @@ const Navbar = () => {
                         <div className='flex items-center gap-4'>
                             <h1 className="font-bold">{user.username}</h1>
                             <img src={user.photo || "images/a.avif"} alt="User Avatar" className="w-10 h-10 rounded-full" />
+                            <h1 className="text-black">{user.username}</h1>
                             <button
                                 onClick={handleLogout}
                                 className='px-4 py-2 bg-red-600 text-white rounded'

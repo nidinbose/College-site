@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const AddStudents = () => {
+const EditStudents = () => {
+  const { studentid } = useParams();  // Correctly using studentid from useParams
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     studentid: "",
     class: "",
-    department: "Computer Science", // Default value set to 'Computer Science'
-    semester: "1st Semester", // Default value set to '1st Semester'
+    department: "",
+    semester: "",
     bloodType: "",
     dateOfBirth: "",
     photo: null
@@ -18,6 +19,31 @@ const AddStudents = () => {
 
   const [previewSource, setPreviewSource] = useState(null);
   const [errors, setErrors] = useState({});
+
+  // Fetch the student data when the component mounts
+  useEffect(() => {
+    const fetchStudentData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:3003/api/getstudentedit/${studentid}`);
+        const student = res.data;
+        setFormData({
+          name: student.name,
+          studentid: student.studentid,
+          class: student.class,
+          department: student.department,
+          semester: student.semester,
+          bloodType: student.bloodType,
+          dateOfBirth: student.dateOfBirth,
+          photo: student.photo
+        });
+        setPreviewSource(student.photo);
+      } catch (error) {
+        console.error("Error fetching student data:", error);
+      }
+    };
+
+    fetchStudentData();
+  }, [studentid]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -65,13 +91,13 @@ const AddStudents = () => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:3003/api/addstudents", formData);
+      const res = await axios.put(`http://localhost:3003/api/updatestudent/${studentid}`, formData); // Correct endpoint usage
       console.log(res);
       if (res.status === 200) {
         navigate('/admin');
       }
     } catch (error) {
-      console.error("Error adding student:", error);
+      console.error("Error updating student:", error);
     }
   };
 
@@ -84,9 +110,11 @@ const AddStudents = () => {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">
-          Add Student
+          Edit Student
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Form Fields */}
+          {/* (These are the same as before, just re-used in the edit form) */}
           {/* Name Field */}
           <div className="flex flex-col">
             <label className="text-gray-700">Name</label>
@@ -109,6 +137,7 @@ const AddStudents = () => {
               value={formData.studentid}
               onChange={handleChange}
               className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.studentid ? 'border-red-500' : ''}`}
+              disabled
             />
             {errors.studentid && <p className="text-red-500 text-sm">{errors.studentid}</p>}
           </div>
@@ -129,38 +158,26 @@ const AddStudents = () => {
           {/* Department Field */}
           <div className="flex flex-col">
             <label className="text-gray-700">Department</label>
-            <select
+            <input
+              type="text"
               name="department"
               value={formData.department}
               onChange={handleChange}
               className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.department ? 'border-red-500' : ''}`}
-            >
-              <option value="Computer Science">Computer Science</option>
-              <option value="Civil Engineering">Civil Engineering</option>
-              <option value="Mechanical Engineering">Mechanical Engineering</option>
-              <option value="Electrical Engineering">Electrical Engineering</option>
-            </select>
+            />
             {errors.department && <p className="text-red-500 text-sm">{errors.department}</p>}
           </div>
 
           {/* Semester Field */}
           <div className="flex flex-col">
             <label className="text-gray-700">Semester</label>
-            <select
+            <input
+              type="text"
               name="semester"
               value={formData.semester}
               onChange={handleChange}
               className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.semester ? 'border-red-500' : ''}`}
-            >
-              <option value="1st Semester">1st Semester</option>
-              <option value="2nd Semester">2nd Semester</option>
-              <option value="3rd Semester">3rd Semester</option>
-              <option value="4th Semester">4th Semester</option>
-              <option value="5th Semester">5th Semester</option>
-              <option value="6th Semester">6th Semester</option>
-              <option value="7th Semester">7th Semester</option>
-              <option value="8th Semester">8th Semester</option>
-            </select>
+            />
             {errors.semester && <p className="text-red-500 text-sm">{errors.semester}</p>}
           </div>
 
@@ -201,26 +218,24 @@ const AddStudents = () => {
               className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.photo ? 'border-red-500' : ''}`}
             />
             {errors.photo && <p className="text-red-500 text-sm">{errors.photo}</p>}
+            {previewSource && (
+              <img src={previewSource} alt="Preview" className="mt-4 rounded-lg h-24 w-24 object-cover" />
+            )}
           </div>
 
-          {/* Photo Preview */}
-          {previewSource && (
-            <div className="flex justify-center mt-4">
-              <img
-                src={previewSource}
-                alt="Selected"
-                className="h-40 w-40 object-cover rounded-lg"
-              />
-            </div>
-          )}
-
-          {/* Submit Button */}
-          <div className="flex justify-center">
+          <div className="flex justify-between items-center">
             <button
               type="submit"
-              className="mt-6 px-4 py-2 bg-indigo-500 text-white rounded-lg shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="px-4 py-2 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
-              Add Student
+              Save Changes
+            </button>
+            <button
+              type="button"
+              className="px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500"
+              onClick={() => navigate('/admin')}
+            >
+              Cancel
             </button>
           </div>
         </form>
@@ -229,6 +244,4 @@ const AddStudents = () => {
   );
 };
 
-export default AddStudents;
-
-
+export default EditStudents;

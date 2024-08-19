@@ -4,6 +4,7 @@ import Categories from "../Components/Category";
 import Addss from "../Components/Admin/AddSection";
 import Navbar from "../additionals/Navbar";
 import StudentView from "../Components/StudentView";
+import StaffView from "../Components/StaffView";
 
 
 const Admin = ()=>{
@@ -15,6 +16,7 @@ const Admin = ()=>{
             <Start/>
             <Categories/>
             <StudentView/>
+            <StaffView/>
          
         </div>
     )
