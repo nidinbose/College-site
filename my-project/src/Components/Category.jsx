@@ -22,13 +22,13 @@ const Categories = () => {
         <div className='grid md:grid-cols-3 py-12 gap-4'>
           <CategoryCard icon={<BsVectorPen size={30}/>} title={'Design'}/>
           <CategoryCard icon={<TiHtml5 size={30}/>} title={'Web Development'}/>
-          <CategoryCard icon={<TiMicrophone size={30}/>} title={'Marketing'}/>
-          <CategoryCard icon={<TiBriefcase size={30}/>} title={'Business'}/>
-          <CategoryCard icon={<TiBatteryCharge size={30}/>} title={'Lifestyle'}/>
-          <CategoryCard icon={<TiCamera size={30}/>} title={'Photograph'}/>
-          <CategoryCard icon={<BsMusicNote size={30}/>} title={'Music'}/>
-          <CategoryCard icon={<BsBank size={30}/>} title={'Finance'}/>
-          <CategoryCard icon={<BsMusicNote size={30}/>} title={'Health & Fitness'}/>
+          <CategoryCard icon={<TiMicrophone size={30}/>} title={'Production'}/>
+          <CategoryCard icon={<TiBriefcase size={30}/>} title={'Architecture'}/>
+          <CategoryCard icon={<TiBatteryCharge size={30}/>} title={'3D plans'}/>
+          <CategoryCard icon={<TiCamera size={30}/>} title={'Ethical Hacking'}/>
+          <CategoryCard icon={<BsMusicNote size={30}/>} title={'AI and ML'}/>
+          <CategoryCard icon={<BsBank size={30}/>} title={'Robotics'}/>
+          <CategoryCard icon={<BsMusicNote size={30}/>} title={'Data Science'}/>
         </div>
       </div>
     </motion.section>

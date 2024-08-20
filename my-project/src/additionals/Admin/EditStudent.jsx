@@ -45,6 +45,15 @@ const EditStudents = () => {
     fetchStudentData();
   }, [studentid]);
 
+  useEffect(() => {
+  
+    const isAuthenticated = localStorage.getItem('token');
+
+    if (!isAuthenticated) {
+        alert("Please log in to continue.");
+        navigate('/login');
+    }
+}, [navigate]);
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const images = [
-  '/images/a.avif',
-  '/images/a.avif',
-  '/images/a.avif',
-  '/images/a.avif',  
+  '/images/c.jpg',
+  '/images/d.webp',
+  '/images/e.jpg',
+  '/images/f.jpg',  
 ];
 
 const Slide1 = () => {

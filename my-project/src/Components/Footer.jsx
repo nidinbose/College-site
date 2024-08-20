@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const Footer = () => {
   return (
     <section className='w-full bg-white py-24 p-4'>
-      <div className='md:max-w-[1100px] m-auto grid md:grid-cols-5 max-[768px]:md:grid-cols-6 gap-8 max-w-[400px]'>
+      <div className='md:max-w-[1100px] m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'>
         
         <motion.div
           className='col-span-1'
@@ -84,7 +84,7 @@ const Footer = () => {
         </motion.div>
 
         <motion.div
-          className='col-span-2'
+          className='col-span-1 md:col-span-2'
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}

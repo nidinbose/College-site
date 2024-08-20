@@ -23,6 +23,15 @@ const ViewStudent = () => {
   useEffect(() => {
     getData();
   }, [id]);
+  useEffect(() => {
+  
+    const isAuthenticated = localStorage.getItem('token');
+
+    if (!isAuthenticated) {
+        alert("Please log in to continue.");
+        navigate('/login');
+    }
+}, [navigate]);
 
   const handleDelete = async () => {
     try {

@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 
 const Gallery = () => {
   const images = [
-    '/images/a.avif',
-    '/images/a.avif',
-    '/images/a.avif',
-    '/images/a.avif',
-    '/images/a.avif',
-    '/images/a.avif',
+    '/images/g.webp',
+    '/images/h.webp',
+    '/images/i.avif',
+    '/images/j.jpg',
+    '/images/k.jpg',
+    '/images/l.jpeg',
   ];
 
   return (

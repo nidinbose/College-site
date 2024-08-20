@@ -31,7 +31,7 @@ const App=()=>{
 
       <Route path='/' Component={Site}/>
 
-      <Route  path='/login' Component={Login}/>
+      <Route exact path='/login' Component={Login}/>
       <Route path='/students' Component={Students}/>
       <Route path='/staff' Component={Staff}/>
       <Route path='/admin'  Component={Admin}/>

@@ -1,18 +1,27 @@
-import React from 'react'
-import {BsArrowUpRight} from 'react-icons/bs'
+import React from 'react';
+import { BsArrowUpRight } from 'react-icons/bs';
+import { FaCode, FaMusic, FaCamera, FaChartLine } from 'react-icons/fa'; // Example icons
 
-const CategoryCard = ({icon,title}) => {
+// Define the array with icon and course values
+const ct = [
+  { icon: <FaCode size={30} />, course: 'Development' },
+  { icon: <FaMusic size={30} />, course: 'Music' },
+  { icon: <FaCamera size={30} />, course: 'Photography' },
+  { icon: <FaChartLine size={30} />, course: 'Marketing' },
+];
+
+const CategoryCard = ({ icon, title }) => {
   return (
     <div className='category bg-white p-4 shadow-lg rounded-md flex items-center gap-4 justify-between border border-transparent hover:border-[#1a9068] hover:cursor-pointer group/edit'>
-        <div className="flex gap-4">
-            icon
-            <h1 className="text-lg font-semibold">hello</h1>
-        </div>
-        <div className="rounded-lg p-3 group-hover/edit">
-            <BsArrowUpRight size={30} style={{ color:'#1a9068' }} className='icon'/>
-        </div>
+      <div className="flex gap-4 items-center">
+        {icon} {/* Render the icon passed as a prop */}
+        <h1 className="text-lg font-semibold">{title}</h1> {/* Render the title passed as a prop */}
+      </div>
+      <div className="rounded-lg p-3 group-hover/edit">
+        <BsArrowUpRight size={30} style={{ color:'#1a9068' }} className='icon'/>
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default CategoryCard

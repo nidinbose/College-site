@@ -21,6 +21,15 @@ const StudentsEdit = () => {
             navigate('/vstudent');
         }
     };
+    useEffect(() => {
+  
+        const isAuthenticated = localStorage.getItem('token');
+    
+        if (!isAuthenticated) {
+            alert("Please log in to continue.");
+            navigate('/login');
+        }
+    }, [navigate]);
 
     const getUser = async () => {
         const res = await axios.get(`http://localhost:3003/api/getstudentedit/${id}`);

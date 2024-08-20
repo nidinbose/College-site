@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -15,9 +15,20 @@ const AddStudents = () => {
     dateOfBirth: "",
     photo: null
   });
-
+         
   const [previewSource, setPreviewSource] = useState(null);
   const [errors, setErrors] = useState({});
+
+
+  useEffect(() => {
+  
+    const isAuthenticated = localStorage.getItem('token');
+
+    if (!isAuthenticated) {
+        alert("Please log in to continue.");
+        navigate('/login');
+    }
+}, [navigate]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));

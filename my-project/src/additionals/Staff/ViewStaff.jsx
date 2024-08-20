@@ -24,6 +24,16 @@ const ViewStaff = () => {
     getData();
   }, [id]);
 
+  useEffect(() => {
+  
+    const isAuthenticated = localStorage.getItem('token');
+
+    if (!isAuthenticated) {
+        alert("Please log in to continue.");
+        navigate('/login');
+    }
+}, [navigate]);
+
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3003/api/deletestaff/${id}`);
