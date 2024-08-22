@@ -7,7 +7,7 @@ const ViewStaff = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Hook for programmatic navigation
+  const navigate = useNavigate(); 
 
   const getData = async () => {
     try {
@@ -37,14 +37,14 @@ const ViewStaff = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3003/api/deletestaff/${id}`);
-      navigate('/vstaff'); // Navigate to the staff list page
+      navigate('/vstaff'); 
     } catch (error) {
       console.error("Error deleting staff:", error);
     }
   };
 
   const handleEdit = () => {
-    navigate(`/editstaff/${id}`); // Navigate to the edit page
+    navigate(`/editstaff/${id}`); 
   };
 
   if (loading) {

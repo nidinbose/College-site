@@ -13,9 +13,8 @@ const Admin = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        // Check for authentication token
-        const isAuthenticated = localStorage.getItem('token'); // Example check for a token
-
+      
+        const isAuthenticated = localStorage.getItem('token'); 
         if (!isAuthenticated) {
             alert("Please log in to continue.");
             navigate('/login');
@@ -23,7 +22,7 @@ const Admin = () => {
     }, [navigate]);
 
     const handleLogout = () => {
-        // Remove token and redirect to login page
+        
         localStorage.removeItem('token');
         navigate('/');
     };

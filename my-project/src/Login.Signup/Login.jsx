@@ -7,7 +7,7 @@ function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "student", // Default role
+    role: "student", 
   });
 
   const [errors, setErrors] = useState({});
@@ -61,7 +61,7 @@ function Login() {
       }
 
       const { role, token } = result;
-      localStorage.setItem("token", token); // Store the token in localStorage
+      localStorage.setItem("token", token); 
 
       switch (role) {
         case "admin":

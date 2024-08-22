@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const FetchStudent = () => {
-    const { studentId } = useParams(); // Assuming you're using React Router
+    const { studentId } = useParams(); 
     const [student, setStudent] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

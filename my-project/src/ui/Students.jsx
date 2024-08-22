@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion"; // Ensure you have imported motion
+import { motion } from "framer-motion";
 
 import Start from "../Components/Start";
 import Corses from "../Components/Courses";
@@ -14,7 +14,7 @@ const Students = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        // Authentication check
+      
         const isAuthenticated = localStorage.getItem('token');
 
         if (!isAuthenticated) {
@@ -24,7 +24,7 @@ const Students = () => {
     }, [navigate]);
 
     const handleLogout = () => {
-        // Logout functionality
+     
         localStorage.removeItem('token');
         navigate('/login');
     };
@@ -123,7 +123,7 @@ const Students = () => {
             )}
 
             {/* Main Content */}
-            <div className="mt-[100px]"> {/* Adjust margin-top to fit the fixed navbar */}
+            <div className="mt-[100px]"> 
                
             </div>
            <Start/>

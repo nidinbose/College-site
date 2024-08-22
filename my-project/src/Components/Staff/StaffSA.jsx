@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const StaffSA = () => {
   const navigate = useNavigate();
 
-  // Function to handle navigation
+ 
   const handleNavigate = (path) => {
     navigate(path);
   };

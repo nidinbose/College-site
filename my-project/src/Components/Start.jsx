@@ -14,7 +14,7 @@ const Start = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); // Change the image every 5 seconds
+    }, 5000); 
 
     return () => clearInterval(interval);
   }, [images.length]);

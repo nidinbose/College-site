@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const EditStudents = () => {
-  const { studentid } = useParams();  // Correctly using studentid from useParams
+  const { studentid } = useParams();  
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -20,7 +20,7 @@ const EditStudents = () => {
   const [previewSource, setPreviewSource] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // Fetch the student data when the component mounts
+ 
   useEffect(() => {
     const fetchStudentData = async () => {
       try {

@@ -12,7 +12,7 @@ const StaffView = () => {
     try {
       const res = await axios.get("http://localhost:3003/api/getstaff");
       setStaff(res.data);
-      // Extract unique departments
+      
       const uniqueDepartments = [
         "All",
         ...new Set(res.data.map((staff) => staff.department)),

@@ -9,8 +9,8 @@ const AddStudents = () => {
     name: "",
     studentid: "",
     class: "",
-    department: "Computer Science", // Default value set to 'Computer Science'
-    semester: "1st Semester", // Default value set to '1st Semester'
+    department: "Computer Science", 
+    semester: "1st Semester", 
     bloodType: "",
     dateOfBirth: "",
     photo: null

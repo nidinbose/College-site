@@ -7,10 +7,10 @@ const ViewStudent = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userRole, setUserRole] = useState(""); // State to hold the user role
+  const [userRole, setUserRole] = useState("");
   const navigate = useNavigate();
 
-  // Function to get the student data
+ 
   const getData = async () => {
     try {
       const res = await axios.get(`http://localhost:3003/api/getstudentedit/${id}`);
@@ -22,7 +22,7 @@ const ViewStudent = () => {
     }
   };
 
-  // Function to handle delete
+  
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3003/api/deletestudent/${id}`);
@@ -32,12 +32,11 @@ const ViewStudent = () => {
     }
   };
 
-  // Function to handle edit navigation
   const handleEdit = () => {
     navigate(`/editstudent/${id}`);
   };
 
-  // Check if user is authenticated and get user role
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -45,14 +44,13 @@ const ViewStudent = () => {
       alert("Please log in to continue.");
       navigate('/login');
     } else {
-      // Assuming your token contains user role information
-      // Decode the token to extract user role (this depends on how your token is structured)
+    
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
       setUserRole(decodedToken.role);
     }
   }, [navigate]);
 
-  // Fetch the student data when the component mounts
+ 
   useEffect(() => {
     getData();
   }, [id]);
@@ -98,7 +96,7 @@ const ViewStudent = () => {
           <p className="text-gray-600 mt-2"><strong>Blood Type:</strong> {data.bloodType}</p>
           <p className="text-gray-600 mt-2"><strong>Date of Birth:</strong> {data.dateOfBirth}</p>
         </div>
-        {userRole !== 'student' && ( // Conditionally render buttons based on user role
+        {userRole !== 'student' && ( 
           <div className="p-6 flex gap-4 justify-end">
             <button 
               onClick={handleDelete} 

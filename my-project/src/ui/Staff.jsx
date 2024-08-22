@@ -10,27 +10,27 @@ import Footer from "../Components/Footer";
 import Corses from "../Components/Courses";
 
 const Staff = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check for authentication token
+    
     const isAuthenticated = localStorage.getItem("token");
 
     if (!isAuthenticated) {
       alert("Please log in to continue.");
-      navigate("/login"); // Redirect to the login page
+      navigate("/login"); 
     }
   }, [navigate]);
 
   const handleLogout = () => {
-    // Remove token and redirect to login page
+   
     localStorage.removeItem("token");
     navigate("/");
   };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen); // Toggle mobile menu state
+    setIsMobileMenuOpen(!isMobileMenuOpen); 
   };
 
   return (
@@ -115,7 +115,7 @@ const Staff = () => {
         </div>
       )}
 
-      {/* Other Components */}
+     
       <StaffSA />
       <Asb />
       <Start />

@@ -13,7 +13,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <img src="" alt='logo-footer' className='h-[25px]' />
+          <img src="/images/pl.png" alt='logo-footer' className='h-[10vh]' />
           <h3 className="font-bold text-2xl mt-10">Contact us</h3>
           <h3 className="py-2 text-[#60737a]">call: 647 68658 86658</h3>
           <h3 className="py-2 text-[#60737a]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam officia .</h3>

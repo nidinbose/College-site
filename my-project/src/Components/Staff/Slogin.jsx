@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import logoImage from '/images/a.avif';
 
 function SSignup() {
@@ -16,12 +16,12 @@ function SSignup() {
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {
-    // Logic for login validation and handling goes here
+  
 
-    // Navigate to the target page
+
     navigate("/login");
   };
-  // Initialize useNavigate
+ 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +52,7 @@ function SSignup() {
     try {
       const response = await axios.post('http://localhost:3003/api/user', formData);
       alert('Signup successful!');
-      navigate('/login');  // Navigate to the login page after signup
+      navigate('/login');  
     } catch (error) {
       console.error('Error during signup:', error);
       alert('Signup failed!');

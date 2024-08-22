@@ -36,14 +36,14 @@ const ViewStudentt = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3003/api/deletestudent/${id}`);
-      navigate('/vstudent'); // Navigate to the student list page
+      navigate('/vstudent'); 
     } catch (error) {
       console.error("Error deleting student:", error);
     }
   };
 
   const handleEdit = () => {
-    navigate(`/editstudent/${id}`); // Navigate to the edit page
+    navigate(`/editstudent/${id}`); 
   };
 
   if (loading) {
