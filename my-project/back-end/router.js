@@ -21,7 +21,7 @@ router.route('/updatestudent/:id').patch(request.updateStudent)
 router.route('/getstaffedit/:id').get(request.getStaffEdit)
 router.route('/deletestaff/:id').delete(request.deleteStaff)
 router.route('/updatestaff/:id').patch(request.updateStaff)
-
+// router.route('/getstudentid/:studentid').get(request.getStudentbyid)
 
 
 export default router;

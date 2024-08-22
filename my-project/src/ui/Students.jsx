@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion"; // Ensure you have imported motion
+
 import Start from "../Components/Start";
+import Corses from "../Components/Courses";
+import Categories from "../Components/Category";
+import Gallery from "../Components/Gallary";
+import Footer from "../Components/Footer";
+import StudentView from "../Components/StudentView";
 
 const Students = () => {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        // Replace this with your actual authentication logic
+        // Authentication check
         const isAuthenticated = localStorage.getItem('token');
 
         if (!isAuthenticated) {
@@ -17,7 +24,7 @@ const Students = () => {
     }, [navigate]);
 
     const handleLogout = () => {
-        // Remove token and redirect to login page
+        // Logout functionality
         localStorage.removeItem('token');
         navigate('/login');
     };
@@ -28,14 +35,19 @@ const Students = () => {
 
     return (
         <div>
-            {/* Custom Navbar Code */}
-            <nav className="bg-white p-4 text-black flex justify-between items-center w-[60vw]">
-                {/* Logo or Brand Name */}
-                <div className="text-xl font-bold">MyApp</div>
+            {/* Navbar */}
+            <motion.div
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white p-4 text-black flex justify-between items-center w-full fixed top-0 z-50 shadow-md h-[9vh]"
+            >
+                {/* Logo */}
+                <img src="/images/pl.png" alt="Logo" className="h-[50px] md:h-[70px] cursor-pointer" />
 
                 {/* Navbar Links */}
-                <div className="hidden md:flex space-x-4 items-center">
-                    <Link to="/staff" className="hover:text-gray-400 transition-colors duration-200">
+                <div className="hidden md:flex space-x-6 items-center">
+                    <Link to="/students" className="hover:text-gray-400 transition-colors duration-200">
                         Home
                     </Link>
                     <a href="#" className="hover:text-gray-400 transition-colors duration-200">
@@ -78,17 +90,20 @@ const Students = () => {
                         </svg>
                     </button>
                 </div>
-            </nav>
+            </motion.div>
 
             {/* Mobile Menu */}
             {isMobileMenuOpen && (
-                <div
+                <motion.div
+                    initial={{ height: 0 }}
+                    animate={{ height: "auto" }}
+                    transition={{ duration: 0.3 }}
                     id="mobile-menu"
                     className="md:hidden bg-gray-800 text-white p-4 space-y-2"
                 >
-                    <a href="#" className="block py-2 hover:text-gray-400 transition-colors duration-200">
+                    <Link to="/students" className="block py-2 hover:text-gray-400 transition-colors duration-200">
                         Home
-                    </a>
+                    </Link>
                     <a href="#" className="block py-2 hover:text-gray-400 transition-colors duration-200">
                         About
                     </a>
@@ -104,14 +119,25 @@ const Students = () => {
                     >
                         Logout
                     </button>
-                </div>
+                </motion.div>
             )}
 
-           
-
-            <Start />
+            {/* Main Content */}
+            <div className="mt-[100px]"> {/* Adjust margin-top to fit the fixed navbar */}
+               
+            </div>
+           <Start/>
+           <StudentView/>
+           <Corses/>
+           <Categories/>
+           <Gallery/>
+           <Footer/>
+              
         </div>
+
     );
+    
 };
 
 export default Students;
+

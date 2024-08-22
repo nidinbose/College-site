@@ -15,15 +15,15 @@ const nav = [
 const Navbar = () => {
     const [toggle, setToggle] = useState(false);
     const [user, setUser] = useState(null);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
-    useEffect(() => { 
+    useEffect(() => {
         async function fetchUser() {
             try {
                 const response = await axios.get('/api/home');
                 setUser(response.data);
             } catch (error) {
-                console.log('Error fetching user:', error);
+                console.error('Error fetching user:', error);
             }
         }
         fetchUser();
@@ -32,10 +32,10 @@ const Navbar = () => {
     const handleLogout = async () => {
         try {
             await axios.get('/api/logout');
-            setUser(null); 
-            navigate('/'); 
+            setUser(null);
+            navigate('/');
         } catch (error) {
-            console.log('Error logging out:', error);
+            console.error('Error logging out:', error);
         }
     };
 
@@ -49,9 +49,9 @@ const Navbar = () => {
 
     return (
         <div className='w-full h-[96px] bg-white shadow-sm'>
-            <div className='p-4 md:max-w-[1080px] max-w-[400px] m-auto w-full h-full flex justify-between items-center'>
+            <div className='p-4 md:max-w-[1080px] max-w-full mx-auto w-full h-full flex justify-between items-center'>
                 <Link to="/">
-                    <img src="/path/to/logo.png" alt="Logo" className='h-[25px] cursor-pointer' />
+                    <img src="/images/pl.png" alt="Logo" className='h-[100px] cursor-pointer' />
                 </Link>
                 <div className="flex items-center">
                     <ul className='hidden md:flex gap-4'>
@@ -69,12 +69,6 @@ const Navbar = () => {
                         <div className='flex items-center gap-4'>
                             <h1 className="font-bold">{user.username}</h1>
                             <img src={user.photo || "/path/to/default-avatar.png"} alt="User Avatar" className="w-10 h-10 rounded-full" />
-                            <button
-                                onClick={handleLogout}
-                                className='px-4 py-2 bg-red-600 text-white rounded'
-                            >
-                                Logout
-                            </button>
                         </div>
                     ) : (
                         <Link to="/login">
@@ -108,21 +102,6 @@ const Navbar = () => {
                         </li>
                     ))}
                     <div className='flex flex-col my-4 gap-4'>
-                        {user ? (
-                            <button
-                                onClick={handleLogout}
-                                className='flex justify-center items-center bg-red-600 text-white px-6 gap-2 py-4'
-                            >
-                                Logout
-                            </button>
-                        ) : (
-                            <Link to="/login">
-                                <button className='flex border border-[#240136] justify-center items-center bg-transparent px-6 gap-2 py-4'>
-                                    <img src="/path/to/lock-icon.png" alt='Lock Icon' />
-                                    Login
-                                </button>
-                            </Link>
-                        )}
                         <button className='px-8 py-5 bg-[#208446] text-white rounded'>
                             Sign up for free
                         </button>
@@ -134,4 +113,5 @@ const Navbar = () => {
 }
 
 export default Navbar;
+
 

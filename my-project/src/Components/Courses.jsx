@@ -1,13 +1,13 @@
-import React, { useRef } from 'react'
-import { motion } from 'framer-motion'
+import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
+import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is properly imported
 
 const Corses = () => {
   const cards = [
-    { id: 1, title: 'Computer Engineering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/11.jpeg', amount: 'INR : 4,50,000' },
-    { id: 2, title: 'Mechanical Engineering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/22.jpg', amount: 'INR : 5,00000' },
-    { id: 3, title: 'Civil Engeneering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/33.jpg', amount: 'INR : 4,00000' },
-    { id: 4, title: 'Electrical Engineering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/44.jpg', amount: 'INR : 3,50,000 ' },
-
+    { id: 1, title: 'Computer Engineering', content: 'Final fees with all excluded exam fee included food and accommodation.', image: '/images/11.jpeg', amount: 'INR: 4,50,000' },
+    { id: 2, title: 'Mechanical Engineering', content: 'Final fees with all excluded exam fee included food and accommodation.', image: '/images/22.jpg', amount: 'INR: 5,00,000' },
+    { id: 3, title: 'Civil Engineering', content: 'Final fees with all excluded exam fee included food and accommodation.', image: '/images/33.jpg', amount: 'INR: 4,00,000' },
+    { id: 4, title: 'Electrical Engineering', content: 'Final fees with all excluded exam fee included food and accommodation.', image: '/images/44.jpg', amount: 'INR: 3,50,000' },
   ];
 
   const carouselRef = useRef(null);
@@ -22,9 +22,9 @@ const Corses = () => {
 
   return (
     <section className="w-full bg-white py-10">
-      
-      <div className="w-full max-w-6xl mx-auto relative">
-      <h1 className='text-4xl font-semibold mb-12'>Preffered Courses</h1>
+      <div className="w-full max-w-full mx-auto relative">
+        <h1 className='text-4xl font-semibold mb-12 text-center'>Preferred Courses</h1>
+
         {/* Scroll buttons */}
         <button 
           onClick={scrollLeft} 
@@ -41,12 +41,12 @@ const Corses = () => {
 
         <div 
           ref={carouselRef} 
-          className="flex space-x-8 overflow-x-hidden overflow-y-hidden scrollbar-hide snap-x snap-mandatory"
+          className="flex space-x-8 overflow-x-scroll overflow-y-hidden snap-x snap-mandatory touch-pan-x scrollbar-hide"
         >
           {cards.map(card => (
             <motion.div 
               key={card.id} 
-              className="min-w-[310px] bg-gray-100 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 h-[500px]"
+              className="min-w-full sm:min-w-[300px] md:min-w-[350px] bg-gray-100 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 h-auto"
               whileHover={{ scale: 1.05 }}
             >
               <img 
@@ -54,7 +54,7 @@ const Corses = () => {
                 alt={card.title} 
                 className="w-full h-[34vh] object-cover rounded-t-lg"
               />
-              <h2 className="text-xl font-semibold mt-4 mb-6 ">{card.title}</h2>
+              <h2 className="text-xl font-semibold mt-4 mb-6">{card.title}</h2>
               <p className="text-gray-700 mt-2 mb-4">{card.content}</p>
               <p className="text-blue-600 font-bold mt-4">{card.amount}</p>
             </motion.div>
@@ -65,7 +65,5 @@ const Corses = () => {
   );
 }
 
-export default Corses
-
-
+export default Corses;
 

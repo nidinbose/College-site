@@ -9,6 +9,7 @@ import Categories from './Category';
 import Slide1 from './CollegeView';
 import Gallery from './Gallary';
 import Footer from './Footer';
+import Feedback from './Feedback';
 
 const Site = () => {
   
@@ -19,8 +20,11 @@ const Site = () => {
             <Start />
             <Companies />
             <Achievement />
-            <Categories />
+            <br />
+            <br />
             <Courses />
+            <Categories />
+            <Feedback/>
             <Slide1 />
             <Gallery />
             <Footer />

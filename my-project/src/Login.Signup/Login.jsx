@@ -88,13 +88,13 @@ function Login() {
     <div className="container mx-auto p-4">
       <div className="flex justify-center items-center flex-col md:flex-row xl:mt-[200px]">
         <div className="logo mb-6 md:mb-0">
-          <img src="" alt="logo" className="w-24 md:w-36 lg:w-48 xl:w-60" />
+          <img src="/images/pl.png" alt="logo" className="w-24 md:w-36 lg:w-48 xl:w-60" />
         </div>
 
         <div className="lp flex flex-col md:flex-row items-center md:items-start gap-8">
           <div className="image">
             <img
-              src="/"
+              src="/images/a.avif"
               alt=""
               className="w-80 h-auto md:w-96 md:h-[70vh] lg:w-[55vw] lg:h-[70vh] object-cover"
             />

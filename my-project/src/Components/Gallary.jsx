@@ -21,14 +21,19 @@ const Gallery = () => {
             className="overflow-hidden rounded-lg shadow-lg"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
           >
             <motion.img
               src={image}
               alt={`Gallery ${index + 1}`}
-              className="w-full h-full object-cover"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              className="w-full h-64 object-cover"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: index * 0.1, duration: 0.6 }}
             />
           </motion.div>
         ))}

@@ -1,58 +1,54 @@
-// Slider.js
 import React from 'react';
-import Slider from 'react-slick';
-// import ''; // Create this CSS file for custom styles
+import { motion } from 'framer-motion';
 
-const Card = ({ title, description, image }) => (
-  <div className="p-4 bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105">
-    <img src={image} alt={title} className="w-full h-32 object-cover rounded-md" />
-    <h3 className="mt-2 text-xl font-semibold">{title}</h3>
-    <p className="text-gray-600">{description}</p>
-  </div>
-);
+const Feedback = () => {
+  const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget velit quam. 
+    Praesent vehicula nisi nec sem dignissim, non dignissim nunc aliquam. 
+    Integer lacinia mi sit amet libero suscipit, et sollicitudin odio elementum. 
+    Sed ut magna vitae ante bibendum faucibus. 
+    Nullam vitae tortor arcu. Proin id odio nec elit pulvinar gravida. 
+    Duis a risus ut magna condimentum bibendum.`;
 
-const FeedBack = () => {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 2,
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 1,
-        }
-      }
-    ]
+  const handleReadMore = () => {
+    alert('Read More clicked!');
   };
 
-  const cards = [
-    { title: 'Card 1', description: 'Description 1', image: 'https://via.placeholder.com/300' },
-    { title: 'Card 2', description: 'Description 2', image: 'https://via.placeholder.com/300' },
-    { title: 'Card 3', description: 'Description 3', image: 'https://via.placeholder.com/300' },
-    { title: 'Card 4', description: 'Description 4', image: 'https://via.placeholder.com/300' },
-    { title: 'Card 5', description: 'Description 5', image: 'https://via.placeholder.com/300' },
-    { title: 'Card 6', description: 'Description 6', image: 'https://via.placeholder.com/300' },
-    { title: 'Card 7', description: 'Description 7', image: 'https://via.placeholder.com/300' }
-  ];
-
   return (
-    <div className="p-8">
-      <Slider {...settings}>
-        {cards.map((card, index) => (
-          <Card key={index} {...card} />
-        ))}
-      </Slider>
+    <div className="container mx-auto p-6 flex justify-center items-center w-[70vw] xl:mb-[8vw] xl:mt-[8vw]" >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        {/* Text Section */}
+        <div>
+          <h1 className='text-4xl'>cambridge college </h1>
+          <p className="text-gray-700 text-xl mb-4">
+            {text.split('. ').slice(0, 7).join('. ')}.
+          </p>
+          <motion.button
+            onClick={handleReadMore}
+            className="bg-[#A0CE4E] text-white px-4 py-2 rounded hover:bg-[#536e90] transition duration-400"
+            whileHover={{ scale: 1.05 }}
+          >
+            Read More
+          </motion.button>
+        </div>
+
+        {/* Image Section */}
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          whileHover={{ scale: 1.05 }}
+        >
+          <img
+            src="/images/d.webp"
+            alt="Feedback"
+            className="rounded-lg shadow-lg w-full md:w-[36vw] h-auto"
+          />
+        </motion.div>
+      </div>
     </div>
   );
 };
 
-export default FeedBack;
+export default Feedback;
+
+
