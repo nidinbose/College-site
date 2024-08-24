@@ -14,11 +14,18 @@ const Feedback = () => {
   };
 
   return (
-    <div className="container mx-auto p-6 flex justify-center items-center w-[70vw] xl:mb-[8vw] xl:mt-[8vw]" >
+    <div className="container mx-auto p-6 flex justify-center items-center w-[70vw] xl:mb-[8vw] xl:mt-[8vw]">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Text Section */}
-        <div>
-          <h1 className='text-4xl'>cambridge college </h1>
+        <motion.div
+          initial={{ x: -100, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+        >
+          <h1 className='text-3xl mb-4'>
+            WE AIM TO EDUCATE AND INSPIRE - <br />
+            Cambridge College
+          </h1>
           <p className="text-gray-700 text-xl mb-4">
             {text.split('. ').slice(0, 7).join('. ')}.
           </p>
@@ -29,17 +36,17 @@ const Feedback = () => {
           >
             Read More
           </motion.button>
-        </div>
+        </motion.div>
 
         {/* Image Section */}
         <motion.div
-          initial={{ x: -100, opacity: 0 }}
+          initial={{ x: 100, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
           whileHover={{ scale: 1.05 }}
         >
           <img
-            src="/images/d.webp"
+            src="/images/o.jpg"
             alt="Feedback"
             className="rounded-lg shadow-lg w-full md:w-[36vw] h-auto"
           />
@@ -50,5 +57,6 @@ const Feedback = () => {
 };
 
 export default Feedback;
+
 
 

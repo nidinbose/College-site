@@ -12,14 +12,15 @@ function Signup() {
     password: '',
     cpassword: '',
     role: 'student',
+    photo: '', // Add photo field to formData
   });
+
+  const [photoPreview, setPhotoPreview] = useState(''); // State for photo preview
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {
-   
     navigate("/login");
   };
-
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +28,21 @@ function Signup() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevData) => ({
+          ...prevData,
+          photo: reader.result,
+        }));
+        setPhotoPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const validatePassword = (password) => {
@@ -207,6 +223,28 @@ function Signup() {
                 </select>
               </div>
 
+              <div className="mb-4">
+                <label
+                  htmlFor="photo"
+                  className="block text-xs text-gray-400 mb-2"
+                >
+                  Upload Photo:
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  className="w-full p-2 border rounded-lg bg-white text-black"
+                />
+                {photoPreview && (
+                  <img
+                    src={photoPreview}
+                    alt="Photo Preview"
+                    className="mt-4 w-32 h-32 object-cover rounded-full"
+                  />
+                )}
+              </div>
+
               <div className="flex gap-4">
                 <button
                   type="submit"
@@ -231,3 +269,4 @@ function Signup() {
 }
 
 export default Signup;
+

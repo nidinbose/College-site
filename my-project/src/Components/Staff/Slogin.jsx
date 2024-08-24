@@ -12,16 +12,15 @@ function SSignup() {
     password: '',
     cpassword: '',
     role: 'student',
+    photo: '',  // Add photo field
   });
+
+  const [photoPreview, setPhotoPreview] = useState(null); // State to store photo preview
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {
-  
-
-
     navigate("/login");
   };
- 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +28,22 @@ function SSignup() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  // Function to handle photo upload and convert to base64
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevData) => ({
+          ...prevData,
+          photo: reader.result, // Update formData with base64 photo
+        }));
+        setPhotoPreview(reader.result); // Set photo preview
+      };
+      reader.readAsDataURL(file); // Convert photo to base64
+    }
   };
 
   const validatePassword = (password) => {
@@ -203,10 +218,32 @@ function SSignup() {
                   onChange={handleInputChange}
                   value={formData.role}
                 >
-                  
                   <option value="student">Student</option>
                 </select>
               </div>
+
+              <div className="mb-4">
+                <label className="block text-xs text-gray-400 mb-2" htmlFor="photo">
+                  Upload Photo
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="photo"
+                  className="w-full bg-gray-100 p-2 rounded-lg mt-2 text-sm focus:outline-none"
+                  onChange={handlePhotoUpload}
+                />
+              </div>
+
+              {photoPreview && (
+                <div className="mb-4">
+                  <img
+                    src={photoPreview}
+                    alt="Photo Preview"
+                    className="w-32 h-32 object-cover rounded-full mx-auto"
+                  />
+                </div>
+              )}
 
               <div className="flex gap-4">
                 <button
@@ -232,3 +269,4 @@ function SSignup() {
 }
 
 export default SSignup;
+

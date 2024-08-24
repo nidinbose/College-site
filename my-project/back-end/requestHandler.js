@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
     port: 2525,
     secure: false, // Use `true` for port 465, `false` for all other ports
     auth: {
-      user: "3bf1ace8b5aa81",
+      user: "",
       pass: "23d9ae6b829afb",
     },
   });
@@ -24,16 +24,16 @@ const {sign} = pkg
 
 export async function userRegister(req,res) {
 
-  const {name,username,phone,password,cpassword,email,role}=req.body
+  const {name,username,phone,password,cpassword,email,role,photo}=req.body
 
-  if(!(name&&username&&phone&&password&&cpassword&&email&&role))
+  if(!(name&&username&&phone&&password&&cpassword&&email&&role&&photo))
       return res.status(404).send("fields are empty")
 
   if(password!==cpassword)
       return res.status(404).send("password not matched")
 
 bcrypt.hash(password,10).then(async(hpassword)=>{
-  userSchema.create({name,username,phone,password:hpassword,email,role,otp:""}).then(()=>{
+  userSchema.create({name,username,phone,password:hpassword,email,role,otp:"",photo}).then(()=>{
       return res.status(201).send({msg:"successfully created"})
 
   })
@@ -65,6 +65,7 @@ export async function userLogin(req, res) {
   } catch (error) {
     res.status(400).send({ error: error.message });
   }
+  
 }
 
 
@@ -72,14 +73,19 @@ export async function userLogin(req, res) {
 
 export async function Home(req, res) {
   try {
+      // Check if the user is authenticated
       if (!req.user) {
           return res.status(401).send({ error: "Unauthorized" });
       }
 
-      const { username } = req.user;
+      // Destructure the username and photo from req.user
+      const { username, photo } = req.user;
 
+      // Log the user information for debugging
       console.log(req.user);
-      res.status(200).send({ username });
+
+      // Send the username and photo in the response
+      res.status(200).send({ username, photo });
   } catch (error) {
       console.error('Error in Home function:', error);
       res.status(500).send({ error: "Internal Server Error" });
@@ -88,12 +94,8 @@ export async function Home(req, res) {
 
 export async function Logout(req, res) {
   try {
-    // If you want to blacklist tokens or manage sessions on the server side:
-    // You can store the token in a blacklist or manage a token expiration strategy.
-
-    // If using sessions (for example, with cookies):
-    req.session = null; // If you're using sessions, this will clear the session.
-
+ 
+    req.session = null; 
     res.status(200).send({ message: 'Logged out successfully' });
   } catch (error) {
     res.status(500).send({ error: error.message });
@@ -110,13 +112,12 @@ if(!data)
   return res.status(400).send({msg:"user not found"})
 
 const otpLength = 6;
-// Generate a random numeric OTP with exactly 6 digits
 const otp = Math.floor(100000 + Math.random() * 900000);
 console.log(otp);
-//   update otp in data base code here
+
 const info = await transporter.sendMail({
   from: 'peterspidy5@gmail.com', // sender address
-  to: "ajithaji9404@gmail.com", // list of receivers
+  to: "nidinbose999@gmail.com", // list of receivers
   subject: "OTP", // Subject line
   text: "your valid otp", // plain text body
   html: `<b>${otp}</b>`, // html body

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import axios from "axios"; // Import axios
 import Start from "../Components/Start";
 import Asb from "../additionals/Staff/Asb";
 import StaffSA from "../Components/Staff/StaffSA";
@@ -11,40 +12,54 @@ import Corses from "../Components/Courses";
 
 const Staff = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null); // State to hold user data
   const navigate = useNavigate();
 
   useEffect(() => {
-    
     const isAuthenticated = localStorage.getItem("token");
 
     if (!isAuthenticated) {
       alert("Please log in to continue.");
-      navigate("/login"); 
+      navigate("/login");
+    } else {
+      // Fetch user data
+      axios
+        .get("http://localhost:3003/api/home", {
+          headers: {
+            Authorization: `Bearer ${isAuthenticated}`, // Pass the token in the header
+          },
+        })
+        .then((response) => {
+          setUser(response.data); // Set the user data
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          alert("Failed to load user data.");
+        });
     }
   }, [navigate]);
 
   const handleLogout = () => {
-   
     localStorage.removeItem("token");
     navigate("/");
   };
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen); 
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
     <div>
       {/* Traditional Navbar */}
       <motion.nav
-        className=" top-0 left-0 w-full bg-white shadow-md flex items-center justify-between px-6 py-3 z-50"
-        initial={{ y: '-100%' }}
+        className="top-0 left-0 w-full bg-white shadow-md flex items-center justify-between px-6 py-3 z-50"
+        initial={{ y: "-100%" }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
       >
         {/* Logo or Brand Name */}
         <Link to="/staff" className="flex items-center">
-          <img src="/images/pl.png" alt="Logo" className='h-[60px] cursor-pointer' />
+          <img src="/images/pl.png" alt="Logo" className="h-[60px] cursor-pointer" />
         </Link>
 
         {/* Navbar Links */}
@@ -62,6 +77,20 @@ const Staff = () => {
             Contact
           </a>
         </div>
+
+        {/* User Information */}
+        {user ? (
+          <div className="flex items-center gap-4">
+            <h1 className="font-bold text-black">{user.username}</h1>
+            <img
+              src={user.photo || "/path/to/default-avatar.png"} // Use user's photo or a default one
+              alt="User Avatar"
+              className="w-10 h-10 rounded-full"
+            />
+          </div>
+        ) : (
+          <div>Loading...</div>
+        )}
 
         {/* Logout Button */}
         <button
@@ -84,12 +113,7 @@ const Staff = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
           </svg>
         </button>
       </motion.nav>
@@ -100,7 +124,11 @@ const Staff = () => {
           id="mobile-menu"
           className="fixed top-0 left-0 w-full h-full bg-gray-800 text-white flex flex-col items-center justify-center space-y-4 z-40 md:hidden"
         >
-          <Link to="/staff" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
+          <Link
+            to="/staff"
+            className="text-xl hover:text-gray-400 transition-colors duration-200"
+            onClick={toggleMobileMenu}
+          >
             Home
           </Link>
           <a href="#" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
@@ -115,18 +143,15 @@ const Staff = () => {
         </div>
       )}
 
-     
+      {/* Other Components */}
       <StaffSA />
       <Asb />
       <Start />
       <Corses />
       <Categories />
-      {/* <Gallery /> */}
       <Footer />
     </div>
   );
 };
 
 export default Staff;
-
-

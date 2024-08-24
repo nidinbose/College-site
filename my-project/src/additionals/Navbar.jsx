@@ -5,10 +5,10 @@ import axios from 'axios';
 
 const nav = [
     { name: "Home", path: '/' },
-    { name: "About", path: '/about' },
-    { name: "Support", path: '/support' },
-    { name: "Platform", path: '/platform' },
-    { name: "Pricing", path: '/pricing' },
+    { name: "About", path: '/feedback' },
+    { name: "Our Campus", path: '/gallary' },
+    { name: "Corses", path: '/courses' },
+    { name: "Admissions", path: '/pricing' },
     { name: "Login", path: '/login' },
 ];
 
@@ -20,7 +20,7 @@ const Navbar = () => {
     useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await axios.get('/api/home');
+                const response = await axios.get('');
                 setUser(response.data);
             } catch (error) {
                 console.error('Error fetching user:', error);
@@ -48,15 +48,15 @@ const Navbar = () => {
     };
 
     return (
-        <div className='w-full h-[96px] bg-white shadow-sm'>
+        <div className='w-full h-[96px] bg-[#1B2C39] shadow-sm '>
             <div className='p-4 md:max-w-[1080px] max-w-full mx-auto w-full h-full flex justify-between items-center'>
                 <Link to="/">
                     <img src="/images/pl.png" alt="Logo" className='h-[100px] cursor-pointer' />
                 </Link>
                 <div className="flex items-center">
-                    <ul className='hidden md:flex gap-4'>
+                    <ul className='hidden md:flex gap-12 text-md font-semibold hover:text-[#A0CE4E] '>
                         {nav.map((item, index) => (
-                            <li key={index} className="hover:text-emerald-300">
+                            <li key={index} className="font-semibold text-white hover:text-[#A0CE4E] hover:border-b-2 hover:border-[#A0CE4E]">
                                 <Link to={item.path}>
                                     {item.name}
                                 </Link>

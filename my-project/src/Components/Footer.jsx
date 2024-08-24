@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 const Footer = () => {
   return (
-    <section className='w-full bg-white py-24 p-4'>
-      <div className='md:max-w-[1100px] m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'>
+    <section className='w-full bg-white py-24 px-4'>
+      <div className='w-full max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'>
         
         <motion.div
           className='col-span-1'
