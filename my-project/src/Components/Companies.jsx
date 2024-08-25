@@ -1,67 +1,126 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const Companies = () => {
   return (
-    <section className='w-full bg-white py-[50px] flex justify-center items-center p-4'>
-        <motion.div 
-          className='md:max-w-[1100px] m-auto max-w-[400px]'
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
+    <section className='w-full bg-white py-[50px] flex justify-center items-center p-4 overflow-hidden'>
+      <motion.div 
+        className='md:max-w-[1100px] m-auto max-w-[400px]'
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+      >
+        <motion.h1
+          className="text-center text-xl font-bold text-[#A0CE4E]"
+          initial={{ x: '100vw' }}
+          animate={{ x: 0 }}
+          transition={{ type: 'spring', delay: 0.2 }}
         >
-            <h1 className='text-center text-xl font-bold text-[#536e90]'>
-              Trusted by over 25,000 teams around the world
-            </h1>
-            <p className='text-center text-[#536e96] text-2xl py-2'>
-              Leading companies use the same courses to help their employees keep skills up
-            </p>
-            <div className='grid md:grid-cols-4 grid-cols-2 gap-4 lg:gap-x-12'>
-                <motion.img 
-                  src="data:image/png;base64,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" 
-                  alt="company1" 
-                  className="w-full mt-8"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.1 }}  // Added hover effect
-                  transition={{ duration: 0.5 }}
-                  viewport={{ once: true }}
-                />
-                <motion.img 
-                  src="data:image/png;base64,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" 
-                  alt="company2" 
-                  className="w-full"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.1 }}  // Added hover effect
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                />
-                <motion.img 
-                  src="data:image/jpeg;base64,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" 
-                  alt="company3" 
-                  className="w-full"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.1 }}  // Added hover effect
-                  transition={{ duration: 0.7 }}
-                  viewport={{ once: true }}
-                />
-                <motion.img 
-                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMwAAADACAMAAAB/Pny7AAAAZlBMVEX///8AAADo6OjY2NjS0tJGRkbg4OBQUFD6+vrNzc0hISHu7u5BQUFTU1NMTEzk5OQYGBgvLy8mJiZ4eHjDw8Nubm68vLz09PQ2NjaSkpJZWVmysrIODg6JiYmCgoKmpqZhYWGcnJzFTM83AAAEJElEQVR4nO3a55aiMBgG4EgzCIo0g4jt/m9yhRRIwWkLO2fP++wfTVsymC8kgRAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgC/xY4eKEZLEgZOfTatHZnbMtOatVuJowc5cm9SWV4ScckfGS7htz76sTW9m9eY8bZ3erfzrgp0pNy4nQi/OjEGXl4m42NrK3E1bjx5WfrlgZ+yr+bgzL8WJd6a1s6pJ6yc7u16wM/BbRb5D0EczV4amj1uZI91TjbvayOav5cfKzdHW/+4vm9173WvY0LKzM26ybXq22+iWDADfiWbCgbmi2WYTyj9+cnTkLtmZa7g9mLZNTEiVbj+Qe4S+qlvak2g7aOzM8Pz2cn7Gixz64cBcGXopOlNdTEIkcWV6by8HDDSR6FyGSmIqidlJ00aoM3V5lRyeTaBnRGrgygyaqqSHLHU2Bvlt6GZhRZWVO5N+pTNqLD+Ny05fAYQwM45VZB1xKgJZ7esZmYxwqcygtUpSV3c3ImJ6eSVeUiMxXqkzNPMEc8zIjExlJJ6VxDxDP8LMtGytMfNfYXKNGbCZDNukaGZlRo4lbELWETfhIH0Yq9ooDWc09/Fncz+IxFZ8SG9JnepJYbPWmBmjmREAIjMkjXF50u1nJxLDWnwqnrkM0yr6rRXN1IowN0KzP9eX7bTXKjQfK7Ncc2/kx7XmGUKl2QyTu5Bdfr5p+ASqZgNznjFni+lMorBJdbPYbNOLUT91c8zMBoBwGpvUmNl4pNGKlTSQkWC1APCJZ7N3EWAMAJ6+u9RdSLB6NAvC/WBbG/NMdtjPCO/jpHlpRWKbELYdy2zLiES1SAiNv9NimNw7icwxE8zvzoxFvWnatMirOar2f4yHC/gMGmWcFc1kRqT+rl5mJTGZNDwZe7JO1q/3qSxv3vTFxMec25uPMyI9P6r1TFvIJDWlPxuR1Hj9btlOfCv6HTR/L4uv/2z2s5Xmrr8XsfrW93b9aCbvTDF7Zzr7zhRqQ/8pU/o7QzxRomj7H5a/L1a+MzRJGP9n787wjOnujPo3KcULsWkl/o3K0qvtzvwnrEPJ4eAxmT/T1I8vI70Un3toNnzh8y/z9VrLnmk6VpH8THNujSkV/V6zVj3d883XS5/aXIbP/kNbrP66M01hb58C7HhnqmH/jw+gMZpxyx5pzJ7PFO/x8xmtepfzziRlVxz3/D/w005resnOJJ5DP5Fbe2EW6qhOx1blgfS7hRD8dR/OGf9kUvnmewANfzah5ksL8gTwqvZiYuMwYMn3AL71hkZ4nXlDYyfPxfyD/LRmNDsfHKeV/YZ9FbpXmO2jfI7vzhjVW9kFWslnHb/WShyWPNP88nsA+qGk+R6APVSoWX/BzgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA9Acd6lo9f8xPJAAAAABJRU5ErkJggg==" 
-                  alt="company4" 
-                  className="w-full"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  whileHover={{ scale: 1.1 }}  // Added hover effect
-                  transition={{ duration: 0.8 }}
-                  viewport={{ once: true }}
-                />
-            </div>
+          Trusted by over 25,000 teams around the world
+        </motion.h1>
+        <motion.p
+          className="text-center text-[#A0CE4E] text-2xl py-2"
+          initial={{ x: '100vw' }}
+          animate={{ x: 0 }}
+          transition={{ type: 'spring', delay: 0.22 }}
+        >
+          Leading companies use the same courses to help their employees keep skills up
+        </motion.p>
+        <motion.div
+          className='flex space-x-4 whitespace-nowrap'
+          animate={{ x: ['0%', '-100%'] }}
+          transition={{ duration: 20, ease: 'linear', repeat: Infinity }}
+          style={{ display: 'flex', flexWrap: 'nowrap' }}  // Ensure the images stay on a single line
+        >
+          <div className="flex space-x-4">
+            <motion.img 
+              src="company1.png" 
+              alt="company1" 
+              className="w-full mt-8 inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            />
+            <motion.img 
+              src="company2.png" 
+              alt="company2" 
+              className="w-full inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            />
+            <motion.img 
+              src="company3.png" 
+              alt="company3" 
+              className="w-full inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            />
+            <motion.img 
+              src="company4.png" 
+              alt="company4" 
+              className="w-full inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            />
+            {/* Duplicate the images to create a loop effect */}
+            <motion.img 
+              src="company1.png" 
+              alt="company1" 
+              className="w-full mt-8 inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ once: true }}
+            />
+            <motion.img 
+              src="company2.png" 
+              alt="company2" 
+              className="w-full inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            />
+            <motion.img 
+              src="company3.png" 
+              alt="company3" 
+              className="w-full inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.7 }}
+              viewport={{ once: true }}
+            />
+            <motion.img 
+              src="company4.png" 
+              alt="company4" 
+              className="w-full inline-block"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              whileHover={{ scale: 1.1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            />
+          </div>
         </motion.div>
+      </motion.div>
     </section>
   )
 }
 
-export default Companies
+export default Companies;
+

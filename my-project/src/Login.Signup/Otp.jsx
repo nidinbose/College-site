@@ -1,61 +1,73 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
-const VerifyOtp = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [message, setMessage] = useState('');
+const OTPPage = () => {
+  const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (/^\d{0,6}$/.test(value)) {
+      setOtp(value);
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/verify-otp', { email, otp });
-      setMessage(response.data.msg);
-      // Redirect to reset password page if OTP is valid
-      if (response.data.success) {
-        // Redirect to reset password page
+    if (otp.length === 6) {
+      setLoading(true);
+      setError(null);
+      setSuccess(null);
+      try {
+        // Replace with your backend endpoint
+        const response = await axios.post("https://localhost", { otp });
+
+        // Assuming the backend sends a success message upon correct OTP verification
+        if (response.data.success) {
+          setSuccess("OTP verified successfully!");
+        } else {
+          setError("Invalid OTP. Please try again.");
+        }
+      } catch (error) {
+        setError("An error occurred while verifying OTP. Please try again.");
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setMessage(error.response.data.msg);
+    } else {
+      setError("Please enter a valid 6-digit OTP.");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-4 bg-white shadow-lg rounded-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Enter OTP</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
-            <input
-              type="email"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">OTP</label>
-            <input
-              type="text"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700"
-          >
-            Verify OTP
-          </button>
-        </form>
-        {message && <p className="text-center text-red-500">{message}</p>}
-      </div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+      <form 
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+      >
+        <h2 className="text-2xl font-bold mb-4 text-center">Enter OTP</h2>
+        <input
+          type="text"
+          value={otp}
+          onChange={handleChange}
+          className="w-full border border-gray-300 p-2 text-center text-2xl tracking-widest rounded"
+          maxLength="6"
+          placeholder="Enter 6-digit OTP"
+          disabled={loading}
+        />
+        <button
+          type="submit"
+          className="w-full mt-4 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition duration-300"
+          disabled={loading}
+        >
+          {loading ? "Verifying..." : "Verify OTP"}
+        </button>
+        {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
+        {success && <p className="text-green-500 mt-4 text-center">{success}</p>}
+      </form>
     </div>
   );
 };
 
-export default VerifyOtp;
+export default OTPPage;

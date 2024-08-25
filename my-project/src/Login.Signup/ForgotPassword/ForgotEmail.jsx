@@ -1,17 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate,Link } from 'react-router-dom'; // Import useNavigate for redirection
 
 const RequestOtp = () => {
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3003/api/fpwd', { email });
       setMessage(response.data.msg);
+
+      // Redirect to /otp on success
+      navigate('/otp');
     } catch (error) {
-      setMessage(error.response.data.msg);
+      // Add a fallback in case `error.response.data.msg` is not available
+      const errorMsg = error.response?.data?.msg || "Something went wrong. Please try again.";
+      setMessage(errorMsg);
     }
   };
 
@@ -30,7 +37,9 @@ const RequestOtp = () => {
               required
             />
           </div>
-          <button
+        
+        
+        <button
             type="submit"
             className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700"
           >
@@ -44,3 +53,5 @@ const RequestOtp = () => {
 };
 
 export default RequestOtp;
+
+

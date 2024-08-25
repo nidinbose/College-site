@@ -14,7 +14,7 @@ const Categories = () => {
     >
       <div className='max-w-screen-xl mx-auto'>
         <h1 className='leading-tight text-3xl md:text-4xl font-bold text-center'>
-          Our <span className='text-[#208486]'>Popular Categories</span>
+          Our <span className='text-[#A0CE4E]'>Popular Categories</span>
         </h1>
         <p className="text-lg text-gray-600 text-center mt-4">
           Various versions have evolved over the years

@@ -54,6 +54,16 @@ const StaffSA = () => {
        Students list
         </motion.button>
 
+        
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          onClick={() => handleNavigate("/addmarks")}
+        >
+       Add marks
+        </motion.button>
+
 
       </motion.div>
     </div>

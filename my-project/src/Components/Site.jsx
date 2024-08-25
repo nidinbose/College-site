@@ -19,13 +19,14 @@ const Site = () => {
         <div>
             <Navbar />
             <Start />
+            <Feedback/>
             <Companies />
             <Achievement />
             <br />
             <br />
             <Courses />
             <Categories />
-            <Feedback/>
+           
             <Slide1 />
             <Gallery />
             <Footer />

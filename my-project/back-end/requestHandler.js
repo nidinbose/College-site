@@ -5,17 +5,18 @@ import pkg from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import studentsSchema from './models/students.model.js'
 import staffSchema from './models/staff.model.js'
+import marksSchema from './models/marks.model.js'
 
 
 const transporter = nodemailer.createTransport({
-    host: "sandbox.smtp.mailtrap.io",
-    port: 2525,
-    secure: false, // Use `true` for port 465, `false` for all other ports
-    auth: {
-      user: "",
-      pass: "23d9ae6b829afb",
-    },
-  });
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: "3bf1ace8b5aa81",
+    pass: "23d9ae6b829afb",
+  },
+});
 
 const {sign} = pkg
 
@@ -70,27 +71,12 @@ export async function userLogin(req, res) {
 
 
 
-
 export async function Home(req, res) {
-  try {
-      // Check if the user is authenticated
-      if (!req.user) {
-          return res.status(401).send({ error: "Unauthorized" });
-      }
-
-      // Destructure the username and photo from req.user
-      const { username, photo } = req.user;
-
-      // Log the user information for debugging
-      console.log(req.user);
-
-      // Send the username and photo in the response
-      res.status(200).send({ username, photo });
-  } catch (error) {
-      console.error('Error in Home function:', error);
-      res.status(500).send({ error: "Internal Server Error" });
-  }
+  const { id, username } = req.user; // Assuming req.user contains a photo property
+  console.log(req.user);
+  res.status(200).send({ id, username});
 }
+
 
 export async function Logout(req, res) {
   try {
@@ -105,18 +91,19 @@ export async function Logout(req, res) {
 
 
 export async function Forget(req,res){
-  const {email}=req.body;
-  console.log(email);
-const data=await userSchema.findOne({email:email});
+  const {username}=req.body;
+  console.log(username);
+const data=await userSchema.findOne({username:username});
 if(!data)
   return res.status(400).send({msg:"user not found"})
 
 const otpLength = 6;
+// Generate a random numeric OTP with exactly 6 digits
 const otp = Math.floor(100000 + Math.random() * 900000);
 console.log(otp);
-
+//   update otp in data base code here
 const info = await transporter.sendMail({
-  from: 'peterspidy5@gmail.com', // sender address
+  from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
   to: "nidinbose999@gmail.com", // list of receivers
   subject: "OTP", // Subject line
   text: "your valid otp", // plain text body
@@ -275,3 +262,22 @@ export async function updateStaff(req,res) {
 
 
 
+// marks
+
+export async function addMarks(req,res){
+  try{
+      console.log(req.body);
+      const {...FormData} = req.body;
+
+      await marksSchema
+      .create({...FormData})
+          .then(()=>{
+              res.status(200).send({msg:"sucessfully created"})
+          })
+          .catch((error)=>{
+              res.status(400).send({error:error})
+          });
+  }catch(error){
+      res.status(500).send(error)
+  }
+}

@@ -13,6 +13,7 @@ import Corses from "../Components/Courses";
 const Staff = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null); // State to hold user data
+  const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,10 +32,12 @@ const Staff = () => {
         })
         .then((response) => {
           setUser(response.data); // Set the user data
+          setLoading(false); // Set loading to false after data is fetched
         })
         .catch((error) => {
           console.error("Error fetching user data:", error);
           alert("Failed to load user data.");
+          setLoading(false); // Set loading to false even if there's an error
         });
     }
   }, [navigate]);
@@ -52,7 +55,7 @@ const Staff = () => {
     <div>
       {/* Traditional Navbar */}
       <motion.nav
-        className="top-0 left-0 w-full bg-white shadow-md flex items-center justify-between px-6 py-3 z-50"
+        className="top-0 left-0 w-full bg-[#1B2C39] shadow-md flex items-center justify-between px-6 py-3 z-50"
         initial={{ y: "-100%" }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
@@ -67,11 +70,11 @@ const Staff = () => {
           <Link to="/staff" className="text-lg hover:text-gray-500 transition-colors duration-200">
             Home
           </Link>
-          <a href="#" className="text-lg hover:text-gray-500 transition-colors duration-200">
+          <a href="/about" className="text-lg hover:text-gray-500 transition-colors duration-200">
             About
           </a>
-          <a href="#" className="text-lg hover:text-gray-500 transition-colors duration-200">
-            Services
+          <a href="/courses" className="text-lg hover:text-gray-500 transition-colors duration-200">
+            Courses
           </a>
           <a href="#" className="text-lg hover:text-gray-500 transition-colors duration-200">
             Contact
@@ -79,23 +82,25 @@ const Staff = () => {
         </div>
 
         {/* User Information */}
-        {user ? (
+        {loading ? (
+          <div className="text-white">Loading...</div>
+        ) : user ? (
           <div className="flex items-center gap-4">
-            <h1 className="font-bold text-black">{user.username}</h1>
+            <h1 className="font-bold text-white">{user.username}</h1>
             <img
               src={user.photo || "/path/to/default-avatar.png"} // Use user's photo or a default one
               alt="User Avatar"
-              className="w-10 h-10 rounded-full"
+              className="w-10 h-10 rounded-full object-cover"
             />
           </div>
         ) : (
-          <div>Loading...</div>
+          <div className="text-white">User data not found</div>
         )}
 
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="bg-red-500 hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded hidden md:block"
+          className="bg-[#A0CE4E] hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded hidden md:block"
         >
           Logout
         </button>
@@ -103,7 +108,7 @@ const Staff = () => {
         {/* Mobile Menu Button */}
         <button
           id="mobile-menu-button"
-          className="md:hidden text-black"
+          className="md:hidden text-white"
           onClick={toggleMobileMenu}
         >
           <svg
@@ -135,7 +140,7 @@ const Staff = () => {
             About
           </a>
           <a href="#" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
-            Services
+            Courses
           </a>
           <a href="#" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
             Contact
@@ -155,3 +160,4 @@ const Staff = () => {
 };
 
 export default Staff;
+

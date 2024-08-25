@@ -26,6 +26,7 @@ import OtpVerification from './Login.Signup/Otp';
 import Feedback from './Components/Feedback';
 import Gallery from './Components/Gallary';
 import Corses from './Components/Courses';
+import AddMarks from './Components/Marks';
 
 
 const App=()=>{
@@ -50,6 +51,7 @@ const App=()=>{
       <Route path='/addadmin' Component={AddAdmin}/>
       <Route path='/vstudent' Component={StudentView}/>
       <Route path='/vstaff' Component={StaffView}/>
+      <Route path='/addmarks' Component={AddMarks}/>
 
       <Route path='/editstudents/:id' Component={EditStudents}/>
       <Route path='/view/:id' Component={ViewStudent}/>

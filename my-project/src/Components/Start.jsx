@@ -46,7 +46,7 @@ const Start = () => {
             Tech for the right path to <span className='border-b-2 border-[#A0CE4E] border-bold '>SUCCESS!</span>
           </p>
 
-          <h1 className='leading-relaxed py-2 text-lg md:text-xl text-white font-semibold hover:text-emerald-300'>
+          <h1 className='leading-relaxed py-2 text-lg md:text-xl text-white font-semibold hover:text-white/80'>
             Access to over <span className='text-[#A0CE4E]'>1000</span> courses from over <span className='text-[#A0CE4E]'>200</span> professional instructors & institutions
           </h1>
 
@@ -59,7 +59,7 @@ const Start = () => {
           className='mt-6 md:mt-0 p-4 bg-transparent text-white text-center'
           initial={{ x: '90vw' }} // Start off the screen to the right
           animate={{ x: 0 }} // Animate to the final position
-          transition={{ type: 'spring', stiffness: 300 }} // Use a spring transition for smooth motion
+          transition={{ type: 'spring', stiffness: 300  }} // Use a spring transition for smooth motion
         >
           <motion.button
             className='bg-[#A0CE4E] w-full md:w-[14vw] text-center h-14 font-semibold hover:bg-white hover:text-black'

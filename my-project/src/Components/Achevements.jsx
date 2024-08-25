@@ -16,7 +16,7 @@ const Achievement = () => {
       >
         <div className='flex flex-col justify-start gap-4'>
           <h1 className='md:leading-[42px] py-2 text-3xl font-semibold'>
-            Our <span className='text-[#208486]'>Achievements</span>
+            Our <span className='text-[#A0CE4E]'>Achievements</span>
           </h1>
           <p className='text-[#536e96] text-2xl'>
             Leading companies use the same courses to help their employees keep skills up

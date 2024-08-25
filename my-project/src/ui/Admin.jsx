@@ -64,7 +64,7 @@ const Admin = () => {
                 {/* Logout Button */}
                 <button
                     onClick={handleLogout}
-                    className="bg-red-500 hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded hidden md:block"
+                    className="bg-[#A0CE4E] hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded hidden md:block"
                 >
                     Logout
                 </button>
