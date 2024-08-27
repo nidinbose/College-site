@@ -59,10 +59,10 @@ export async function userLogin(req, res) {
     const success = await bcrypt.compare(password, user.password);
     if (!success) return res.status(400).send({ msg: "Password not matched" });
 
-    const { _id: id, role } = user; // Destructure role from user object
+    const { _id: id, role } = user;
     const token = await sign({ id, email, role }, process.env.JWT_KEY, { expiresIn: "24h" });
 
-    return res.status(200).send({ token, role }); // Send role along with the token
+    return res.status(200).send({ token, role }); 
   } catch (error) {
     res.status(400).send({ error: error.message });
   }

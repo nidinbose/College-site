@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import axios from "axios"; // Import axios
+import axios from "axios"; 
 import Start from "../Components/Start";
 import Asb from "../additionals/Staff/Asb";
 import StaffSA from "../Components/Staff/StaffSA";
@@ -160,4 +160,3 @@ const Staff = () => {
 };
 
 export default Staff;
-
