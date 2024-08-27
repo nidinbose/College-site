@@ -51,7 +51,7 @@ const Start = () => {
           </h1>
 
           <p className='py-2 text-base md:text-lg font-semibold text-[#A0CE4E]'>
-            Various versions have evolved over the years...
+            Various versions have evolved over the years....
           </p>
         </motion.div>
         
