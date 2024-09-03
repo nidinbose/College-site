@@ -40,7 +40,7 @@ const Students = () => {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="bg-white p-4 text-black flex justify-between items-center w-full fixed top-0 z-50 shadow-md h-[9vh]"
+                className="bg-[#1B2C39] p-4 text-black flex justify-between items-center w-full fixed top-0 z-50 shadow-md h-[9vh]"
             >
                 {/* Logo */}
                 <img src="/images/pl.png" alt="Logo" className="h-[50px] md:h-[70px] cursor-pointer" />

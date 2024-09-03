@@ -35,7 +35,7 @@ const Admin = () => {
         <div>
             {/* Full-Width Navbar */}
             <nav
-                className=" top-0 left-0 w-full bg-white shadow-md flex justify-between items-center px-6 py-3 z-50"
+                className=" top-0 left-0 w-full bg-[#1B2C39] shadow-md flex justify-between items-center px-6 py-3 z-50"
                 initial={{ y: '-100%' }}
                 animate={{ y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -46,8 +46,8 @@ const Admin = () => {
                 </Link>
 
                 {/* Navbar Links */}
-                <div className="hidden md:flex space-x-8">
-                    <Link to="/admin" className="hover:text-gray-500 transition-colors duration-200">
+                <div className="hidden md:flex space-x-8 text-[#A0CE4E]">
+                    <Link to="/admin" className="hover:text-gray-500 text-[] transition-colors duration-200">
                         Home
                     </Link>
                     <a href="#" className="hover:text-gray-500 transition-colors duration-200">

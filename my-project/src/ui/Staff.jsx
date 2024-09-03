@@ -17,29 +17,29 @@ const Staff = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-    if (!isAuthenticated) {
+    if (!token) {
       alert("Please log in to continue.");
       navigate("/login");
-    } else {
-      // Fetch user data
-      axios
-        .get("http://localhost:3003/api/home", {
-          headers: {
-            Authorization: `Bearer ${isAuthenticated}`, // Pass the token in the header
-          },
-        })
-        .then((response) => {
-          setUser(response.data); // Set the user data
-          setLoading(false); // Set loading to false after data is fetched
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-          alert("Failed to load user data.");
-          setLoading(false); // Set loading to false even if there's an error
-        });
-    }
+      return; // Early return if not authenticated
+    } 
+
+    axios.get('/api/user', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setUser(response.data); // Set the user data
+      setLoading(false); // Set loading to false after data is fetched
+    })
+    .catch((error) => {
+      console.error("Error fetching user data:", error);
+      alert("Failed to load user data.");
+      setLoading(false); // Set loading to false even if there's an error
+    });
+
   }, [navigate]);
 
   const handleLogout = () => {
@@ -66,7 +66,7 @@ const Staff = () => {
         </Link>
 
         {/* Navbar Links */}
-        <div className="hidden md:flex space-x-8">
+        <div className="hidden md:flex space-x-8 text-[#A0CE4E]">
           <Link to="/staff" className="text-lg hover:text-gray-500 transition-colors duration-200">
             Home
           </Link>
@@ -160,3 +160,4 @@ const Staff = () => {
 };
 
 export default Staff;
+

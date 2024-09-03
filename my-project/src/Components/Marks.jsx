@@ -90,3 +90,4 @@ const AddMarks = () => {
 };
 
 export default AddMarks;
+;

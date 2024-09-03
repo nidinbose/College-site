@@ -2,10 +2,9 @@ import mongoose from 'mongoose';
 
 const marksSchema = new mongoose.Schema({
   physics: { type: String },
-  chemistry: { type: String },  // Corrected spelling from 'chemestry' to 'chemistry'
-  maths: { type: String },      // Changed 'Maths' to 'maths' to keep consistent casing
-  stat: { type: String },
-  dbms: { type: String },       // Corrected 'dmbs' to 'dbms'
+  chemistry: { type: String },  
+  maths: { type: String },      
+  dbms: { type: String },     
   pbd: { type: String }
 });
 
