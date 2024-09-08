@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 const StudentView = () => {
   const [students, setStudents] = useState([]);
   const [department, setDepartment] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const getStudents = async () => {
     try {
@@ -25,19 +24,13 @@ const StudentView = () => {
     setDepartment(e.target.value);
   };
 
-  const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
-  };
-
-  const filteredStudents = students.filter(student => {
-    const isDepartmentMatch = department === "All" || student.department === department;
-    const isNameMatch = student.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return isDepartmentMatch && isNameMatch;
-  });
+  const filteredStudents = department === "All"
+    ? students
+    : students.filter(student => student.department === department);
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex justify-center mb-6 space-x-4">
+      <div className="flex justify-center mb-6">
         <select
           className="border p-2 rounded-lg"
           value={department}
@@ -50,14 +43,6 @@ const StudentView = () => {
           <option value="Civil Engineering">Civil Engineering</option>
           {/* Add more departments as needed */}
         </select>
-        
-        <input
-          type="text"
-          className="border p-2 rounded-lg"
-          placeholder="Search by name"
-          value={searchQuery}
-          onChange={handleSearchChange}
-        />
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -88,4 +73,3 @@ const StudentView = () => {
 };
 
 export default StudentView;
-

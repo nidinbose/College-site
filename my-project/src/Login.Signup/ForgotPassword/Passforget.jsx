@@ -1,67 +1,179 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Typography, Input, Button } from "@material-tailwind/react";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import axios from "axios"; // Import Axios
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState('');
-  const [otp, setOtp] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    otp: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false);
+
+  const togglePasswordVisibility = () => setPasswordShown(!passwordShown);
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const validateForm = () => {
+    let formErrors = {};
+    if (!formData.otp) {
+      formErrors.otp = "OTP is required";
+    }
+    if (!formData.newPassword) {
+      formErrors.newPassword = "New password is required";
+    } else if (formData.newPassword.length < 6) {
+      formErrors.newPassword = "Password must be at least 6 characters long";
+    }
+    if (formData.newPassword !== formData.confirmPassword) {
+      formErrors.confirmPassword = "Passwords do not match";
+    }
+    return formErrors;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formErrors = validateForm();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+
+    setLoading(true);
+    setErrors({});
+
     try {
-      const response = await axios.post('/localhost/api/fpwd', { email, otp, newPassword });
-      setMessage(response.data.msg);
+      const response = await axios.post("http://localhost:3003/api/resetpassword", {
+        otp: formData.otp, // OTP is included here
+        newPassword: formData.newPassword,
+        confirmPassword: formData.confirmPassword,
+      });
+
+      // If password reset is successful, redirect to login page
+      navigate("/adminlogin");
     } catch (error) {
-      setMessage(error.response.data.msg);
+      setErrors({ submit: error.response?.data?.error || "Something went wrong" });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-4 bg-white shadow-lg rounded-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Reset Password</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
-            <input
-              type="email"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">OTP</label>
-            <input
+    <section className="grid h-screen place-items-center p-8 bg-white">
+      <div>
+        <Typography variant="h3" color="blue-gray" className="mb-2 text-center font-semibold">
+          Reset Your Password
+        </Typography>
+        <Typography className="mb-16 text-center text-gray-600 font-normal text-[18px]">
+          Enter the OTP sent to your email and a new password to reset it.
+        </Typography>
+        {errors.submit && (
+          <Typography variant="small" className="mb-4 text-red-600 text-center">
+            {errors.submit}
+          </Typography>
+        )}
+        <form onSubmit={handleSubmit} className="mx-auto max-w-[24rem]">
+          <div className="mb-6">
+            <label htmlFor="otp">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                OTP
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="Enter OTP"
+              labelProps={{
+                className: "hidden",
+              }}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
               type="text"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-              required
+              name="otp"
+              value={formData.otp}
+              onChange={handleChange}
             />
+            {errors.otp && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.otp}
+              </Typography>
+            )}
           </div>
-          <div className="mb-4">
-            <label className="block text-gray-700">New Password</label>
-            <input
+          <div className="mb-6">
+            <label htmlFor="newPassword">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                New Password
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="********"
+              labelProps={{
+                className: "hidden",
+              }}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
+              type={passwordShown ? "text" : "password"}
+              name="newPassword"
+              value={formData.newPassword}
+              onChange={handleChange}
+              icon={
+                <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-2/4 transform -translate-y-2/4"
+                >
+                  {passwordShown ? (
+                    <EyeIcon className="h-5 w-5 text-gray-700" />
+                  ) : (
+                    <EyeSlashIcon className="h-5 w-5 text-gray-700" />
+                  )}
+                </button>
+              }
+            />
+            {errors.newPassword && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.newPassword}
+              </Typography>
+            )}
+          </div>
+          <div className="mb-6">
+            <label htmlFor="confirmPassword">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                Confirm Password
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="********"
+              labelProps={{
+                className: "hidden",
+              }}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
               type="password"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
             />
+            {errors.confirmPassword && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.confirmPassword}
+              </Typography>
+            )}
           </div>
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700"
-          >
-            Reset Password
-          </button>
+          <Button type="submit" color="gray" size="lg" className="mt-6 h-12" fullWidth>
+            {loading ? "Resetting Password..." : "Reset Password"}
+          </Button>
         </form>
-        {message && <p className="text-center text-red-500">{message}</p>}
       </div>
-    </div>
+    </section>
   );
 };
 

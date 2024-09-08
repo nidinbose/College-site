@@ -27,6 +27,8 @@ import Feedback from './Components/Feedback';
 import Gallery from './Components/Gallary';
 import Corses from './Components/Courses';
 import AddMarks from './Components/Marks';
+import ResetPassword from './Login.Signup/ForgotPassword/Passforget';
+import ViewMark from './additionals/Staff/ViewMark';
 
 
 const App=()=>{
@@ -44,6 +46,7 @@ const App=()=>{
       <Route path='/admin'  Component={Admin}/>
       <Route path='/signup' Component={Signup}/>
       <Route path='/forgot-password' Component={ForgotEmail}/>
+      <Route path='/resetpassword' Component={ResetPassword}/>
       <Route path='/ssignup' Component={SSignup}/>
      
       <Route path='/addstudents' Component={AddStudents}/>
@@ -52,6 +55,7 @@ const App=()=>{
       <Route path='/vstudent' Component={StudentView}/>
       <Route path='/vstaff' Component={StaffView}/>
       <Route path='/addmarks' Component={AddMarks}/>
+      <Route path='/getmarks/:id' Component={ViewMark}/>
 
       <Route path='/editstudents/:id' Component={EditStudents}/>
       <Route path='/view/:id' Component={ViewStudent}/>

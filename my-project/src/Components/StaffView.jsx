@@ -7,13 +7,12 @@ const StaffView = () => {
   const [staff, setStaff] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [selectedDepartment, setSelectedDepartment] = useState("All");
-  const [searchQuery, setSearchQuery] = useState(""); // New state for search query
 
   const getStaff = async () => {
     try {
       const res = await axios.get("http://localhost:3003/api/getstaff");
       setStaff(res.data);
-      
+      // Extract unique departments
       const uniqueDepartments = [
         "All",
         ...new Set(res.data.map((staff) => staff.department)),
@@ -28,53 +27,33 @@ const StaffView = () => {
     getStaff();
   }, []);
 
-  // Filter staff based on department and search query
-  const filteredStaff = staff.filter((s) => {
-    const isDepartmentMatch =
-      selectedDepartment === "All" || s.department === selectedDepartment;
-    const isNameMatch = s.name.toLowerCase().includes(searchQuery.toLowerCase());
-    return isDepartmentMatch && isNameMatch;
-  });
+  const filteredStaff =
+    selectedDepartment === "All"
+      ? staff
+      : staff.filter((s) => s.department === selectedDepartment);
 
   return (
     <div className="container mx-auto p-4 flex flex-col items-center">
-      <div className="mb-4 flex flex-col items-center space-y-4">
-        <div>
-          <label htmlFor="department-filter" className="block text-lg font-semibold mb-2">
-            Filter by Department:
-          </label>
-          <select
-            id="department-filter"
-            value={selectedDepartment}
-            onChange={(e) => setSelectedDepartment(e.target.value)}
-            className="border border-gray-300 rounded-lg p-2"
-          >
-            {departments.map((dept) => (
-              <option key={dept} value={dept}>
-                {dept}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="search-name" className="block text-lg font-semibold mb-2">
-            Search by Name:
-          </label>
-          <input
-            type="text"
-            id="search-name"
-            className="border border-gray-300 rounded-lg p-2"
-            placeholder="Enter staff name"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </div>
+      <div className="mb-4">
+        <label htmlFor="department-filter" className="block text-lg font-semibold mb-2">
+          Filter by Department:
+        </label>
+        <select
+          id="department-filter"
+          value={selectedDepartment}
+          onChange={(e) => setSelectedDepartment(e.target.value)}
+          className="border border-gray-300 rounded-lg p-2"
+        >
+          {departments.map((dept) => (
+            <option key={dept} value={dept}>
+              {dept}
+            </option>
+          ))}
+        </select>
       </div>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6">
         {filteredStaff.map((value) => (
-          <Link to={`/views/${value._id}`} key={value._id}>
+            <Link to={`/views/${value._id}`} key={value._id}>
             <motion.div
               className="bg-white rounded-lg shadow-lg p-4 transform hover:-translate-y-2 hover:shadow-xl transition duration-300 ease-in-out"
               whileHover={{ scale: 1.05 }}
@@ -99,5 +78,3 @@ const StaffView = () => {
 };
 
 export default StaffView;
-
-

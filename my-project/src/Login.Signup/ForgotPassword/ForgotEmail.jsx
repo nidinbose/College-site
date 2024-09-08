@@ -1,57 +1,111 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate,Link } from 'react-router-dom'; // Import useNavigate for redirection
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Typography, Input, Button } from "@material-tailwind/react";
+import axios from "axios";
 
 const RequestOtp = () => {
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const [formData, setFormData] = useState({ email: "" });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
+  // Handle form field changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Validate email input
+  const validateEmail = () => {
+    let formErrors = {};
+    if (!formData.email) {
+      formErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      formErrors.email = "Invalid email address";
+    }
+    return formErrors;
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3003/api/fpwd', { email });
-      setMessage(response.data.msg);
+    const formErrors = validateEmail();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
 
-      // Redirect to /otp on success
-      navigate('/otp');
+    setLoading(true);
+    setErrors({});
+    setSuccessMessage("");
+
+    try {
+      const response = await axios.post("http://localhost:3003/api/fpwd", {
+        email: formData.email,
+      });
+
+      setEmailSent(true);
+      setSuccessMessage("OTP has been sent to your email.");
     } catch (error) {
-      // Add a fallback in case `error.response.data.msg` is not available
-      const errorMsg = error.response?.data?.msg || "Something went wrong. Please try again.";
-      setMessage(errorMsg);
+      setErrors({ submit: error.response?.data?.error || "Something went wrong." });
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-4 bg-white shadow-lg rounded-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Reset Password</h2>
+    <section className="grid h-screen place-items-center p-8 bg-white">
+      <div className="max-w-[24rem] mx-auto">
+        <Typography variant="h3" color="blue-gray" className="mb-2 text-center font-semibold">
+         Forgot Password
+        </Typography>
+        <Typography className="mb-16 text-center text-gray-600 font-normal text-[18px]">
+          Enter your email to receive an OTP for resetting your password.
+        </Typography>
+
+        {errors.submit && (
+          <Typography variant="small" className="mb-4 text-red-600 text-center">
+            {errors.submit}
+          </Typography>
+        )}
+        {successMessage && (
+          <Typography variant="small" className="mb-4 text-green-600 text-center">
+            {successMessage}
+          </Typography>
+        )}
+
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700">Email</label>
-            <input
+          <div className="mb-6">
+            <label htmlFor="email">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                Email
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
               type="email"
-              className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring focus:ring-indigo-300"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
+              error={Boolean(errors.email)}
             />
+            {errors.email && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.email}
+              </Typography>
+            )}
           </div>
-        
-        
-        <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700"
-          >
-            Request OTP
-          </button>
+
+          <Button type="submit" color="" size="lg" className="mt-6 h-12 bg-gray-800" fullWidth disabled={loading}>
+            {loading ? "Sending OTP..." : "Send OTP"}
+          </Button>
         </form>
-        {message && <p className="text-center text-red-500">{message}</p>}
       </div>
-    </div>
+    </section>
   );
 };
 
 export default RequestOtp;
-
-

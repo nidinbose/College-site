@@ -23,7 +23,7 @@ const Corses = () => {
   return (
     <section className="w-full bg-white py-10">
       <div className="w-full max-w-full mx-auto relative">
-        <h1 className='text-4xl font-semibold mb-12 text-center'>Preferred Courses</h1>
+        <h1 className='text-4xl font-bold mb-12 text-center'>Preferred <span className='text-[#A0CE4E]'>Courses</span> </h1>
 
         {/* Scroll buttons */}
         <button 

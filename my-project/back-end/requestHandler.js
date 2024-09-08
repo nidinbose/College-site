@@ -8,15 +8,8 @@ import staffSchema from './models/staff.model.js'
 import marksSchema from './models/marks.model.js'
 
 
-const transporter = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
-  secure: false, // Use `true` for port 465, `false` for all other ports
-  auth: {
-    user: "3bf1ace8b5aa81",
-    pass: "23d9ae6b829afb",
-  },
-});
+
+
 
 const {sign} = pkg
 
@@ -89,32 +82,62 @@ export async function Logout(req, res) {
 }
 
 
-
-export async function Forget(req,res){
-  const {username}=req.body;
-  console.log(username);
-const data=await userSchema.findOne({username:username});
-if(!data)
-  return res.status(400).send({msg:"user not found"})
-
-const otpLength = 6;
-// Generate a random numeric OTP with exactly 6 digits
-const otp = Math.floor(100000 + Math.random() * 900000);
-console.log(otp);
-//   update otp in data base code here
-const info = await transporter.sendMail({
-  from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
-  to: "nidinbose999@gmail.com", // list of receivers
-  subject: "OTP", // Subject line
-  text: "your valid otp", // plain text body
-  html: `<b>${otp}</b>`, // html body
+const transporter = nodemailer.createTransport({
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: "b61b6c0d2da033",
+    pass: "eadc5f952d3437",
+  },
 });
 
-console.log("Message sent: %s", info.messageId);
+export async function forget(req, res) {
+  const { email } = req.body;
+  console.log("Received email:", email);
 
+  try {
+    // Check if the email exists in the database
+    const data = await userSchema.findOne({ email: email });
+    if (!data) {
+      return res.status(400).send({ msg: "User not found" });
+    }
 
+    // Generate a random 6-digit numeric OTP
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    console.log("Generated OTP:", otp);
 
+    // Update the OTP field in the database for the user
+    data.otp = otp;
+    await data.save();
+
+    // Ensure transporter is defined before trying to send the email
+    if (!transporter) {
+      console.error("Email transporter is not configured properly.");
+      return res.status(500).send({ msg: "Email configuration error" });
+    }
+
+    // Send the OTP to the user's email
+    const info = await transporter.sendMail({
+      from: 'peterspidy5@gmail.com', // Sender's email
+      to: data.email, // Receiver's email
+      subject: "OTP Verification", // Email subject
+      text: `Your OTP is ${otp}`, // Plain text body
+      html: `<b>Your OTP is ${otp}</b>`, // HTML body
+    });
+
+    console.log("Message sent: %s", info.messageId);
+
+    // Respond with success if OTP is sent
+    res.status(200).send({ msg: "OTP sent successfully" });
+  } catch (error) {
+    console.error("Error in adminForget function:", error.message || error);
+
+    // Handle any other errors
+    res.status(500).send({ msg: "An error occurred while processing your request" });
+  }
 }
+
 
 
 
@@ -135,6 +158,7 @@ export async function addStudents(req,res){
       res.status(500).send(error)
   }
 }
+
 
 export async function getStudents(req,res){
   try{
@@ -208,6 +232,7 @@ export async function addStaff(req,res){
 }
 
 
+
 export async function getStaff(req,res){
   try{
 
@@ -218,6 +243,7 @@ export async function getStaff(req,res){
       res.status(500).send(error)
   }
 }
+
 
 export async function getStaffEdit(req,res) {
   try {
@@ -281,3 +307,26 @@ export async function addMarks(req,res){
       res.status(500).send(error)
   }
 }
+
+export async function getMarkEdit(req,res) {
+  try {
+      const {id}=req.params;
+      console.log(id);
+      const data = await marksSchema.findOne({_id:id})
+      console.log(data);
+      res.status(200).send(data)
+  } catch (error) {
+      res.status(400).send(error)
+  }
+}
+
+// export async function getStaff(req,res){
+//   try{
+
+//       const data=await staffSchema.find();
+//       res.status(200).send(data)
+//       console.log(data);
+//   }catch (error){
+//       res.status(500).send(error)
+//   }
+// }

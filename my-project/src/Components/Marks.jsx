@@ -9,7 +9,8 @@ const AddMarks = () => {
     maths: '',
     stats: '',
     dbms: '',
-    pbd: ''
+    pbd: '',
+    studentid: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -24,7 +25,7 @@ const AddMarks = () => {
     Object.keys(marks).forEach((key) => {
       if (!marks[key]) {
         errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required`;
-      } else if (isNaN(marks[key]) || marks[key] < 0 || marks[key] > 100) {
+      } else if (key !== 'studentid' && (isNaN(marks[key]) || marks[key] < 0 || marks[key] > 100)) {
         errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} must be a number between 0 and 100`;
       }
     });
@@ -57,6 +58,23 @@ const AddMarks = () => {
     >
       <h2 className="text-2xl font-bold mb-6 text-center">Add Student Marks</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="studentid" className="block text-sm font-medium text-gray-700">
+            Student ID
+          </label>
+          <input
+            type="text"
+            id="studentid"
+            name="studentid"
+            value={marks.studentid}
+            onChange={handleChange}
+            className={`mt-1 block w-full p-2 border rounded-md ${
+              errors.studentid ? 'border-red-500' : 'border-gray-300'
+            }`}
+          />
+          {errors.studentid && <p className="text-red-500 text-sm mt-1">{errors.studentid}</p>}
+        </div>
+
         {['physics', 'chemistry', 'maths', 'stats', 'dbms', 'pbd'].map((subject) => (
           <div key={subject}>
             <label htmlFor={subject} className="block text-sm font-medium text-gray-700">
@@ -90,4 +108,3 @@ const AddMarks = () => {
 };
 
 export default AddMarks;
-;
