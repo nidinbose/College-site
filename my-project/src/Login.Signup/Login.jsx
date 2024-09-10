@@ -158,10 +158,12 @@ function Login() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600"
+                  className="w-[13vw] h-[7vh] py-3 bg-[#A0CE4E] text-white font-semibold rounded-full hover:bg-pink-600 text-center ml-[8vw]"
                 >
                   {loading ? "Logging in..." : "Login"}
                 </button>
+
+              {/* <Link to={`/signup`}>  <button className="w-[12vw] py-3 bg-[#A0CE4E] text-white font-semibold rounded-full hover:bg-pink-600">Create account</button></Link> */}
               </div>
             </form>
           </div>

@@ -12,7 +12,7 @@ const Companies = () => {
         viewport={{ once: true }}
       >
         <motion.h1
-          className="text-center text-xl font-bold text-[#A0CE4E]"
+          className="text-center text-xl font-bold text-black/30"
           initial={{ x: '100vw' }}
           animate={{ x: 0 }}
           transition={{ type: 'spring', delay: 0.2 }}

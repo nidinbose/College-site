@@ -56,7 +56,7 @@ const StudentView = () => {
               <img
                 src={student.photo}
                 alt={student.name}
-                className="w-full h-45 object-cover rounded-t-lg"
+                className="w-full h-[50vh] object-cover rounded-t-lg"
               />
               <div className="mt-4">
                 <h2 className="text-lg font-semibold">{student.name}</h2>

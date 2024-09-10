@@ -47,6 +47,11 @@ const RequestOtp = () => {
 
       setEmailSent(true);
       setSuccessMessage("OTP has been sent to your email.");
+
+      // Navigate to the reset password page after success
+      setTimeout(() => {
+        navigate("/resetpassword");
+      }, 2000); // Wait for 2 seconds before redirecting
     } catch (error) {
       setErrors({ submit: error.response?.data?.error || "Something went wrong." });
     } finally {

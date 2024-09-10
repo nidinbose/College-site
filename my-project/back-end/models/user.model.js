@@ -8,7 +8,8 @@ const userSchema= new mongoose.Schema({
     username:{type:String},
     role:{type:String},
     photo:{type:String},
-    otp:{type:String}
+    otp:{type:String},
+    newPassword:{type:String}
    
 })
 

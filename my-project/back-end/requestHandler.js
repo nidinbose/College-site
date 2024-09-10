@@ -42,33 +42,62 @@ bcrypt.hash(password,10).then(async(hpassword)=>{
 
 
 
-export async function userLogin(req, res) {
-  try {
-    const { email, password } = req.body;
-    const user = await userSchema.findOne({ email });
+export async function Login(req, res) {
+    try {
+        // Extract email and password from request body
+        const { email, password } = req.body;
 
-    if (!user) return res.status(404).send({ msg: "User not found" });
+        // Check if email or password is empty
+        if (!email || !password) {
+            return res.status(400).json({
+                msg: "Email or password cannot be empty!"
+            });
+        }
 
-    const success = await bcrypt.compare(password, user.password);
-    if (!success) return res.status(400).send({ msg: "Password not matched" });
+        // Find user by email in the database
+        const user = await userSchema.findOne({ email });
 
-    const { _id: id, role } = user;
-    const token = await sign({ id, email, role }, process.env.JWT_KEY, { expiresIn: "24h" });
+        // If user does not exist, return error message
+        if (!user) {
+            return res.status(400).json({
+                msg: "Invalid email or password!"
+            });
+        }
 
-    return res.status(200).send({ token, role }); 
-  } catch (error) {
-    res.status(400).send({ error: error.message });
-  }
-  
+        // Compare passwords
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        // If passwords match, generate JWT token
+        if (isMatch) {
+            const token = pkg.sign({
+                email: user.email,
+                userId: user._id
+            }, process.env.JWT_KEY, {
+                expiresIn: "48h"
+            });
+
+            return res.status(200).json({
+                msg: "Login successful!",
+                token
+            });
+        }
+
+        // If passwords don't match, return error message
+        return res.status(400).json({
+            msg: "Invalid email or password!"
+        });
+    } catch (error) {
+        console.error("Login error:", error);
+        return res.status(500).json({
+            msg: "An error occurred during login.",
+            error: error.message // More detailed error for debugging
+        });
+    }
 }
 
 
 
-export async function Home(req, res) {
-  const { id, username } = req.user; // Assuming req.user contains a photo property
-  console.log(req.user);
-  res.status(200).send({ id, username});
-}
+
 
 
 export async function Logout(req, res) {
@@ -135,6 +164,73 @@ export async function forget(req, res) {
 
     // Handle any other errors
     res.status(500).send({ msg: "An error occurred while processing your request" });
+  }
+}
+
+
+  
+
+export async function resetPassword(req, res) {
+  const { email, otp, newPassword } = req.body;
+  console.log("Received reset request:", email, otp);
+
+  try {
+    // Check if the email exists in the database
+    const user = await userSchema.findOne({ email: email });
+    if (!user) {
+      return res.status(400).send({ msg: "User not found" });
+    }
+
+    // Verify if the OTP matches
+    if (user.otp !== otp) {
+      return res.status(400).send({ msg: "Invalid OTP" });
+    }
+
+    // Hash the new password before saving
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    // Update the user's password and clear the OTP
+    user.password = hashedPassword;
+    user.otp = null; // Clear the OTP once it's used for security reasons
+    await user.save();
+
+    // Respond with success if the password is reset
+    res.status(200).send({ msg: "Password reset successfully" });
+  } catch (error) {
+    console.error("Error in resetPassword function:", error.message || error);
+
+    // Handle any other errors
+    res.status(500).send({ msg: "An error occurred while resetting your password" });
+  }
+}
+
+
+
+export async function Home(req, res) {
+  try {
+    const { userId } = req.user;
+    
+
+    const user = await userSchema.findOne({ _id: userId }, { password: 0 });
+    
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+
+    const products = await userSchema.find({ userId: user._id });
+
+    return res.status(200).json({
+      msg: 'User profile found',
+      user,
+      products,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      msg: 'An error occurred!',
+      error: error.message,
+    });
   }
 }
 
@@ -320,13 +416,3 @@ export async function getMarkEdit(req,res) {
   }
 }
 
-// export async function getStaff(req,res){
-//   try{
-
-//       const data=await staffSchema.find();
-//       res.status(200).send(data)
-//       console.log(data);
-//   }catch (error){
-//       res.status(500).send(error)
-//   }
-// }

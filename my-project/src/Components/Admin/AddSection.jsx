@@ -11,7 +11,7 @@ const Addss = () => {
   };
 
   return (
-    <div className="min-h-[4vw] w-[95vw] bg-white flex items-center justify-end p-6  right-0 top-0">
+    <div className="min-h-[4vw] w-[82vw] bg-white flex items-center justify-end p-6  right-0 top-0">
       <motion.div
         className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6 w-full max-w-3xl"
         initial={{ opacity: 0, y: 50 }}
