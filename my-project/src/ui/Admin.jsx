@@ -66,33 +66,39 @@ const Admin = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-white">
       <aside className="hidden md:flex md:w-64 bg-white shadow-lg">
         <div className="p-6">
-          <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+          <h1 className="text-2xl font-bold mb-6 text-[#1B2C39]">Admin Dashboard</h1>
           <ul className="space-y-4">
+          <div className=" items-center space-y-4 text-center">
+            <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-12" />
+            <span className="text-md font-bold mr-9 text-[#1B2C39]">{user.email}</span>
+
+           
+          </div>
             <li>
-              <Link to="/admin" className="block py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded transition">
+              <Link to="/admin" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/admin/students" className="block py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded transition">
+              <Link to="/admin/students" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Students
               </Link>
             </li>
             <li>
-              <Link to="/admin/staff" className="block py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded transition">
+              <Link to="/admin/staff" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Staff
               </Link>
             </li>
             <li>
-              <Link to="/admin/courses" className="block py-2 px-4 bg-gray-100 hover:bg-gray-200 rounded transition">
+              <Link to="/admin/courses" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Courses
               </Link>
             </li>
             <li>
-              <button onClick={handleLogout} className="w-full py-2 px-4 bg-red-500 text-white hover:bg-red-700 rounded mt-6 transition">
+              <button onClick={handleLogout} className="w-[90%] py-3 px-4 bg-[#1B2C39] text-white hover:bg-red-500 rounded mt-6 transition items-end ">
                 Logout
               </button>
             </li>
@@ -101,17 +107,47 @@ const Admin = () => {
       </aside>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        <nav className="bg-white shadow-md p-4 flex justify-between items-center">
-          <div className="text-xl font-bold">Admin Dashboard</div>
+        <nav className="bg-[#1B2C39] shadow-md p-4 flex justify-between items-center">
+          <div className="text-xl font-bold text-[#A0CE4E]">Admin Dashboard</div>
+          
+  <ul className="space-x-10 flex">
+   <Link to={``}>
+   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
+    Home
+   </li>
+   </Link>
+   <Link to={``}>
+   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
+    Home
+   </li>
+   </Link>
+   <Link to={``}>
+   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
+    Home
+   </li>
+   </Link>
+   <Link to={``}>
+   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
+    Home
+   </li>
+   </Link>
+   <Link to={``}>
+   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
+    Home
+   </li>
+   </Link>
+  
+  </ul>
 
-          <div className="flex items-center space-x-4">
-            <img src={user.image} alt="User profile" className="w-10 h-10 rounded-full" />
-            <span className="font-medium">{user.email}</span>
+          <div className=" items-center space-x-4 text-center">
+            <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-[4vw]" />
+            <span className="text-sm font-bold text-[#A0CE4E] hover:text-white">{user.email}</span>
 
-            <button onClick={handleLogout} className="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600">
+            <button onClick={handleLogout} className="py-2 px-4 bg-[#A0CE4E] text-white rounded hover:bg-red-500">
               Logout
             </button>
           </div>
+          
         </nav>
 
         <nav className="md:hidden bg-white p-4 flex justify-between items-center shadow-md">
@@ -146,9 +182,7 @@ const Admin = () => {
         <div className="flex-1 p-6 space-y-8 overflow-y-auto">
           <Addss />
           <Start />
-          <Categories />
-          <StudentView />
-          <StaffView />
+         
         </div>
       </div>
     </div>

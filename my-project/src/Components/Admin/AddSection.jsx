@@ -11,61 +11,64 @@ const Addss = () => {
   };
 
   return (
-    <div className="min-h-[4vw] w-[82vw] bg-white flex items-center justify-end p-6  right-0 top-0">
-      <motion.div
-        className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6 w-full max-w-3xl"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-      >
+    <div className="min-h-[60vh] w-full bg-white p-6 ">
+     
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        className="bg-[#1B2C39] text-[#A0CE4E] font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] hover:text-white transition duration-300 p-5 h-56"
           onClick={() => handleNavigate("/addstudents")}
         >
-          Add Student
+          <h2 className="text-xl">Add Student</h2>
         </motion.button>
+
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#1B2C39] text-[#A0CE4E] font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] hover:text-white transition duration-300 p-5 h-56"
           onClick={() => handleNavigate("/addstaff")}
         >
-          Add Staff
+          <h2 className="text-xl">Add Staff</h2>
         </motion.button>
+
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#1B2C39] text-[#A0CE4E] font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] hover:text-white transition duration-300 p-5 h-56"
           onClick={() => handleNavigate("/signup")}
         >
-       Create account
+          <h2 className="text-xl">Create Account</h2>
         </motion.button>
 
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#1B2C39] text-[#A0CE4E] font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] hover:text-white transition duration-300 p-5 h-56"
           onClick={() => handleNavigate("/vstaff")}
         >
-       Staff list
+          <h2 className="text-xl">Staff List</h2>
         </motion.button>
 
         <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#1B2C39] text-[#A0CE4E] font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] hover:text-white transition duration-300 p-5 h-56"
           onClick={() => handleNavigate("/vstudent")}
         >
-       Students list
+          <h2 className="text-xl">Students List</h2>
         </motion.button>
-
-
-      </motion.div>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="bg-[#1B2C39] text-[#A0CE4E] font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] hover:text-white transition duration-300 p-5 h-56"
+          onClick={() => handleNavigate("/vstudent")}
+        >
+          <h2 className="text-xl">Students List</h2>
+        </motion.button>
+      </div>
     </div>
   );
 };
 
 export default Addss;
-
