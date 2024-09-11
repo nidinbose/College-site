@@ -5,70 +5,81 @@ import { useNavigate } from "react-router-dom";
 const StaffSA = () => {
   const navigate = useNavigate();
 
- 
   const handleNavigate = (path) => {
     navigate(path);
   };
 
   return (
-    <div className="min-h-[4vw] w-[95vw] bg-white flex items-center justify-end p-6  right-0 top-0">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-10 w-[80vw]">
+      {/* Dashboard Container */}
       <motion.div
-        className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0 md:space-x-6 w-full max-w-3xl"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl bg-white p-8 rounded-lg shadow-lg"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
       >
+        {/* Add Student Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          className="w-full text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
           onClick={() => handleNavigate("/addstudents")}
         >
           Add Student
         </motion.button>
-     
+
+        {/* Create Account Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          className="w-full text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
           onClick={() => handleNavigate("/ssignup")}
         >
-       Create account
+          Create Account
         </motion.button>
 
+        {/* View Staff List Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          className="w-full h-56 text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
           onClick={() => handleNavigate("/vstaff")}
         >
-       Staff list
+          Staff List
         </motion.button>
 
+        {/* View Students List Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          className="w-full text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
           onClick={() => handleNavigate("/vstudent")}
         >
-       Students list
+          Students List
         </motion.button>
 
-        
+        {/* Add Marks Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
-          className="w-full md:w-64 text-center bg-white text-gray-800 font-bold py-4 rounded-lg shadow-lg hover:bg-gray-100 transition duration-300"
+          className="w-full text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
           onClick={() => handleNavigate("/addmarks")}
         >
-       Add marks
+          Add Marks
         </motion.button>
-
-
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          className="w-full h-56 text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
+          onClick={() => handleNavigate("/addmarks")}
+        >
+          Add Marks
+        </motion.button>
       </motion.div>
     </div>
   );
 };
 
 export default StaffSA;
+
 
