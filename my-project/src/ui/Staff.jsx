@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import axios from "axios"; 
+import axios from "axios";
 import Start from "../Components/Start";
 import Asb from "../additionals/Staff/Asb";
 import StaffSA from "../Components/Staff/StaffSA";
 import Categories from "../Components/Category";
-import Gallery from "../Components/Gallary";
+// import Gallery from "../Components/Gallery";
 import Footer from "../Components/Footer";
 import Corses from "../Components/Courses";
 
 const Staff = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState(null); // State to hold user data
-  const [loading, setLoading] = useState(true); // Loading state
   const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState({ email: "", image: "", role: "" });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -22,34 +22,49 @@ const Staff = () => {
     if (!token) {
       alert("Please log in to continue.");
       navigate("/login");
-      return; // Early return if not authenticated
-    } 
+    } else {
+      axios
+        .get("http://localhost:3003/api/home", {
+          headers: {
+            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+          },
+        })
+        .then((response) => {
+          const { email, photo, role } = response.data.user;
+          // Store user data in localStorage
+          localStorage.setItem("user", JSON.stringify({ email, photo, role }));
 
-    axios.get('/api/user', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => {
-      setUser(response.data); // Set the user data
-      setLoading(false); // Set loading to false after data is fetched
-    })
-    .catch((error) => {
-      console.error("Error fetching user data:", error);
-      alert("Failed to load user data.");
-      setLoading(false); // Set loading to false even if there's an error
-    });
-
+          // Check if the user is a staff member
+          if (role !== "staff") {
+            alert("Unauthorized access. Staff only.");
+            navigate("/login");
+          } else {
+            setUser({ email, image: photo, role });
+            setLoading(false);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+          alert("Failed to fetch user data. Please log in again.");
+          localStorage.removeItem("token");
+          navigate("/login");
+        });
+    }
   }, [navigate]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     navigate("/");
   };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -86,9 +101,9 @@ const Staff = () => {
           <div className="text-white">Loading...</div>
         ) : user ? (
           <div className="flex items-center gap-4">
-            <h1 className="font-bold text-white">{user.username}</h1>
+            <h1 className="font-bold text-white">{user.email}</h1>
             <img
-              src={user.photo || "/path/to/default-avatar.png"} // Use user's photo or a default one
+              src={user.image || "/path/to/default-avatar.png"} // Use user's photo or a default one
               alt="User Avatar"
               className="w-10 h-10 rounded-full object-cover"
             />
@@ -136,15 +151,33 @@ const Staff = () => {
           >
             Home
           </Link>
-          <a href="#" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
+          <a
+            href="#"
+            className="text-xl hover:text-gray-400 transition-colors duration-200"
+            onClick={toggleMobileMenu}
+          >
             About
           </a>
-          <a href="#" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
+          <a
+            href="#"
+            className="text-xl hover:text-gray-400 transition-colors duration-200"
+            onClick={toggleMobileMenu}
+          >
             Courses
           </a>
-          <a href="#" className="text-xl hover:text-gray-400 transition-colors duration-200" onClick={toggleMobileMenu}>
+          <a
+            href="#"
+            className="text-xl hover:text-gray-400 transition-colors duration-200"
+            onClick={toggleMobileMenu}
+          >
             Contact
           </a>
+          <button
+            onClick={handleLogout}
+            className="bg-[#A0CE4E] hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded"
+          >
+            Logout
+          </button>
         </div>
       )}
 
@@ -160,4 +193,3 @@ const Staff = () => {
 };
 
 export default Staff;
-

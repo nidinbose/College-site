@@ -41,59 +41,57 @@ bcrypt.hash(password,10).then(async(hpassword)=>{
 }
 
 
-
 export async function Login(req, res) {
-    try {
-        // Extract email and password from request body
-        const { email, password } = req.body;
+  try {
+      // Extract email and password from request body
+      const { email, password } = req.body;
+      if (!email || !password) {
+          return res.status(400).json({
+              msg: "Email or password cannot be empty!"
+          });
+      }
 
-        // Check if email or password is empty
-        if (!email || !password) {
-            return res.status(400).json({
-                msg: "Email or password cannot be empty!"
-            });
-        }
+      // Find the user by email
+      const user = await userSchema.findOne({ email });
+      if (!user) {
+          return res.status(400).json({
+              msg: "Invalid email or password!"
+          });
+      }
 
-        // Find user by email in the database
-        const user = await userSchema.findOne({ email });
+      // Compare the password with the stored hash
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (isMatch) {
+          // Generate JWT token and include the user's role in the payload
+          const token = pkg.sign({
+              email: user.email,
+              userId: user._id,
+              role: user.role // Include role in the token
+          }, process.env.JWT_KEY, {
+              expiresIn: "48h"
+          });
 
-        // If user does not exist, return error message
-        if (!user) {
-            return res.status(400).json({
-                msg: "Invalid email or password!"
-            });
-        }
+          // Return the token and user role
+          return res.status(200).json({
+              msg: "Login successful!",
+              token,
+              role: user.role // Pass role to frontend
+          });
+      }
 
-        // Compare passwords
-        const isMatch = await bcrypt.compare(password, user.password);
-
-        // If passwords match, generate JWT token
-        if (isMatch) {
-            const token = pkg.sign({
-                email: user.email,
-                userId: user._id
-            }, process.env.JWT_KEY, {
-                expiresIn: "48h"
-            });
-
-            return res.status(200).json({
-                msg: "Login successful!",
-                token
-            });
-        }
-
-        // If passwords don't match, return error message
-        return res.status(400).json({
-            msg: "Invalid email or password!"
-        });
-    } catch (error) {
-        console.error("Login error:", error);
-        return res.status(500).json({
-            msg: "An error occurred during login.",
-            error: error.message // More detailed error for debugging
-        });
-    }
+      // If passwords don't match, return error message
+      return res.status(400).json({
+          msg: "Invalid email or password!"
+      });
+  } catch (error) {
+      console.error("Login error:", error);
+      return res.status(500).json({
+          msg: "An error occurred during login.",
+          error: error.message
+      });
+  }
 }
+
 
 
 
@@ -207,32 +205,51 @@ export async function resetPassword(req, res) {
 
 
 
+
 export async function Home(req, res) {
   try {
-    const { userId } = req.user;
-    
+    // Extract the token from the request headers
+    const token = req.headers.authorization?.split(" ")[1];
 
+    if (!token) {
+      return res.status(401).json({ msg: 'Unauthorized access. No token provided.' });
+    }
+
+    // Decode the token to get the userId, email, and role
+    const decoded = pkg.verify(token, process.env.JWT_KEY);
+    const { userId, email, role } = decoded;
+
+    // Fetch user from database excluding password
     const user = await userSchema.findOne({ _id: userId }, { password: 0 });
-    
+
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
 
-    const products = await userSchema.find({ userId: user._id });
+    const { username, photo } = user; // Assuming your schema has username and photo fields
 
+    // Return user data along with the token
     return res.status(200).json({
       msg: 'User profile found',
-      user,
-      products,
+      user: {
+        email,
+        username,
+        photo,
+        role,
+        token // Return the existing token
+      }
     });
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching user data:", error);
     return res.status(500).json({
       msg: 'An error occurred!',
-      error: error.message,
+      error: error.message
     });
   }
 }
+
+
+
 
 
 
