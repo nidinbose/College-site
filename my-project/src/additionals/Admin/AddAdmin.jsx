@@ -51,7 +51,7 @@ const AddAdmin = () => {
       }
 
       console.log("Admin added successfully");
-      // Reset form after successful submission
+    
       setFormData({
         name: "",
         adminId: "",

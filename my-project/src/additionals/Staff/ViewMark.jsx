@@ -3,18 +3,20 @@ import { motion } from "framer-motion";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const ViewStaff = () => {
-  const { id } = useParams();
+const ViewMark = () => {
+  const { id } = useParams();  // Assuming 'id' refers to student ID
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const navigate = useNavigate(); 
 
   const getData = async () => {
     try {
-      const res = await axios.get(`http://localhost:3003/api/getstaffedit/${id}`);
+      const res = await axios.get(`http://localhost:3003/api/getmark/${id}`);
       setData(res.data);
     } catch (error) {
-      console.error("Error fetching staff data:", error);
+      console.error("Error fetching mark data:", error);
+      setError('Error fetching mark data');
     } finally {
       setLoading(false);
     }
@@ -25,34 +27,37 @@ const ViewStaff = () => {
   }, [id]);
 
   useEffect(() => {
-  
     const isAuthenticated = localStorage.getItem('token');
-
     if (!isAuthenticated) {
-        alert("Please log in to continue.");
-        navigate('/login');
+      alert("Please log in to continue.");
+      navigate('/login');
     }
-}, [navigate]);
+  }, [navigate]);
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3003/api/deletestaff/${id}`);
-      navigate('/vstaff'); 
+      await axios.delete(`http://localhost:3003/api/deletemark/${id}`);
+      alert("Marks deleted successfully");
+      navigate('/marks');
     } catch (error) {
-      console.error("Error deleting staff:", error);
+      console.error("Error deleting marks:", error);
     }
   };
 
   const handleEdit = () => {
-    navigate(`/editstaff/${id}`); 
+    navigate(`/editmark/${id}`);
   };
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center p-1 bg-gray-50">Loading...</div>;
   }
 
+  if (error) {
+    return <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">{error}</div>;
+  }
+
   if (!data) {
-    return <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">No staff data found.</div>;
+    return <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">No mark data found.</div>;
   }
 
   return (
@@ -64,43 +69,35 @@ const ViewStaff = () => {
         transition={{ duration: 0.5 }}
         whileHover={{ scale: 1.02 }}
       >
-        <motion.img
-          src={data.photo}
-          alt="Staff Photo"
-          className="w-full h-[70vh] object-cover w-[60vh]"
-          initial={{ opacity: 0.8 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        />
         <div className="p-6">
           <motion.h1
-            className="text-3xl font-bold text-gray-800 w-[60vh]"
+            className="text-3xl font-bold text-gray-800"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            {data.name}
+            Student Marks
           </motion.h1>
-          <p className="text-gray-600 mt-2"><strong>Staff ID:</strong> {data.staffid}</p>
-          <p className="text-gray-600 mt-2"><strong>Experience:</strong> {data.experience}</p>
-          <p className="text-gray-600 mt-2"><strong>Qualification:</strong> {data.qualification}</p>
-          <p className="text-gray-600 mt-2"><strong>Department:</strong> {data.department}</p>
-          <p className="text-gray-600 mt-2"><strong>Semester:</strong> {data.semester}</p>
-          <p className="text-gray-600 mt-2"><strong>Blood Type:</strong> {data.bloodType}</p>
-          <p className="text-gray-600 mt-2"><strong>Date of Birth:</strong> {data.dateOfBirth}</p>
+          <p className="text-gray-600 mt-2"><strong>Physics:</strong> {data.physics}</p>
+          <p className="text-gray-600 mt-2"><strong>Chemistry:</strong> {data.chemistry}</p>
+          <p className="text-gray-600 mt-2"><strong>Maths:</strong> {data.maths}</p>
+          <p className="text-gray-600 mt-2"><strong>Statistics:</strong> {data.stats}</p>
+          <p className="text-gray-600 mt-2"><strong>DBMS:</strong> {data.dbms}</p>
+          <p className="text-gray-600 mt-2"><strong>PBD:</strong> {data.pbd}</p>
+          <p className="text-gray-600 mt-2"><strong>Student ID:</strong> {data.studentid}</p>
         </div>
         <div className="p-6 flex gap-4 justify-end">
           <button 
             onClick={handleDelete} 
             className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
           >
-            Delete Staff
+            Delete Marks
           </button>
           <button 
             onClick={handleEdit} 
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
           >
-            Edit Staff
+            Edit Marks
           </button>
         </div>
       </motion.div>
@@ -108,4 +105,4 @@ const ViewStaff = () => {
   );
 };
 
-export default ViewStaff;
+export default ViewMark;

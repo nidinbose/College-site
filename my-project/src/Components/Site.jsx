@@ -9,6 +9,8 @@ import Categories from './Category';
 import Slide1 from './CollegeView';
 import Gallery from './Gallary';
 import Footer from './Footer';
+import Feedback from './Feedback';
+// import Overview from './Overview';
 
 const Site = () => {
   
@@ -17,13 +19,18 @@ const Site = () => {
         <div>
             <Navbar />
             <Start />
+            <Feedback/>
             <Companies />
             <Achievement />
-            <Categories />
+            <br />
+            <br />
             <Courses />
+            <Categories />
+           
             <Slide1 />
             <Gallery />
             <Footer />
+            {/* <Overview/> */}
         </div>
     );
 }

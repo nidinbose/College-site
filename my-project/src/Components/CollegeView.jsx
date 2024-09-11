@@ -34,7 +34,7 @@ const Slide1 = () => {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <img src={image} alt={`Slide ${index + 1}`} className="w-full h-auto max-w-full" />
+            <img src={image} alt={`Slide ${index + 1}`} className="w-full h-auto" />
           </motion.div>
         ))}
       </motion.div>
@@ -45,7 +45,7 @@ const Slide1 = () => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-3 h-3 rounded-full ${
+            className={`w-3 h-3 sm:w-2 sm:h-2 rounded-full ${
               index === currentIndex ? 'bg-blue-500' : 'bg-gray-300'
             }`}
           />
@@ -56,3 +56,4 @@ const Slide1 = () => {
 };
 
 export default Slide1;
+

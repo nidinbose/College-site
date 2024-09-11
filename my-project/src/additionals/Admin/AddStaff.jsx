@@ -10,8 +10,8 @@ const AddStaff = () => {
     staffid: "",
     experience: "",
     qualification: "",
-    department: "Computer Science", // Default value
-    semester: "1st Semester", // Default value
+    department: "Computer Science", 
+    semester: "1st Semester", 
     bloodType: "",
     dateOfBirth: "",
     photo: null

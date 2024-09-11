@@ -3,14 +3,12 @@ import { motion } from "framer-motion";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const ViewStudent = () => {
+const ViewStudentt = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [userRole, setUserRole] = useState("");
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Hook for programmatic navigation
 
- 
   const getData = async () => {
     try {
       const res = await axios.get(`http://localhost:3003/api/getstudentedit/${id}`);
@@ -22,38 +20,31 @@ const ViewStudent = () => {
     }
   };
 
+  useEffect(() => {
+    getData();
+  }, [id]);
+  useEffect(() => {
   
+    const isAuthenticated = localStorage.getItem('token');
+
+    if (!isAuthenticated) {
+        alert("Please log in to continue.");
+        navigate('/login');
+    }
+}, [navigate]);
+
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3003/api/deletestudent/${id}`);
-      navigate('/vstudent');
+      navigate('/vstudent'); 
     } catch (error) {
       console.error("Error deleting student:", error);
     }
   };
 
   const handleEdit = () => {
-    navigate(`/editstudent/${id}`);
+    navigate(`/editstudent/${id}`); 
   };
-
-  
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      alert("Please log in to continue.");
-      navigate('/login');
-    } else {
-    
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      setUserRole(decodedToken.role);
-    }
-  }, [navigate]);
-
- 
-  useEffect(() => {
-    getData();
-  }, [id]);
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center p-1 bg-gray-50">Loading...</div>;
@@ -75,7 +66,7 @@ const ViewStudent = () => {
         <motion.img
           src={data.photo}
           alt="Student Photo"
-          className="w-full h-[50vh] object-cover"
+          className="w-full h-[50vh] object-cover w-[50vh]"
           initial={{ opacity: 0.8 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -96,25 +87,23 @@ const ViewStudent = () => {
           <p className="text-gray-600 mt-2"><strong>Blood Type:</strong> {data.bloodType}</p>
           <p className="text-gray-600 mt-2"><strong>Date of Birth:</strong> {data.dateOfBirth}</p>
         </div>
-        {userRole !== 'student' && ( 
-          <div className="p-6 flex gap-4 justify-end">
-            <button 
-              onClick={handleDelete} 
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-            >
-              Delete Student
-            </button>
-            <button 
-              onClick={handleEdit} 
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Edit Student
-            </button>
-          </div>
-        )}
+        <div className="p-6 flex gap-4 justify-end">
+          <button 
+            onClick={handleDelete} 
+            className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+          >
+            Delete Student
+          </button>
+          <button 
+            onClick={handleEdit} 
+            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Edit Student
+          </button>
+        </div>
       </motion.div>
     </div>
   );
 };
 
-export default ViewStudent;
+export default ViewStudentt;

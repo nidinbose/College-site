@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Typography, Input, Button } from "@material-tailwind/react";
 import axios from "axios";
 
-const RequestOtp = () => {
-  const [formData, setFormData] = useState({ email: "" });
+const ResetPassword = () => {
+  const [formData, setFormData] = useState({ email: "", otp: "", newPassword: "" });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
@@ -16,13 +15,21 @@ const RequestOtp = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Validate email input
-  const validateEmail = () => {
+  // Validate inputs
+  const validateInputs = () => {
     let formErrors = {};
     if (!formData.email) {
       formErrors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       formErrors.email = "Invalid email address";
+    }
+    if (!formData.otp) {
+      formErrors.otp = "OTP is required";
+    }
+    if (!formData.newPassword) {
+      formErrors.newPassword = "New password is required";
+    } else if (formData.newPassword.length < 6) {
+      formErrors.newPassword = "Password should be at least 6 characters long";
     }
     return formErrors;
   };
@@ -30,7 +37,7 @@ const RequestOtp = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formErrors = validateEmail();
+    const formErrors = validateInputs();
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
       return;
@@ -41,19 +48,18 @@ const RequestOtp = () => {
     setSuccessMessage("");
 
     try {
-      const response = await axios.post("http://localhost:3003/api/fpwd", {
+      const response = await axios.post("http://localhost:3003/api/resetpassword", {
         email: formData.email,
+        otp: formData.otp,
+        newPassword: formData.newPassword,
       });
 
-      setEmailSent(true);
-      setSuccessMessage("OTP has been sent to your email.");
-
-      // Navigate to the reset password page after success
+      setSuccessMessage("Password has been reset successfully.");
       setTimeout(() => {
-        navigate("/resetpassword");
-      }, 2000); // Wait for 2 seconds before redirecting
+        navigate("/login"); // Redirect to login after success
+      }, 2000);
     } catch (error) {
-      setErrors({ submit: error.response?.data?.error || "Something went wrong." });
+      setErrors({ submit: error.response?.data?.msg || "Something went wrong." });
     } finally {
       setLoading(false);
     }
@@ -63,10 +69,10 @@ const RequestOtp = () => {
     <section className="grid h-screen place-items-center p-8 bg-white">
       <div className="max-w-[24rem] mx-auto">
         <Typography variant="h3" color="blue-gray" className="mb-2 text-center font-semibold">
-         Forgot Password
+         Reset Password
         </Typography>
         <Typography className="mb-16 text-center text-gray-600 font-normal text-[18px]">
-          Enter your email to receive an OTP for resetting your password.
+          Enter the OTP sent to your email and your new password.
         </Typography>
 
         {errors.submit && (
@@ -104,8 +110,54 @@ const RequestOtp = () => {
             )}
           </div>
 
+          <div className="mb-6">
+            <label htmlFor="otp">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                OTP
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="Enter the OTP"
+              name="otp"
+              value={formData.otp}
+              onChange={handleChange}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
+              type="text"
+              error={Boolean(errors.otp)}
+            />
+            {errors.otp && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.otp}
+              </Typography>
+            )}
+          </div>
+
+          <div className="mb-6">
+            <label htmlFor="newPassword">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                New Password
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="Enter your new password"
+              name="newPassword"
+              value={formData.newPassword}
+              onChange={handleChange}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
+              type="password"
+              error={Boolean(errors.newPassword)}
+            />
+            {errors.newPassword && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.newPassword}
+              </Typography>
+            )}
+          </div>
+
           <Button type="submit" color="" size="lg" className="mt-6 h-12 bg-gray-800" fullWidth disabled={loading}>
-            {loading ? "Sending OTP..." : "Send OTP"}
+            {loading ? "Resetting Password..." : "Reset Password"}
           </Button>
         </form>
       </div>
@@ -113,4 +165,4 @@ const RequestOtp = () => {
   );
 };
 
-export default RequestOtp;
+export default ResetPassword;
