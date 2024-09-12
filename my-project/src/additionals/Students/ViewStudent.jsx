@@ -10,7 +10,6 @@ const ViewStudent = () => {
   const [userRole, setUserRole] = useState("");
   const navigate = useNavigate();
 
- 
   const getData = async () => {
     try {
       const res = await axios.get(`http://localhost:3003/api/getstudentedit/${id}`);
@@ -22,7 +21,6 @@ const ViewStudent = () => {
     }
   };
 
-  
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3003/api/deletestudent/${id}`);
@@ -36,7 +34,6 @@ const ViewStudent = () => {
     navigate(`/editstudent/${id}`);
   };
 
-  
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -44,13 +41,11 @@ const ViewStudent = () => {
       alert("Please log in to continue.");
       navigate('/login');
     } else {
-    
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
       setUserRole(decodedToken.role);
     }
   }, [navigate]);
 
- 
   useEffect(() => {
     getData();
   }, [id]);
@@ -64,9 +59,9 @@ const ViewStudent = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center p-6 bg-white/10">
       <motion.div
-        className="bg-white shadow-lg rounded-lg overflow-hidden max-w-2xl w-[60vh]"
+        className="bg-[#1B2C39] shadow-lg rounded-lg overflow-hidden max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-10"
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
@@ -75,29 +70,29 @@ const ViewStudent = () => {
         <motion.img
           src={data.photo}
           alt="Student Photo"
-          className="w-full h-[50vh] object-cover"
+          className="w-[90vw] h-[70vh] object-cover mt-20 ml-6"
           initial={{ opacity: 0.8 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         />
-        <div className="p-6">
+        <div className="p-6 mt-20">
           <motion.h1
-            className="text-3xl font-bold text-gray-800 w-[60vh]"
+            className="text-5xl font-bold text-gray-800 w-[30vw]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
             {data.name}
           </motion.h1>
-          <p className="text-gray-600 mt-2"><strong>Student ID:</strong> {data.studentid}</p>
+          <p className="text-[#A0CE4E] mt-2 text-2xl"><strong className="text-white">Student ID:</strong> {data.studentid}</p>
           <p className="text-gray-600 mt-2"><strong>Class:</strong> {data.class}</p>
           <p className="text-gray-600 mt-2"><strong>Department:</strong> {data.department}</p>
           <p className="text-gray-600 mt-2"><strong>Semester:</strong> {data.semester}</p>
           <p className="text-gray-600 mt-2"><strong>Blood Type:</strong> {data.bloodType}</p>
           <p className="text-gray-600 mt-2"><strong>Date of Birth:</strong> {data.dateOfBirth}</p>
         </div>
-        {userRole !== 'student' && ( 
-          <div className="p-6 flex gap-4 justify-end">
+        {userRole !== 'student' && (
+          <div className="p-6 flex gap-4 justify-end md:col-span-2">
             <button 
               onClick={handleDelete} 
               className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
