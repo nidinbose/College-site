@@ -29,6 +29,7 @@ import Corses from './Components/Courses';
 import AddMarks from './Components/Marks';
 import ResetPassword from './Login.Signup/ForgotPassword/Passforget';
 import ViewMark from './additionals/Staff/ViewMark';
+import AddMark from './additionals/Students/AddMark';
 
 
 const App=()=>{
@@ -67,6 +68,8 @@ const App=()=>{
       <Route path='/feedback' Component={Feedback}/>
       <Route path='/gallary' Component={Gallery}/>
       <Route path='/courses' Component={Corses}/>
+      <Route path='/addmark/:id' Component={AddMark}/>
+
 
      
 

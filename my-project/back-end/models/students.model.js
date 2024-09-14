@@ -1,19 +1,27 @@
+import mongoose from "mongoose";
 
+const studentsSchema = new mongoose.Schema({
+  name: { type: String},
+  studentid: { type: String},
+  class: { type: String},
+  department: { type: String },
+  semester: { type: String},
+  bloodType: { type: String },
+  dateOfBirth: { type: String },
+  photo: { type: String },
 
-import mongoose, { Mongoose, model } from "mongoose";
+  // Add semester-wise subjects and scores
+  semesters: [
+    {
+      semester: { type: String},  // e.g., "Semester 1"
+      subjects: [
+        {
+          subjectName: { type: String},  // e.g., "Mathematics"
+          score: { type: Number}         // e.g., 85
+        }
+      ]
+    }
+  ]
+});
 
-const studentsSchema= new mongoose.Schema({
-  
-
-    name: { type: String},
-    studentid: { type: String},
-    class: { type: String},
-    department:{ type:String},
-    semester: { type: String},
-    bloodType: { type: String  },
-    dateOfBirth: { type: String },
-    photo: { type: String }
-   
-})
-
-export default mongoose.model.student || mongoose.model('student',studentsSchema)
+export default mongoose.models.student || mongoose.model('student', studentsSchema);

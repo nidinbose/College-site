@@ -108,36 +108,8 @@ const Admin = () => {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <nav className="bg-[#1B2C39] shadow-md p-4 flex justify-between items-center">
-          <div className="text-xl font-bold text-[#A0CE4E]">Admin Dashboard</div>
+         <Link to={`/`}> <div className="text-xl font-bold text-[#A0CE4E]">Admin Dashboard</div></Link>
           
-  <ul className="space-x-10 flex">
-   <Link to={``}>
-   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
-    Home
-   </li>
-   </Link>
-   <Link to={``}>
-   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
-    Home
-   </li>
-   </Link>
-   <Link to={``}>
-   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
-    Home
-   </li>
-   </Link>
-   <Link to={``}>
-   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
-    Home
-   </li>
-   </Link>
-   <Link to={``}>
-   <li className="text-lg font-semibold text-[#A0CE4E] hover:text-white">
-    Home
-   </li>
-   </Link>
-  
-  </ul>
 
           <div className=" items-center space-x-4 text-center">
             <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-[4vw]" />

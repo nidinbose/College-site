@@ -255,7 +255,7 @@ const AddStaff = () => {
           >
             Add
           </button>
-        </form>
+        </form>+
       </motion.div>
     </div>
   );

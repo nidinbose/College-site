@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate,Link } from 'react-router-dom';
 import axios from 'axios';
+import { Navbar } from "@material-tailwind/react";
 
 const ViewStudent = () => {
   const { id } = useParams();
@@ -34,9 +35,16 @@ const ViewStudent = () => {
     navigate(`/editstudent/${id}`);
   };
 
+  const handleAddMark = () => {
+    navigate(`/addmark/${id}`);
+  };
+
+  const handleViewMarklist = () => {
+    navigate(`/viewmarklist/${id}`);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
-
     if (!token) {
       alert("Please log in to continue.");
       navigate('/login');
@@ -59,56 +67,80 @@ const ViewStudent = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-white/10">
-      <motion.div
-        className="bg-[#1B2C39] shadow-lg rounded-lg overflow-hidden max-w-7xl w-full grid grid-cols-1 md:grid-cols-2 gap-10"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        whileHover={{ scale: 1.02 }}
-      >
-        <motion.img
-          src={data.photo}
-          alt="Student Photo"
-          className="w-[90vw] h-[70vh] object-cover mt-20 ml-6"
-          initial={{ opacity: 0.8 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        />
-        <div className="p-6 mt-20">
-          <motion.h1
-            className="text-5xl font-bold text-gray-800 w-[30vw]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-          >
-            {data.name}
-          </motion.h1>
-          <p className="text-[#A0CE4E] mt-2 text-2xl"><strong className="text-white">Student ID:</strong> {data.studentid}</p>
-          <p className="text-gray-600 mt-2"><strong>Class:</strong> {data.class}</p>
-          <p className="text-gray-600 mt-2"><strong>Department:</strong> {data.department}</p>
-          <p className="text-gray-600 mt-2"><strong>Semester:</strong> {data.semester}</p>
-          <p className="text-gray-600 mt-2"><strong>Blood Type:</strong> {data.bloodType}</p>
-          <p className="text-gray-600 mt-2"><strong>Date of Birth:</strong> {data.dateOfBirth}</p>
-        </div>
-        {userRole !== 'student' && (
-          <div className="p-6 flex gap-4 justify-end md:col-span-2">
-            <button 
-              onClick={handleDelete} 
-              className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-            >
-              Delete Student
-            </button>
-            <button 
-              onClick={handleEdit} 
-              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            >
-              Edit Student
-            </button>
+    <>
+    <h1>Student Data</h1>
+    <section className="text-gray-700 body-font overflow-hidden bg-[] h-screen">
+      
+      
+      <div className="container px-5 py-24 mx-auto">
+        <div className="lg:w-4/5 mx-auto flex flex-wrap">
+          <img
+            alt="ecommerce"
+            className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+            src={data.photo}
+          />
+          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <h2 className="text-sm title-font text-gray-500 tracking-widest">Student name</h2>
+            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{data.name}</h1>
+            <div className="flex mb-4">
+           
+              
+            </div>
+            <p className="leading-relaxed pb-3">
+            Studet ID : {data.studentid}
+            </p>
+            <p className="leading-relaxed pb-3">
+             Class : {data.class}
+          </p>
+          <p className="leading-relaxed pb-3">
+          Department : {data.department}
+          </p>
+          <p className="leading-relaxed pb-3">
+          Semester : {data.semester}
+          </p>
+          <p className="leading-relaxed pb-3">
+          Blood Group : {data.bloodType}
+          </p>
+          <p className="leading-relaxed pb-4">
+          Date of Birth : {data.dateOfBirth}
+          </p>
+          <p className="leading-relaxed pb-4">
+             Mark List    
+          </p>
+            <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
+             
+              <div className="flex ml-6 items-center">
+              
+                <div className="relative">
+             
+                  <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4" viewBox="0 0 24 24">
+                      <path d="M6 9l6 6 6-6"></path>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="flex ">
+            <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+            onClick={handleEdit}>
+                Edit Student
+              </button>
+              <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                Button
+              </button>
+              <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                Button
+              </button>
+              
+             
+             
+            </div>
           </div>
-        )}
-      </motion.div>
-    </div>
+        </div>
+      </div>
+    </section>
+    </>
   );
 };
 
