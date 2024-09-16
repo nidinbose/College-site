@@ -206,19 +206,24 @@ const AddStudents = () => {
                 {errors.dateOfBirth && <p className="text-red-500">{errors.dateOfBirth}</p>}
               </p>
 
-              <div className="flex mt-6">
-                <button
-                  onClick={handleSubmit}
-                  className="flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
-                >
-                  Save Changes
-                </button>
-                <button
-                  onClick={() => navigate("/vstudent")}
-                  className="ml-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-                >
-                  Cancel
-                </button>
+              <div className="flex mt-6 gap-5 mt-[16vh]">
+        
+
+<a href="#_" class="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group"
+  onClick={handleSubmit}  >
+<span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+<span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+<span class="relative">Button Text</span>
+</a>
+
+
+
+                  <a href="#_" class="relative inline-flex items-center justify-center px-10 py-4 overflow-hidden font-mono font-medium tracking-tighter text-white bg-gray-800 rounded-lg group"
+                  onClick={() => navigate("/vstudent")}>  
+                <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-green-500 rounded-full group-hover:w-56 group-hover:h-56"></span>
+                  <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-gray-700"></span>
+                    <span class="relative">Cancel</span>
+</a>
               </div>
             </div>
           </div>

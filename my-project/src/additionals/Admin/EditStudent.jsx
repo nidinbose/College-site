@@ -228,7 +228,7 @@ const EditStudents = () => {
             />
             {errors.photo && <p className="text-red-500 text-sm">{errors.photo}</p>}
             {previewSource && (
-              <img src={previewSource} alt="Preview" className="mt-4 rounded-lg h-24 w-24 object-cover" />
+              <img src={previewSource} alt="Preview" className="mt-4 rounded-lg h-[80vh] w-24 object-cover" />
             )}
           </div>
 

@@ -6,8 +6,8 @@ import axios from 'axios';
 const nav = [
     { name: "Home", path: '/' },
     { name: "About", path: '/feedback' },
-    { name: "Our Campus", path: '/gallary' },
-    { name: "Corses", path: '/courses' },
+    { name: "Our Campus", path: '/gallery' },
+    { name: "Courses", path: '/courses' },
     { name: "Admissions", path: '/pricing' },
     { name: "Login", path: '/login' },
 ];
@@ -18,20 +18,29 @@ const Navbar = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        async function fetchUser() {
-            try {
-                const response = await axios.get('');
-                setUser(response.data);
-            } catch (error) {
-                console.error('Error fetching user:', error);
+        const fetchUserData = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await axios.get("http://localhost:3003/api/home", {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    const { email, photo, role } = response.data.user;
+                    setUser({ email, photo, role });
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                }
             }
-        }
-        fetchUser();
+        };
+
+        fetchUserData();
     }, []);
 
     const handleLogout = async () => {
         try {
             await axios.get('/api/logout');
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             setUser(null);
             navigate('/');
         } catch (error) {
@@ -48,15 +57,15 @@ const Navbar = () => {
     };
 
     return (
-        <div className='w-full h-[96px] bg-[#1B2C39] shadow-sm '>
+        <div className='w-full h-[96px] bg-[#1B2C39] shadow-sm'>
             <div className='p-4 md:max-w-[1080px] max-w-full mx-auto w-full h-full flex justify-between items-center'>
                 <Link to="/">
                     <img src="/images/pl.png" alt="Logo" className='h-[100px] cursor-pointer' />
                 </Link>
                 <div className="flex items-center">
-                    <ul className='hidden md:flex gap-12 text-md font-semibold hover:text-[#A0CE4E] '>
+                    <ul className='hidden md:flex gap-12 text-md font-semibold text-white'>
                         {nav.map((item, index) => (
-                            <li key={index} className="font-semibold text-white hover:text-[#A0CE4E] hover:border-b-2 hover:border-[#A0CE4E]">
+                            <li key={index} className="font-semibold hover:text-[#A0CE4E] hover:border-b-2 hover:border-[#A0CE4E]">
                                 <Link to={item.path}>
                                     {item.name}
                                 </Link>
@@ -64,11 +73,14 @@ const Navbar = () => {
                         ))}
                     </ul>
                 </div>
-                <div className='md:flex hidden'>
+                <div className='flex md:flex hidden items-center'>
                     {user ? (
                         <div className='flex items-center gap-4'>
-                            <h1 className="font-bold">{user.username}</h1>
+                            <h1 className="font-bold text-white">{user.email}</h1>
                             <img src={user.photo || "/path/to/default-avatar.png"} alt="User Avatar" className="w-10 h-10 rounded-full" />
+                            <button onClick={handleLogout} className='px-4 py-2 bg-red-500 text-white rounded'>
+                                Logout
+                            </button>
                         </div>
                     ) : (
                         <Link to="/login">
@@ -113,5 +125,3 @@ const Navbar = () => {
 }
 
 export default Navbar;
-
-

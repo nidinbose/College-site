@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,7 +6,6 @@ const EditStaff = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [data, setData] = useState({});
-    const [photo, setPhoto] = useState("");
     const [previewSource, setPreviewSource] = useState("");
 
     const handleChange = (e) => {
@@ -49,161 +47,138 @@ const EditStaff = () => {
     }, []);
 
     return (
-        <div className="min-h-screen bg-white/80 flex items-center justify-center p-6">
-            <motion.div
-                className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-            >
-                <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">
-                    Edit Student
-                </h1>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    {/* Name Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Name</label>
-                        <input
-                            type="text"
-                            name="name"
-                            value={data.name || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-
-                    {/* Student ID Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Staff ID</label>
-                        <input
-                            type="text"
-                            name="studentid"
-                            value={data.staffid || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-
-                    {/* Class Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Qualification</label>
-                        <input
-                            type="text"
-                            name="class"
-                            value={data.qualification || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-                    {/* education field */}
-
-
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">experience</label>
-                        <input
-                            type="text"
-                            name="class"
-                            value={data.experience || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-
-                    {/* Department Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Department</label>
-                        <select
-                            name="department"
-                            value={data.department || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        >
-                            <option value="Computer Science">Computer Science</option>
-                            <option value="Civil Engineering">Civil Engineering</option>
-                            <option value="Mechanical Engineering">Mechanical Engineering</option>
-                            <option value="Electrical Engineering">Electrical Engineering</option>
-                        </select>
-                    </div>
-
-                    {/* Semester Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Semester</label>
-                        <select
-                            name="semester"
-                            value={data.semester || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        >
-                            <option value="1st Semester">1st Semester</option>
-                            <option value="2nd Semester">2nd Semester</option>
-                            <option value="3rd Semester">3rd Semester</option>
-                            <option value="4th Semester">4th Semester</option>
-                            <option value="5th Semester">5th Semester</option>
-                            <option value="6th Semester">6th Semester</option>
-                            <option value="7th Semester">7th Semester</option>
-                            <option value="8th Semester">8th Semester</option>
-                        </select>
-                    </div>
-
-                    {/* Blood Type Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Blood Type</label>
-                        <input
-                            type="text"
-                            name="bloodType"
-                            value={data.bloodType || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-
-                    {/* Date of Birth Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Date of Birth</label>
-                        <input
-                            type="date"
-                            name="dateOfBirth"
-                            value={data.dateOfBirth || ""}
-                            onChange={handleChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-
-                    {/* Photo Field */}
-                    <div className="flex flex-col">
-                        <label className="text-gray-700">Photo</label>
-                        <input
-                            type="file"
-                            name="photo"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            className="mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        />
-                    </div>
-
-                    {/* Photo Preview */}
-                    {previewSource && (
-                        <div className="flex justify-center mt-4">
+        <>
+            <h1 className="text-center text-4xl font-semibold my-6">Edit Staff Data</h1>
+            <section className="text-gray-700 body-font bg-white h-full min-h-screen">
+                <div className="container mx-auto px-5 py-12">
+                    <div className="grid lg:grid-cols-2 gap-8">
+                        {/* Image Preview and Upload */}
+                        <div className="w-full">
                             <img
-                                src={previewSource}
-                                alt="Selected"
-                                className="h-40 w-40 object-cover rounded-lg"
+                                alt="Staff"
+                                className="w-full h-100 object-cover object-center rounded border border-gray-200"
+                                src={previewSource || data.photo || "https://via.placeholder.com/300"}
+                            />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleFileChange}
+                                className="mt-4 w-full text-gray-700 border border-gray-300 rounded p-2"
                             />
                         </div>
-                    )}
 
-                    {/* Submit Button */}
-                    <div className="flex justify-center">
-                        <button
-                            type="submit"
-                            className="mt-6 px-4 py-2 bg-indigo-500 text-white rounded-lg shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                        >
-                            Update Staff
-                        </button>
+                        {/* Form Fields */}
+                        <div className="w-full">
+                            <div className="space-y-6">
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Staff Name</label>
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        value={data.name || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                        placeholder="Staff Name"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Staff ID</label>
+                                    <input
+                                        type="text"
+                                        name="staffid"
+                                        value={data.staffid || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                        placeholder="Staff ID"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Class</label>
+                                    <input
+                                        type="text"
+                                        name="class"
+                                        value={data.class || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                        placeholder="Class"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Department</label>
+                                    <select
+                                        name="department"
+                                        value={data.department || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                    >
+                                        <option value="" disabled>
+                                            Select Department
+                                        </option>
+                                        <option value="Computer Science">Computer Science</option>
+                                        <option value="Electrical Engineering">Electrical Engineering</option>
+                                        <option value="Civil Engineering">Civil Engineering</option>
+                                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Semester</label>
+                                    <input
+                                        type="text"
+                                        name="semester"
+                                        value={data.semester || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                        placeholder="Semester"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Blood Group</label>
+                                    <input
+                                        type="text"
+                                        name="bloodType"
+                                        value={data.bloodType || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                        placeholder="Blood Group"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Date of Birth</label>
+                                    <input
+                                        type="date"
+                                        name="dateOfBirth"
+                                        value={data.dateOfBirth || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="mt-6 flex justify-between">
+                                <button
+                                    onClick={handleSubmit}
+                                    className="text-white bg-green-500 py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
+                                >
+                                    Save Changes
+                                </button>
+                                <button
+                                    onClick={() => navigate('/vstaff')}
+                                    className="text-white bg-red-500 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                                >
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </form>
-            </motion.div>
-        </div>
+                </div>
+            </section>
+        </>
     );
 };
 
