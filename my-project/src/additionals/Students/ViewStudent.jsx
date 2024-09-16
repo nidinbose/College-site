@@ -68,7 +68,7 @@ const ViewStudent = () => {
 
   return (
     <>
-    <h1>Student Data</h1>
+    <h1 className="text-center text-4xl font-bold ">Student Data</h1>
     <section className="text-gray-700 body-font overflow-hidden bg-[] h-screen">
       
       
@@ -121,19 +121,25 @@ const ViewStudent = () => {
                 </div>
               </div>
             </div>
-            <div className="flex ">
-            <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-            onClick={handleEdit}>
-                Edit Student
-              </button>
-              <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-              onClick={handleDelete}>
-                Delete
-              </button>
-              <button className="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
-              >
-                Add mark
-              </button>
+            <div className="flex flex-warp gap-6 ">
+            <a
+                    href="#_"
+                    className="rounded-md px-4 py-2 sm:px-3.5 sm:py-2 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
+                    onClick={handleEdit}
+                >
+                    <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+                    <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Edit Staff</span>
+                </a>
+
+                <a
+                    href="#_"
+                    className="rounded-md px-4 py-2 sm:px-3.5 sm:py-2 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
+                    onClick={handleDelete}
+                >
+                    <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+                    <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Delete</span>
+                </a>
+              
               
              
              
