@@ -1,7 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const AddStudents = () => {
   const navigate = useNavigate();
@@ -9,26 +9,24 @@ const AddStudents = () => {
     name: "",
     studentid: "",
     class: "",
-    department: "Computer Science", 
-    semester: "1st Semester", 
+    department: "Computer Science",
+    semester: "1st Semester",
     bloodType: "",
     dateOfBirth: "",
-    photo: null
+    photo: null,
   });
-         
+
   const [previewSource, setPreviewSource] = useState(null);
   const [errors, setErrors] = useState({});
 
-
   useEffect(() => {
-  
-    const isAuthenticated = localStorage.getItem('token');
+    const isAuthenticated = localStorage.getItem("token");
 
     if (!isAuthenticated) {
-        alert("Please log in to continue.");
-        navigate('/login');
+      alert("Please log in to continue.");
+      navigate("/login");
     }
-}, [navigate]);
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -77,9 +75,8 @@ const AddStudents = () => {
     }
     try {
       const res = await axios.post("http://localhost:3003/api/addstudents", formData);
-      console.log(res);
       if (res.status === 200) {
-        navigate('/admin');
+        navigate("/admin");
       }
     } catch (error) {
       console.error("Error adding student:", error);
@@ -87,159 +84,148 @@ const AddStudents = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white/80 flex items-center justify-center p-6">
-      <motion.div
-        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">
-          Add Student
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.name ? 'border-red-500' : ''}`}
-            />
-            {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
-          </div>
-
-          {/* Student ID Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Student ID</label>
-            <input
-              type="text"
-              name="studentid"
-              value={formData.studentid}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.studentid ? 'border-red-500' : ''}`}
-            />
-            {errors.studentid && <p className="text-red-500 text-sm">{errors.studentid}</p>}
-          </div>
-
-          {/* Class Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Class</label>
-            <input
-              type="text"
-              name="class"
-              value={formData.class}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.class ? 'border-red-500' : ''}`}
-            />
-            {errors.class && <p className="text-red-500 text-sm">{errors.class}</p>}
-          </div>
-
-          {/* Department Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Department</label>
-            <select
-              name="department"
-              value={formData.department}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.department ? 'border-red-500' : ''}`}
-            >
-              <option value="Computer Science">Computer Science</option>
-              <option value="Civil Engineering">Civil Engineering</option>
-              <option value="Mechanical Engineering">Mechanical Engineering</option>
-              <option value="Electrical Engineering">Electrical Engineering</option>
-            </select>
-            {errors.department && <p className="text-red-500 text-sm">{errors.department}</p>}
-          </div>
-
-          {/* Semester Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Semester</label>
-            <select
-              name="semester"
-              value={formData.semester}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.semester ? 'border-red-500' : ''}`}
-            >
-              <option value="1st Semester">1st Semester</option>
-              <option value="2nd Semester">2nd Semester</option>
-              <option value="3rd Semester">3rd Semester</option>
-              <option value="4th Semester">4th Semester</option>
-              <option value="5th Semester">5th Semester</option>
-              <option value="6th Semester">6th Semester</option>
-              <option value="7th Semester">7th Semester</option>
-              <option value="8th Semester">8th Semester</option>
-            </select>
-            {errors.semester && <p className="text-red-500 text-sm">{errors.semester}</p>}
-          </div>
-
-          {/* Blood Type Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Blood Type</label>
-            <input
-              type="text"
-              name="bloodType"
-              value={formData.bloodType}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.bloodType ? 'border-red-500' : ''}`}
-            />
-            {errors.bloodType && <p className="text-red-500 text-sm">{errors.bloodType}</p>}
-          </div>
-
-          {/* Date of Birth Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Date of Birth</label>
-            <input
-              type="date"
-              name="dateOfBirth"
-              value={formData.dateOfBirth}
-              onChange={handleChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.dateOfBirth ? 'border-red-500' : ''}`}
-            />
-            {errors.dateOfBirth && <p className="text-red-500 text-sm">{errors.dateOfBirth}</p>}
-          </div>
-
-          {/* Photo Field */}
-          <div className="flex flex-col">
-            <label className="text-gray-700">Photo</label>
-            <input
-              type="file"
-              name="photo"
-              accept="image/*"
-              onChange={handleFileChange}
-              className={`mt-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 ${errors.photo ? 'border-red-500' : ''}`}
-            />
-            {errors.photo && <p className="text-red-500 text-sm">{errors.photo}</p>}
-          </div>
-
-          {/* Photo Preview */}
-          {previewSource && (
-            <div className="flex justify-center mt-4">
+    <>
+      <h1 className="text-center text-4xl font-semibold my-6">Add Student Data</h1>
+      <section className="text-gray-700 body-font overflow-hidden bg-white h-full min-h-screen">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap">
+            {/* Image Preview and Upload */}
+            <div className="lg:w-1/2 w-full mb-6 lg:mb-0">
               <img
-                src={previewSource}
-                alt="Selected"
-                className="h-40 w-40 object-cover rounded-lg"
+                alt="Student"
+                className="w-full h-82 object-cover object-center rounded border border-gray-200"
+                src={previewSource || formData.photo || "https://via.placeholder.com/300"}
               />
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="mt-4 w-full text-gray-700 border border-gray-300 rounded p-2"
+              />
+              {errors.photo && <p className="text-red-500">{errors.photo}</p>}
             </div>
-          )}
+            {/* Form Fields */}
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-sm title-font text-gray-500 tracking-widest">Student Name</h2>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="leading-relaxed w-full mb-4 p-2 border rounded"
+                placeholder="Student Name"
+              />
+              {errors.name && <p className="text-red-500">{errors.name}</p>}
 
-          {/* Submit Button */}
-          <div className="flex justify-center">
-            <button
-              type="submit"
-              className="mt-6 px-4 py-2 bg-indigo-500 text-white rounded-lg shadow-lg hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-            >
-              Add Student
-            </button>
+              <p className="border font-semibold mb-4">
+               
+                <input
+                  type="text"
+                  name="studentid"
+                  value={formData.studentid}
+                  onChange={handleChange}
+                  className="leading-relaxed pb-3 text-start mt-2 w-full border-transparent pl-3"
+                  placeholder="Student ID"
+                />
+                {errors.studentid && <p className="text-red-500">{errors.studentid}</p>}
+              </p>
+
+              <p className="border font-semibold mb-4">
+               
+                <input
+                  type="text"
+                  name="class"
+                  value={formData.class}
+                  onChange={handleChange}
+                  className="leading-relaxed pb-3 text-start mt-2 w-full border-transparent pl-3"
+                  placeholder="Class"
+                />
+                {errors.class && <p className="text-red-500">{errors.class}</p>}
+              </p>
+
+              <p className="border font-semibold mb-4">
+              
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  className="leading-relaxed pb-3 text-start mt-2 w-full border-transparent pl-3"
+                >
+                  <option value="" disabled>
+                    Select Department
+                  </option>
+                  <option value="Computer Science">Computer Science</option>
+                  <option value="Electrical Engineering">Electrical Engineering</option>
+                  <option value="Civil Engineering">Civil Engineering</option>
+                  <option value="Mechanical Engineering">Mechanical Engineering</option>
+                </select>
+                {errors.department && <p className="text-red-500">{errors.department}</p>}
+              </p>
+
+              <p className="border font-semibold mb-4">
+            
+                <select
+                  name="semester"
+                  value={formData.semester}
+                  onChange={handleChange}
+                  className="leading-relaxed pb-3 text-start mt-2 w-full border-transparent pl-3"
+                >
+                  <option value="1st Semester">1st Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  <option value="2nd Semester">2nd Semester</option>
+                  {/* Add more semesters as needed */}
+                </select>
+                {errors.semester && <p className="text-red-500">{errors.semester}</p>}
+              </p>
+
+              <p className="border font-semibold mb-4">
+        
+                <input
+                  type="text"
+                  name="bloodType"
+                  value={formData.bloodType}
+                  onChange={handleChange}
+                  className="leading-relaxed pb-3 text-start mt-2 w-full border-transparent pl-3"
+                  placeholder="Blood Group"
+                />
+                {errors.bloodType && <p className="text-red-500">{errors.bloodType}</p>}
+              </p>
+
+              <p className="border font-semibold mb-4">
+                                <input
+                  type="date"
+                  name="dateOfBirth"
+                  value={formData.dateOfBirth}
+                  onChange={handleChange}
+                  className="leading-relaxed pb-3 text-start mt-2 w-full border-transparent pl-3"
+                />
+                {errors.dateOfBirth && <p className="text-red-500">{errors.dateOfBirth}</p>}
+              </p>
+
+              <div className="flex mt-6">
+                <button
+                  onClick={handleSubmit}
+                  className="flex text-white bg-green-500 border-0 py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
+                >
+                  Save Changes
+                </button>
+                <button
+                  onClick={() => navigate("/vstudent")}
+                  className="ml-4 flex text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
-        </form>
-      </motion.div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 };
 
 export default AddStudents;
-
-
