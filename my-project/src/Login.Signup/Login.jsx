@@ -103,7 +103,7 @@ function Login() {
           </div>
 
           <div className="field p-4 md:w-1/2">
-            <h1 className="text-lg font-semibold mb-4">Welcome Back :)</h1>
+            <h1 className="text-lg font-semibold mb-4 text-[#A0CE4E]">Welcome Back :)</h1>
             <b className="text-sm text-gray-500 mb-8">
               To keep connected with us, please login with your personal
               information using your email address and password.
@@ -145,7 +145,7 @@ function Login() {
               </div>
 
               <div className="forgot-password mb-4 text-right">
-                <Link to="/forgot-password" className="text-pink-500 text-sm hover:underline">
+                <Link to="/forgot-password" className="text-[#A0CE4E] text-sm hover:underline">
                   Forgot Password?
                 </Link>
               </div>

@@ -72,27 +72,27 @@ const Admin = () => {
           <ul className="space-y-4">
           <div className=" items-center space-y-4 text-center">
             <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-12" />
-            <span className="text-md font-bold mr-9 text-[#1B2C39]">{user.username}</span>
+            <span className="text-md font-bold mr-9 text-[#1B2C39] mr-12">{user.username}</span>
 
            
           </div>
             <li>
-              <Link to="/admin" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <Link to="/" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/admin/students" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <Link to="/vstudent" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Students
               </Link>
             </li>
             <li>
-              <Link to="/admin/staff" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <Link to="/vstaff" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Staff
               </Link>
             </li>
             <li>
-              <Link to="/admin/courses" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <Link to="/courses" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
                 Courses
               </Link>
             </li>
@@ -111,7 +111,7 @@ const Admin = () => {
           
 
           <div className=" items-center space-x-4 text-center">
-            <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-[4vw]" />
+            <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-[1vw]" />
             <span className="text-sm font-bold text-[#A0CE4E] hover:text-white">{user.username}</span>
 
             <button onClick={handleLogout} className="py-2 px-4 bg-[#A0CE4E] text-white rounded hover:bg-red-500">

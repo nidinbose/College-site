@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { useParams, useNavigate,Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Navbar } from "@material-tailwind/react";
 
 const ViewStudent = () => {
   const { id } = useParams();
@@ -35,14 +33,6 @@ const ViewStudent = () => {
     navigate(`/editstudent/${id}`);
   };
 
-  const handleAddMark = () => {
-    navigate(`/addmark/${id}`);
-  };
-
-  const handleViewMarklist = () => {
-    navigate(`/viewmarklist/${id}`);
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -68,88 +58,55 @@ const ViewStudent = () => {
 
   return (
     <>
-    <h1 className="text-center text-4xl font-bold ">Student Data</h1>
-    <section className="text-gray-700 body-font overflow-hidden bg-[] h-screen">
-      
-      
-      <div className="container px-5 py-24 mx-auto">
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
-          <img
-            alt="ecommerce"
-            className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
-            src={data.photo}
-          />
-          <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-            <h2 className="text-sm title-font text-gray-500 tracking-widest">Student name</h2>
-            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{data.name}</h1>
-            <div className="flex mb-4">
-           
-              
-            </div>
-            <p className="leading-relaxed pb-3">
-            Studet ID : {data.studentid}
-            </p>
-            <p className="leading-relaxed pb-3">
-             Class : {data.class}
-          </p>
-          <p className="leading-relaxed pb-3">
-          Department : {data.department}
-          </p>
-          <p className="leading-relaxed pb-3">
-          Semester : {data.semester}
-          </p>
-          <p className="leading-relaxed pb-3">
-          Blood Group : {data.bloodType}
-          </p>
-          <p className="leading-relaxed pb-4">
-          Date of Birth : {data.dateOfBirth}
-          </p>
-          <p className="leading-relaxed pb-4">
-             Mark List    
-          </p>
-            <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5">
-             
-              <div className="flex ml-6 items-center">
-              
-                <div className="relative">
-             
-                  <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4" viewBox="0 0 24 24">
-                      <path d="M6 9l6 6 6-6"></path>
-                    </svg>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-warp gap-6 ">
-            <a
+      <h1 className="text-center text-4xl font-bold">Student Data</h1>
+      <section className="text-gray-700 body-font overflow-hidden h-screen">
+        <div className="container px-5 py-24 mx-auto">
+          <div className="lg:w-4/5 mx-auto flex flex-wrap">
+            <img
+              alt="ecommerce"
+              className="lg:w-1/2 w-full object-cover object-center rounded border border-gray-200"
+              src={data.photo}
+            />
+            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+              <h2 className="text-sm title-font text-gray-500 tracking-widest">Student name</h2>
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{data.name}</h1>
+              <p className="leading-relaxed pb-3">Student ID: {data.studentid}</p>
+              <p className="leading-relaxed pb-3">Class: {data.class}</p>
+              <p className="leading-relaxed pb-3">Department: {data.department}</p>
+              <p className="leading-relaxed pb-3">Semester: {data.semester}</p>
+              <p className="leading-relaxed pb-3">Blood Group: {data.bloodType}</p>
+              <p className="leading-relaxed pb-4">Date of Birth: {data.dateOfBirth}</p>
+              <p className="leading-relaxed pb-4">Mark List</p>
+
+              {/* Conditionally render the buttons based on userRole */}
+              {userRole !== 'student' && (
+                <div className="flex flex-wrap gap-6">
+                  <a
                     href="#_"
                     className="rounded-md px-4 py-2 sm:px-3.5 sm:py-2 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
                     onClick={handleEdit}
-                >
+                  >
                     <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
-                    <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Edit Staff</span>
-                </a>
+                    <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Edit</span>
+                  </a>
 
-                <a
+                  <a
                     href="#_"
                     className="rounded-md px-4 py-2 sm:px-3.5 sm:py-2 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
                     onClick={handleDelete}
-                >
+                  >
                     <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
                     <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Delete</span>
-                </a>
-              
-              
-             
-             
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </>
   );
 };
 
 export default ViewStudent;
+

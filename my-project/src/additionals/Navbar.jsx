@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from "react-router-dom";
+import { FaRegUserCircle } from "react-icons/fa";
 import axios from 'axios';
 
 const nav = [
@@ -71,18 +72,21 @@ const Navbar = () => {
                 </div>
               <div className='flex flex-col items-center space-y-4'>
     {user ? (
-        <div className='flex flex-col items-center space-y-2'>
-            <h1 className="text-white font-semibold">{user.username}</h1>
-            <img src={user.photo || "/path/to/default-avatar.png"} alt="User Avatar" className="w-10 h-10 rounded-full object-cover" />
-            <button onClick={handleLogout} className='px-4 py-2 bg-red-500 text-white rounded transition duration-300 hover:bg-red-600'>
+        <div className='flex flex-row items-center space-x-10'>
+             <h1 className="text-center">
+             <img src={user.photo || "/path/to/default-avatar.png"} alt="User Avatar" className="w-10 h-10 rounded-full object-cover" />
+             <h1 className="font-semibold text-[#A0CE4E]">{user.username}</h1>
+             </h1>
+            
+            <button onClick={handleLogout} className='px-4 py-2 bg-[#A0CE4E] text-white rounded transition duration-300 hover:bg-red-600'>
                 Logout
             </button>
         </div>
     ) : (
         <Link to="/login">
-            <button className='flex items-center bg-transparent px-6 py-2 text-white border border-white rounded-md hover:bg-white hover:text-[#1B2C39] transition duration-300'>
-                <img src="/path/to/lock-icon.png" alt='Lock Icon' className='w-6 h-6 mr-2' />
-                Login
+            <button className='flex items-center bg-transparent px-6 py-2 text-[#A0CE4E] rounded-lg hover:bg-[#A0CE4E] hover:text-[#1B2C39] transition duration-300 gap-4'>
+            <FaRegUserCircle />
+                      Login
             </button>
         </Link>
     )}
