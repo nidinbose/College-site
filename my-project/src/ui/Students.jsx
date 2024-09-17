@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import axios from "axios"; // Make sure axios is imported
+import axios from "axios"; 
 import Start from "../Components/Start";
 import Corses from "../Components/Courses";
 import Categories from "../Components/Category";
@@ -12,7 +12,7 @@ import StudentView from "../Components/StudentView";
 const Students = () => {
     const navigate = useNavigate();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-    const [user, setUser] = useState({ email: "", image: "", role: "" });
+    const [user, setUser] = useState({ username: "", image: "", role: "" });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -29,14 +29,14 @@ const Students = () => {
                     },
                 })
                 .then((response) => {
-                    const { email, photo, role } = response.data.user;
-                    localStorage.setItem("user", JSON.stringify({ email, photo, role }));
+                    const { username, photo, role } = response.data.user;
+                    localStorage.setItem("user", JSON.stringify({ username, photo, role }));
 
                     if (role !== "student") {
                         alert("Unauthorized access. Students only.");
                         navigate("/login");
                     } else {
-                        setUser({ email, image: photo, role });
+                        setUser({ username, image: photo, role });
                         setLoading(false);
                     }
                 })
@@ -101,7 +101,7 @@ const Students = () => {
                         className="w-16 h-16 rounded-full object-cover"
                     />
                    
-                        <p className="text-lg font-semibold text-[#A0CE4E]">{user.email}</p>
+                        <p className="text-lg font-semibold text-[#A0CE4E]">{user.username}</p>
                         <button
                         onClick={handleLogout}
                         className="bg-[#A0CE4E] hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded"

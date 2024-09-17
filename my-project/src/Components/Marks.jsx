@@ -41,10 +41,10 @@ const AddMarks = () => {
       try {
         const response = await axios.post('http://localhost:3003/api/addmarks', marks);
         console.log('Marks submitted successfully:', response.data);
-        // Handle success (e.g., show a success message or redirect)
+       
       } catch (error) {
         console.error('Error submitting marks:', error);
-        // Handle error (e.g., show an error message)
+        
       }
     }
   };

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { motion } from 'framer-motion';
-import 'tailwindcss/tailwind.css'; // Ensure Tailwind CSS is properly imported
+import 'tailwindcss/tailwind.css'; 
 
 const Corses = () => {
   const cards = [

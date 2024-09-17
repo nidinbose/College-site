@@ -12,10 +12,10 @@ function Signup() {
     password: '',
     cpassword: '',
     role: 'student',
-    photo: '', // Add photo field to formData
+    photo: '', 
   });
 
-  const [photoPreview, setPhotoPreview] = useState(''); // State for photo preview
+  const [photoPreview, setPhotoPreview] = useState(''); 
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {

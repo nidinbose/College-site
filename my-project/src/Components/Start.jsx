@@ -57,9 +57,9 @@ const Start = () => {
         
         <motion.div
           className='mt-6 md:mt-0 p-4 bg-transparent text-white text-center'
-          initial={{ x: '90vw' }} // Start off the screen to the right
-          animate={{ x: 0 }} // Animate to the final position
-          transition={{ type: 'spring', stiffness: 300  }} // Use a spring transition for smooth motion
+          initial={{ x: '90vw' }} 
+          animate={{ x: 0 }} 
+          transition={{ type: 'spring', stiffness: 300  }} 
         >
           <motion.button
             className='bg-[#A0CE4E] w-full md:w-[14vw] text-center h-14 font-semibold hover:bg-white hover:text-black'

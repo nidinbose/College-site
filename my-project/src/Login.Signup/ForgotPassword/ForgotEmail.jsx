@@ -11,13 +11,11 @@ const RequestOtp = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  // Handle form field changes
-  const handleChange = (e) => {
+   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Validate email input
-  const validateEmail = () => {
+   const validateEmail = () => {
     let formErrors = {};
     if (!formData.email) {
       formErrors.email = "Email is required";
@@ -27,8 +25,7 @@ const RequestOtp = () => {
     return formErrors;
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
+   const handleSubmit = async (e) => {
     e.preventDefault();
     const formErrors = validateEmail();
     if (Object.keys(formErrors).length > 0) {
@@ -48,10 +45,9 @@ const RequestOtp = () => {
       setEmailSent(true);
       setSuccessMessage("OTP has been sent to your email.");
 
-      // Navigate to the reset password page after success
       setTimeout(() => {
         navigate("/resetpassword");
-      }, 2000); // Wait for 2 seconds before redirecting
+      }, 2000); 
     } catch (error) {
       setErrors({ submit: error.response?.data?.error || "Something went wrong." });
     } finally {

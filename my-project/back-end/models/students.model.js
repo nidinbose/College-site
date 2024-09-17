@@ -10,14 +10,13 @@ const studentsSchema = new mongoose.Schema({
   dateOfBirth: { type: String },
   photo: { type: String },
 
-  // Add semester-wise subjects and scores
-  semesters: [
+    semesters: [
     {
-      semester: { type: String},  // e.g., "Semester 1"
+      semester: { type: String}, 
       subjects: [
         {
-          subjectName: { type: String},  // e.g., "Mathematics"
-          score: { type: Number}         // e.g., 85
+          subjectName: { type: String},  
+          score: { type: Number}    
         }
       ]
     }

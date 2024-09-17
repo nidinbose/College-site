@@ -13,7 +13,7 @@ import marksSchema from './models/marks.model.js'
 
 const {sign} = pkg
 
-
+// Authentication
 
 
 export async function userRegister(req,res) {
@@ -41,46 +41,40 @@ bcrypt.hash(password,10).then(async(hpassword)=>{
 }
 
 
+
 export async function Login(req, res) {
   try {
-      // Extract email and password from request body
-      const { email, password } = req.body;
+         const { email, password } = req.body;
       if (!email || !password) {
           return res.status(400).json({
               msg: "Email or password cannot be empty!"
           });
       }
 
-      // Find the user by email
-      const user = await userSchema.findOne({ email });
+          const user = await userSchema.findOne({ email });
       if (!user) {
           return res.status(400).json({
               msg: "Invalid email or password!"
           });
       }
 
-      // Compare the password with the stored hash
-      const isMatch = await bcrypt.compare(password, user.password);
+          const isMatch = await bcrypt.compare(password, user.password);
       if (isMatch) {
-          // Generate JWT token and include the user's role in the payload
-          const token = pkg.sign({
+                  const token = pkg.sign({
               email: user.email,
               userId: user._id,
-              role: user.role // Include role in the token
+              role: user.role 
           }, process.env.JWT_KEY, {
               expiresIn: "48h"
           });
-
-          // Return the token and user role
           return res.status(200).json({
               msg: "Login successful!",
               token,
-              role: user.role // Pass role to frontend
+              role: user.role
           });
       }
 
-      // If passwords don't match, return error message
-      return res.status(400).json({
+           return res.status(400).json({
           msg: "Invalid email or password!"
       });
   } catch (error) {
@@ -112,7 +106,7 @@ export async function Logout(req, res) {
 const transporter = nodemailer.createTransport({
   host: "sandbox.smtp.mailtrap.io",
   port: 2525,
-  secure: false, // Use `true` for port 465, `false` for all other ports
+  secure: false,
   auth: {
     user: "b61b6c0d2da033",
     pass: "eadc5f952d3437",
@@ -124,43 +118,31 @@ export async function forget(req, res) {
   console.log("Received email:", email);
 
   try {
-    // Check if the email exists in the database
     const data = await userSchema.findOne({ email: email });
     if (!data) {
       return res.status(400).send({ msg: "User not found" });
     }
 
-    // Generate a random 6-digit numeric OTP
     const otp = Math.floor(100000 + Math.random() * 900000);
     console.log("Generated OTP:", otp);
-
-    // Update the OTP field in the database for the user
     data.otp = otp;
     await data.save();
-
-    // Ensure transporter is defined before trying to send the email
     if (!transporter) {
       console.error("Email transporter is not configured properly.");
       return res.status(500).send({ msg: "Email configuration error" });
     }
-
-    // Send the OTP to the user's email
     const info = await transporter.sendMail({
-      from: 'peterspidy5@gmail.com', // Sender's email
-      to: data.email, // Receiver's email
-      subject: "OTP Verification", // Email subject
-      text: `Your OTP is ${otp}`, // Plain text body
-      html: `<b>Your OTP is ${otp}</b>`, // HTML body
+      from: 'peterspidy5@gmail.com',
+      to: data.email,
+      subject: "OTP Verification",
+      text: `Your OTP is ${otp}`,
+      html: `<b>Your OTP is ${otp}</b>`,
     });
 
     console.log("Message sent: %s", info.messageId);
-
-    // Respond with success if OTP is sent
     res.status(200).send({ msg: "OTP sent successfully" });
   } catch (error) {
     console.error("Error in adminForget function:", error.message || error);
-
-    // Handle any other errors
     res.status(500).send({ msg: "An error occurred while processing your request" });
   }
 }
@@ -173,32 +155,21 @@ export async function resetPassword(req, res) {
   console.log("Received reset request:", email, otp);
 
   try {
-    // Check if the email exists in the database
-    const user = await userSchema.findOne({ email: email });
+       const user = await userSchema.findOne({ email: email });
     if (!user) {
       return res.status(400).send({ msg: "User not found" });
     }
-
-    // Verify if the OTP matches
     if (user.otp !== otp) {
       return res.status(400).send({ msg: "Invalid OTP" });
     }
-
-    // Hash the new password before saving
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-
-    // Update the user's password and clear the OTP
-    user.password = hashedPassword;
-    user.otp = null; // Clear the OTP once it's used for security reasons
+        user.password = hashedPassword;
+    user.otp = null; 
     await user.save();
-
-    // Respond with success if the password is reset
     res.status(200).send({ msg: "Password reset successfully" });
   } catch (error) {
     console.error("Error in resetPassword function:", error.message || error);
-
-    // Handle any other errors
     res.status(500).send({ msg: "An error occurred while resetting your password" });
   }
 }
@@ -208,27 +179,22 @@ export async function resetPassword(req, res) {
 
 export async function Home(req, res) {
   try {
-    // Extract the token from the request headers
-    const token = req.headers.authorization?.split(" ")[1];
+        const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
       return res.status(401).json({ msg: 'Unauthorized access. No token provided.' });
     }
-
-    // Decode the token to get the userId, email, and role
-    const decoded = pkg.verify(token, process.env.JWT_KEY);
+      const decoded = pkg.verify(token, process.env.JWT_KEY);
     const { userId, email, role } = decoded;
 
-    // Fetch user from database excluding password
     const user = await userSchema.findOne({ _id: userId }, { password: 0 });
 
     if (!user) {
       return res.status(404).json({ msg: 'User not found' });
     }
 
-    const { username, photo } = user; // Assuming your schema has username and photo fields
+    const { username, photo } = user;
 
-    // Return user data along with the token
     return res.status(200).json({
       msg: 'User profile found',
       user: {
@@ -236,7 +202,7 @@ export async function Home(req, res) {
         username,
         photo,
         role,
-        token // Return the existing token
+        token
       }
     });
   } catch (error) {

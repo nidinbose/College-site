@@ -5,8 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Addss = () => {
   const navigate = useNavigate();
 
-  // Function to handle navigation
-  const handleNavigate = (path) => {
+    const handleNavigate = (path) => {
     navigate(path);
   };
 

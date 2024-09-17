@@ -12,10 +12,10 @@ function SSignup() {
     password: '',
     cpassword: '',
     role: 'student',
-    photo: '',  // Add photo field
+    photo: '',  
   });
 
-  const [photoPreview, setPhotoPreview] = useState(null); // State to store photo preview
+  const [photoPreview, setPhotoPreview] = useState(null); 
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {
@@ -30,19 +30,18 @@ function SSignup() {
     }));
   };
 
-  // Function to handle photo upload and convert to base64
-  const handlePhotoUpload = (e) => {
+    const handlePhotoUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setFormData((prevData) => ({
           ...prevData,
-          photo: reader.result, // Update formData with base64 photo
+          photo: reader.result, 
         }));
-        setPhotoPreview(reader.result); // Set photo preview
+        setPhotoPreview(reader.result);
       };
-      reader.readAsDataURL(file); // Convert photo to base64
+      reader.readAsDataURL(file); //
     }
   };
 

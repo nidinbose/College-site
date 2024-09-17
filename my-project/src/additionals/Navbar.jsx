@@ -25,8 +25,8 @@ const Navbar = () => {
                     const response = await axios.get("http://localhost:3003/api/home", {
                         headers: { Authorization: `Bearer ${token}` }
                     });
-                    const { email, photo, role } = response.data.user;
-                    setUser({ email, photo, role });
+                    const { username, photo, role } = response.data.user;
+                    setUser({ username, photo, role });
                 } catch (error) {
                     console.error("Error fetching user data:", error);
                 }
@@ -72,7 +72,7 @@ const Navbar = () => {
               <div className='flex flex-col items-center space-y-4'>
     {user ? (
         <div className='flex flex-col items-center space-y-2'>
-            <h1 className="text-white font-semibold">{user.email}</h1>
+            <h1 className="text-white font-semibold">{user.username}</h1>
             <img src={user.photo || "/path/to/default-avatar.png"} alt="User Avatar" className="w-10 h-10 rounded-full object-cover" />
             <button onClick={handleLogout} className='px-4 py-2 bg-red-500 text-white rounded transition duration-300 hover:bg-red-600'>
                 Logout

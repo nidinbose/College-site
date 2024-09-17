@@ -10,7 +10,7 @@ import StaffView from "../Components/StaffView";
 const Admin = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState({ email: "", image: "", role: "" });
+  const [user, setUser] = useState({ username: "", image: "", role: "" });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,22 +23,21 @@ const Admin = () => {
       axios
         .get("http://localhost:3003/api/home", {
           headers: {
-            Authorization: `Bearer ${token}` // Pass the token in the Authorization header
+            Authorization: `Bearer ${token}`
           }
         })
         .then((response) => {
-          const { email, photo, role, token } = response.data.user;
+          const { username, photo, role, token } = response.data.user;
 
-          // Store user data and token in localStorage
-          localStorage.setItem("token", token);
-          localStorage.setItem("user", JSON.stringify({ email, photo, role }));
+                localStorage.setItem("token", token);
+          localStorage.setItem("user", JSON.stringify({ username, photo, role }));
 
           // Check if the user is an admin
           if (role !== "admin") {
             alert("Unauthorized access. Admins only.");
             navigate("/login");
           } else {
-            setUser({ email, image: photo, role });
+            setUser({ username, image: photo, role });
             setLoading(false);
           }
         })
@@ -73,7 +72,7 @@ const Admin = () => {
           <ul className="space-y-4">
           <div className=" items-center space-y-4 text-center">
             <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-12" />
-            <span className="text-md font-bold mr-9 text-[#1B2C39]">{user.email}</span>
+            <span className="text-md font-bold mr-9 text-[#1B2C39]">{user.username}</span>
 
            
           </div>
@@ -113,7 +112,7 @@ const Admin = () => {
 
           <div className=" items-center space-x-4 text-center">
             <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-[4vw]" />
-            <span className="text-sm font-bold text-[#A0CE4E] hover:text-white">{user.email}</span>
+            <span className="text-sm font-bold text-[#A0CE4E] hover:text-white">{user.username}</span>
 
             <button onClick={handleLogout} className="py-2 px-4 bg-[#A0CE4E] text-white rounded hover:bg-red-500">
               Logout

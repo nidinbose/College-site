@@ -12,7 +12,7 @@ import Corses from "../Components/Courses";
 const Staff = () => {
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [user, setUser] = useState({ email: "", image: "", role: "" });
+  const [user, setUser] = useState({ username: "", image: "", role: "" });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,14 +29,14 @@ const Staff = () => {
           },
         })
         .then((response) => {
-          const { email, photo, role } = response.data.user;
-          localStorage.setItem("user", JSON.stringify({ email, photo, role }));
+          const { username, photo, role } = response.data.user;
+          localStorage.setItem("user", JSON.stringify({ username, photo, role }));
 
           if (role !== "staff") {
             alert("Unauthorized access. Staff only.");
             navigate("/login");
           } else {
-            setUser({ email, image: photo, role });
+            setUser({ username, image: photo, role });
             setLoading(false);
           }
         })
@@ -175,7 +175,7 @@ const Staff = () => {
               alt="User Avatar"
               className="w-12 h-12 rounded-full mr-4"
             />
-            <h1 className="font-bold text-lg">{user.email}</h1>
+            <h1 className="font-bold text-lg">{user.username}</h1>
           </div>
           <button onClick={toggleMobileMenu} className="md:hidden text-white">
             <svg

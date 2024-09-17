@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
-const AddMark = ({ studentid }) => {  // Ensure studentid is passed as a prop or fetched accordingly
+const AddMark = ({ studentid }) => { 
   const [formData, setFormData] = useState({
     semesters: [{ semester: '', subjects: [{ subjectName: '', score: '' }] }]
   });
 
-  // Handle change in semester name
   const handleSemesterChange = (semesterIndex, e) => {
     const { name, value } = e.target;
     setFormData((prevState) => {
@@ -20,8 +19,7 @@ const AddMark = ({ studentid }) => {  // Ensure studentid is passed as a prop or
     });
   };
 
-  // Handle change in subject name or score
-  const handleSubjectChange = (semesterIndex, subjectIndex, e) => {
+   const handleSubjectChange = (semesterIndex, subjectIndex, e) => {
     const { name, value } = e.target;
     setFormData((prevState) => {
       const updatedSemesters = [...prevState.semesters];
@@ -35,7 +33,6 @@ const AddMark = ({ studentid }) => {  // Ensure studentid is passed as a prop or
     });
   };
 
-  // Add a new subject to the current semester
   const addSubject = (semesterIndex) => {
     setFormData((prevState) => {
       const updatedSemesters = [...prevState.semesters];
@@ -44,7 +41,6 @@ const AddMark = ({ studentid }) => {  // Ensure studentid is passed as a prop or
     });
   };
 
-  // Add a new semester
   const addSemester = () => {
     setFormData((prevState) => ({
       ...prevState,
@@ -52,14 +48,13 @@ const AddMark = ({ studentid }) => {  // Ensure studentid is passed as a prop or
     }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Post formData to the backend API
+   
       const response = await axios.post(`http://localhost:3003/api/updatestudent/${studentid}`, formData);
       console.log('Response:', response.data);
-      // Reset the form after submission
+      
       setFormData({
         semesters: [{ semester: '', subjects: [{ subjectName: '', score: '' }] }]
       });
@@ -80,7 +75,7 @@ const AddMark = ({ studentid }) => {  // Ensure studentid is passed as a prop or
           Add Student Marks
         </h1>
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Semester-wise subjects and scores */}
+         
           {formData.semesters.map((sem, semesterIndex) => (
             <div key={semesterIndex} className="border p-4 rounded-lg mb-4">
               <label className="text-gray-700">Semester</label>

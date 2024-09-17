@@ -22,7 +22,7 @@ import EditStaff from './additionals/Staff/EditStaff';
 import ForgotEmail from './Login.Signup/ForgotPassword/ForgotEmail';
 import ViewStudent1 from './Components/Students/ViewsStudentp';
 import ViewStudentt from './Components/Students/ViewsStudentp';
-import OtpVerification from './Login.Signup/Otp';
+
 import Feedback from './Components/Feedback';
 import Gallery from './Components/Gallary';
 import Corses from './Components/Courses';
@@ -64,8 +64,7 @@ const App=()=>{
       <Route path='/views/:id' Component={ViewStaff}/>
       <Route path='/editstudent/:id' Component={StudentsEdit}/>
       <Route path='/editstaff/:id' Component={EditStaff}/>
-      <Route path='/otp' Component={OtpVerification}/>
-      <Route path='/feedback' Component={Feedback}/>
+         <Route path='/feedback' Component={Feedback}/>
       <Route path='/gallary' Component={Gallery}/>
       <Route path='/courses' Component={Corses}/>
       <Route path='/addmark/:id' Component={AddMark}/>

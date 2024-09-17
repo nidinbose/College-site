@@ -74,7 +74,7 @@ const ViewStaff = () => {
 
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-200 mb-5"></div>
               
-              <div className="flex flex-col sm:flex-row justify-center sm:gap-6 gap-4 mt-4">
+              <div className="flex flex-col sm:flex-row justify-start sm:gap-6 gap-4 mt-4">
                 <a
                     href="#_"
                     className="rounded-md px-4 py-2 sm:px-3.5 sm:py-2 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
