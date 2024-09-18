@@ -31,6 +31,7 @@ import ResetPassword from './Login.Signup/ForgotPassword/Passforget';
 import ViewMark from './additionals/Staff/ViewMark';
 import AddMark from './additionals/Students/AddMark';
 import Navbar from './additionals/Navbar';
+import Admissions from './Components/Admissions';
 
 
 
@@ -70,6 +71,7 @@ const App=()=>{
       <Route path='/gallary' Component={Gallery}/>
       <Route path='/courses' Component={Corses}/>
       <Route path='/addmark/:id' Component={AddMark}/>
+      <Route path='/admissions' Component={Admissions}/>
 
 
      

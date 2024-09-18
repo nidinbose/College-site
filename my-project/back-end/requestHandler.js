@@ -399,3 +399,40 @@ export async function getMarkEdit(req,res) {
   }
 }
 
+
+
+// Count
+
+
+
+export async function studentsCount(req, res) {
+  try {
+    const studentCount = await studentsSchema.countDocuments({});
+      res.status(200).json({ count: studentCount });
+  } catch (error) {
+    console.error('Error fetching student count:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+
+export async function staffCount(req, res) {
+  try {
+    const staffCount = await staffSchema.countDocuments({});
+      res.status(200).json({ count: staffCount });
+  } catch (error) {
+    console.error('Error fetching student count:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+
+export async function userCount(req, res) {
+  try {
+    const userCount = await userSchema.countDocuments({});
+      res.status(200).json({ count: userCount });
+  } catch (error) {
+    console.error('Error fetching student count:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+}
+

@@ -15,6 +15,7 @@ const Feedback = () => {
 
   return (
     <div className="container mx-auto p-6 flex justify-center items-center w-[70vw] xl:mb-[8vw] xl:mt-[8vw]">
+      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Text Section */}
         <motion.div

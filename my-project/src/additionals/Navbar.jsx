@@ -9,7 +9,7 @@ const nav = [
     { name: "About", path: '/feedback' },
     { name: "Our Campus", path: '/gallary' },
     { name: "Courses", path: '/courses' },
-    { name: "Admissions", path: '/pricing' },
+    { name: "Admissions", path: '/admissions' },
     // { name: "Login", path: '/login' },
 ];
 
