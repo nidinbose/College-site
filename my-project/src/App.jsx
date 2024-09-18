@@ -30,12 +30,14 @@ import AddMarks from './Components/Marks';
 import ResetPassword from './Login.Signup/ForgotPassword/Passforget';
 import ViewMark from './additionals/Staff/ViewMark';
 import AddMark from './additionals/Students/AddMark';
+import Navbar from './additionals/Navbar';
+
 
 
 const App=()=>{
     return(
       <BrowserRouter>
-      
+    {/* <Navbar/> */}
       <Routes>
 
 

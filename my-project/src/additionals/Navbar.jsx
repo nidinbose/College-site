@@ -7,7 +7,7 @@ import axios from 'axios';
 const nav = [
     { name: "Home", path: '/' },
     { name: "About", path: '/feedback' },
-    { name: "Our Campus", path: '/gallery' },
+    { name: "Our Campus", path: '/gallary' },
     { name: "Courses", path: '/courses' },
     { name: "Admissions", path: '/pricing' },
     // { name: "Login", path: '/login' },

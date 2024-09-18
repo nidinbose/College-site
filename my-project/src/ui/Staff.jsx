@@ -75,29 +75,35 @@ const Staff = () => {
       >
         {/* Logo */}
         <Link to="/staff" className="flex items-center mb-6">
-          <img src="/images/new-logo.png" alt="Logo" className="h-[60px]" />
+          <img src="/images/pl.png" alt="Logo" className="h-[80px] ml-12" />
         </Link>
 
         {/* Nav Links */}
-        <ul className="text-[#E0F2F1] space-y-4">
+        <ul className="text-[#E0F2F1] space-y-4 w-22 ">
           <li>
-            <Link to="/staff" className="block py-2 hover:bg-[#1B2C39] rounded">
+            <Link to="/" className="block py-2 hover:bg-[#A0CE4E] bg-white/10 text-center rounded ">
               Home
             </Link>
           </li>
           <li>
-            <a href="/about" className="block py-2 hover:bg-[#1B2C39] rounded">
+            <a href="/feedback" className="block py-2 hover:bg-[#A0CE4E] bg-white/10 text-center rounded ">
               About
             </a>
           </li>
           <li>
-            <a href="/courses" className="block py-2 hover:bg-[#1B2C39] rounded">
+            <a href="/courses" className="block py-2 hover:bg-[#A0CE4E] bg-white/10 text-center rounded ">
               Courses
             </a>
           </li>
           <li>
-            <a href="#" className="block py-2 hover:bg-[#1B2C39] rounded">
-              Contact
+            <a href="/vstudent" className="block py-2 hover:bg-[#A0CE4E] bg-white/10 text-center rounded ">
+              Students
+            </a>
+          </li>
+
+          <li>
+            <a href="/vstaff" className="block py-2 hover:bg-[#A0CE4E] bg-white/10 text-center rounded ">
+              Staff
             </a>
           </li>
         </ul>
@@ -105,7 +111,7 @@ const Staff = () => {
         {/* Logout Button */}
         <button
           onClick={handleLogout}
-          className="bg-[#A0CE4E] hover:bg-[#8BC34A] text-white py-2 px-4 w-full rounded"
+          className="bg-[#A0CE4E] hover:bg-red-500 text-white py-2 px-4 w-full rounded"
         >
           Logout
         </button>
@@ -132,7 +138,7 @@ const Staff = () => {
         </a>
         <button
           onClick={handleLogout}
-          className="bg-[#A0CE4E] hover:bg-[#8BC34A] py-2 px-4 rounded"
+          className="bg-[#A0CE4E] hover:bg-red-500 py-2 px-4 rounded"
         >
           Logout
         </button>
@@ -147,36 +153,15 @@ const Staff = () => {
           transition={{ duration: 0.5 }}
         >
           <ul className="text-[#E0F2F1] space-x-6 flex items-center">
-            <li>
-              <Link to="/staff" className="block py-2 hover:bg-[#1B2C39] rounded">
-                Home
-              </Link>
-            </li>
-            <li>
-              <a href="/about" className="block py-2 hover:bg-[#1B2C39] rounded">
-                About
-              </a>
-            </li>
-            <li>
-              <a href="/courses" className="block py-2 hover:bg-[#1B2C39] rounded">
-                Courses
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block py-2 hover:bg-[#1B2C39] rounded">
-                Contact
-              </a>
-            </li>
-          </ul>
-
-          <div className="flex items-center">
+            <h1 className="text-2xl font-semibold " >Welcome <span className="text-[#A0CE4E]">{user.username}...</span></h1>
             <img
               src={user.image || "/path/to/default-avatar.png"}
               alt="User Avatar"
               className="w-12 h-12 rounded-full mr-4"
             />
-            <h1 className="font-bold text-lg">{user.username}</h1>
-          </div>
+          </ul>
+
+       
           <button onClick={toggleMobileMenu} className="md:hidden text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
