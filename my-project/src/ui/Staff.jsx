@@ -127,14 +127,14 @@ const Staff = () => {
         <Link to="/staff" onClick={toggleMobileMenu} className="text-xl">
           Home
         </Link>
-        <a href="/about" onClick={toggleMobileMenu} className="text-xl">
+        <a href="/feedback" onClick={toggleMobileMenu} className="text-xl">
           About
         </a>
         <a href="/courses" onClick={toggleMobileMenu} className="text-xl">
           Courses
         </a>
         <a href="#" onClick={toggleMobileMenu} className="text-xl">
-          Contact
+          Contac
         </a>
         <button
           onClick={handleLogout}

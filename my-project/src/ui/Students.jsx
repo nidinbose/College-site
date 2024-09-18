@@ -70,21 +70,21 @@ const Students = () => {
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="bg-[#1B2C39] p-4 text-black flex justify-between items-center w-full fixed top-0 z-50 shadow-md h-[10vh] font-semibold"
+                className="bg-[#1B2C39] p-4 text-black flex justify-between items-center w-full fixed top-0 z-50 shadow-md h-[12vh] font-semibold"
             >
                 {/* Logo */}
                 <img src="/images/pl.png" alt="Logo" className="h-[50px] md:h-[70px] cursor-pointer" />
 
                 {/* Navbar Links */}
                 <div className="hidden md:flex space-x-14 items-center text-[#A0CE4E] ml-[12vw]">
-                    <Link to="/students" className="hover:text-gray-400 transition-colors duration-200">
+                    <Link to="/" className="hover:text-gray-400 transition-colors duration-200">
                         Home
                     </Link>
-                    <a href="#" className="hover:text-gray-400 transition-colors duration-200">
+                    <a href="/feedback" className="hover:text-gray-400 transition-colors duration-200">
                         About
                     </a>
-                    <a href="#" className="hover:text-gray-400 transition-colors duration-200">
-                        Services
+                    <a href="/courses" className="hover:text-gray-400 transition-colors duration-200">
+                        Courses
                     </a>
                     <a href="#" className="hover:text-gray-400 transition-colors duration-200">
                         Contact
@@ -95,13 +95,13 @@ const Students = () => {
                     
                 </div>
                 <div className="flex items-center block space-x-4  bg-transparent rounded shadow-md">
-                    <img
+                    <h1 className="flex flex-col"><img
                         src={user.image || "/default-avatar.png"} // Use a default image if none is provided
                         alt="User Avatar"
-                        className="w-16 h-16 rounded-full object-cover"
+                        className="w-16 h-16 rounded-full object-cover ml-12"
                     />
                    
-                        <p className="text-lg font-semibold text-[#A0CE4E]">{user.username}</p>
+                        <p className="text-md font-semibold text-[#A0CE4E] text-center ">{user.username}</p></h1>
                         <button
                         onClick={handleLogout}
                         className="bg-[#A0CE4E] hover:bg-red-700 transition-colors duration-200 text-white font-bold py-2 px-4 rounded"
