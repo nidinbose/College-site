@@ -21,40 +21,43 @@ const Corses = () => {
   };
 
   return (
-    <section className="w-full bg-white py-10">
-      <div className="w-full max-w-full mx-auto relative">
-        <h1 className='text-4xl font-bold mb-12 text-center'>
-          Preferred <span className='text-[#A0CE4E]'>Courses</span>
+    <section 
+      className="w-full bg-cover bg-center py-10" 
+      style={{ backgroundImage: `url('https://img.freepik.com/free-vector/gradient-colorful-abstract-background-modern-design_677411-1552.jpg')` }}
+    >
+      <div className="w-full max-w-full mx-auto relative px-4">
+        <h1 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">
+          Preferred <span className="text-[#A0CE4E]">Courses</span>
         </h1>
 
         {/* Scroll buttons */}
         <button 
           onClick={scrollLeft} 
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white font-bold text-black p-2 rounded-full hover:bg-blue-700"
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white font-bold text-black p-2 rounded-full hover:bg-blue-700 z-10"
         >
           &lt;
         </button>
         <button 
           onClick={scrollRight} 
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-black font-bold p-2 rounded-full hover:bg-blue-700"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white text-black font-bold p-2 rounded-full hover:bg-blue-700 z-10"
         >
           &gt;
         </button>
 
         <div 
           ref={carouselRef} 
-          className="flex space-x-14 overflow-x-scroll overflow-y-hidden snap-x snap-mandatory touch-pan-x scrollbar-hide xl:ml-[10vw]"
+          className="flex space-x-6 md:space-x-8 lg:space-x-10 overflow-x-scroll overflow-y-hidden snap-x snap-mandatory touch-pan-x scrollbar-hide"
         >
           {cards.map(card => (
             <motion.div 
               key={card.id} 
-              className="min-w-[250px] md:min-w-[300px] xl:w-[200px] xl:h-[58] bg-white/30 rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow duration-300 h-auto cursor-pointer"
+              className="snap-start flex-shrink-0 min-w-[280px] sm:min-w-[320px] md:min-w-[380px] lg:min-w-[450px] bg-white/30 p-4 rounded-lg hover:shadow-lg transition-shadow duration-300 cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >
               <img 
                 src={card.image} 
                 alt={card.title} 
-                className="w-full h-[35vh] object-cover rounded-t-lg"
+                className="w-full h-[200px] sm:h-[220px] md:h-[250px] lg:h-[300px] object-cover rounded-lg"
               />
               <h2 className="text-lg font-bold mt-4 mb-2 text-[#A0CE4E]">{card.title}</h2>
               <p className="text-black/80 text-sm mb-2">{card.content}</p>
@@ -68,3 +71,4 @@ const Corses = () => {
 }
 
 export default Corses;
+

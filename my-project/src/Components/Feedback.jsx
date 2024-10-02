@@ -23,11 +23,11 @@ const Feedback = () => {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className='text-3xl mb-4'>
+          <h1 className='text-3xl mb-4 font-semibold'>
             WE AIM TO EDUCATE AND INSPIRE - <br />
             Cambridge College
           </h1>
-          <p className="text-gray-700 text-xl mb-4">
+          <p className="text-gray-700 text-lg mb-4 ">
             {text.split('. ').slice(0, 7).join('. ')}.
           </p>
           <motion.button
