@@ -10,3 +10,4 @@ const marksSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.Mark || mongoose.model('Mark', marksSchema);
+  

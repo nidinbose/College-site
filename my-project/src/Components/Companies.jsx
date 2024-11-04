@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 
 const Companies = () => {
   return (
-    <section className='w-full bg-white py-[50px] flex justify-center items-center p-4 overflow-hidden'>
+    <section className='w-full bg-white py-[50px] flex justify-center items-center p-4 overflow-hidden'
+    >
       <motion.div 
         className='md:max-w-[1100px] m-auto max-w-[400px]'
         initial={{ opacity: 0, y: 50 }}

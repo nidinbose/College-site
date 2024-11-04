@@ -6,6 +6,10 @@ import Categories from "../Components/Category";
 import Addss from "../Components/Admin/AddSection";
 import StudentView from "../Components/StudentView";
 import StaffView from "../Components/StaffView";
+import { FaHome } from "react-icons/fa";
+import { PiStudentFill } from "react-icons/pi";
+import { HiMiniUserGroup } from "react-icons/hi2";
+import { GiBookmarklet } from "react-icons/gi";
 
 const Admin = () => {
   const navigate = useNavigate();
@@ -66,7 +70,7 @@ const Admin = () => {
 
   return (
     <div className="flex min-h-screen bg-white">
-      <aside className="hidden md:flex md:w-64 bg-white shadow-lg">
+      <aside className="hidden md:flex md:w-64 bg-[] shadow-lg">
         <div className="p-6">
           <h1 className="text-2xl font-bold mb-6 text-[#1B2C39]">Admin Dashboard</h1>
           <ul className="space-y-4">
@@ -77,23 +81,23 @@ const Admin = () => {
            
           </div>
             <li>
-              <Link to="/" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-                Home
+              <Link to="/" className="flex text-center gap-4 font-semibold py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <FaHome className="w-7 h-7"/>Home
               </Link>
             </li>
             <li>
-              <Link to="/vstudent" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-                Students
+              <Link to="/vstudent" className="flex text-center font-semibold gap-4 py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <PiStudentFill className="w-7 h-7"/> Students
               </Link>
             </li>
             <li>
-              <Link to="/vstaff" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-                Staff
+              <Link to="/vstaff" className="flex text-center font-semibold gap-4 py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <HiMiniUserGroup  className="w-7 h-7" />  Staff
               </Link>
             </li>
             <li>
-              <Link to="/courses" className="block py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-                Courses
+              <Link to="/courses" className="flex text-center font-semibold gap-4 py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
+              <GiBookmarklet className="w-7 h-7" />  Courses
               </Link>
             </li>
             <li>
@@ -107,7 +111,7 @@ const Admin = () => {
 
       <div className="flex-1 flex flex-col overflow-hidden">
         <nav className="bg-[#1B2C39] shadow-md p-4 flex justify-between items-center">
-         <Link to={`/`}> <div className="text-xl font-bold text-[#A0CE4E]">Admin Dashboard</div></Link>
+         <Link to={`/`}> <div className="text-xl font-bold text-[#A0CE4E]"></div></Link>
           
 
           <div className=" items-center space-x-4 text-center">

@@ -25,9 +25,9 @@ const Feedback = () => {
         >
           <h1 className='text-3xl mb-4 font-semibold'>
             WE AIM TO EDUCATE AND INSPIRE - <br />
-            Cambridge College
+            <span className='text-[#A0CE4E] font-bold'>Cambridge College.....</span>
           </h1>
-          <p className="text-gray-700 text-lg mb-4 ">
+          <p className="text-gray-600 text-lg mb-4 ">
             {text.split('. ').slice(0, 7).join('. ')}.
           </p>
           <motion.button
