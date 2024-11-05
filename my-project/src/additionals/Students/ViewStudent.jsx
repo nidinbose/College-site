@@ -57,25 +57,25 @@ const ViewStudent = () => {
   }
 
   return (
-    <div className="min-h-screen pb-[20vh] lg:pb-[40vh] bg-[#002244] "
+    <div className="min-h-screen pb-[20vh] lg:pb-[40vh] bg-[#1B2C39]  "
     >
-      <h1 className="text-center text-3xl sm:text-4xl font-bold mt-6 text-[#A0CE4E] ">Student's Profile</h1>
-      <section className="text-gray-700 body-font overflow-hidden bg-[#002244]">
+      <h1 className="text-center text-3xl sm:text-4xl font-bold text-[#A0CE4E] ">Student's Profile</h1>
+      <section className="text-gray-700 body-font overflow-hidden bg-[#1B2C39]">
         <div className="container px-4 py-8 md:py-12 lg:py-16 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10">
             
             {/* Student Image */}
-            <div className="bg-[#A0CE4E] p-6 sm:p-8 md:p-10 lg:p-12">
+            <div className="hover:bg-[#A0CE4E]  border-[#A0CE4E] p-6 sm:p-8 md:p-10 lg:p-12">
   <div className="grid grid-cols-1 gap-4 bg-transparent space-y-7">
     <div className="bg-transparent h-80 w-full flex justify-center items-center  p-4 sm:p-6 md:p-8 lg:p-10">
       <img
         alt="Student Profile"
-        className="object-cover object-center  h-48 w-48 sm:h-40 sm:w-40 md:h-48 md:w-48 lg:h-56 lg:w-56 xl:w-80 xl:h-80"
+        className="object-cover object-center h-96 w-auto"
         src={data.photo}
       />
     </div>
     <div className="h-full w-full flex justify-center items-center p-4">
-      <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white text-center bg-[#002244] w-64 h-12 ">{data.name}</h1>
+      <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white text-center bg-[#A0CE4E] hover:bg-[#002244] w-64 h-12 rounded-lg ">{data.name}</h1>
     </div>
   </div>
 </div>
@@ -117,7 +117,7 @@ const ViewStudent = () => {
             </div>
 
             {/* Mark List Section */}
-            <div className="bg-white rounded shadow-lg p-6 lg:col-span-2">
+            <div className="bg-white/90 rounded shadow-lg p-6 lg:col-span-2">
               <h2 className="text-lg font-semibold text-gray-700 mb-4">Mark List</h2>
               <p className="leading-relaxed bg-blue-50 p-3 rounded-md">
                 {/* Insert Mark List Details Here */}
@@ -127,23 +127,23 @@ const ViewStudent = () => {
 
             {/* Action Buttons */}
             {userRole !== 'student' && (
-              <div className="flex justify-center items-center gap-6 mt-6 lg:col-span-2">
+              <div className="flex justify-end items-end gap-6 mt-6 lg:col-span-2">
                 <a
                   href="#_"
-                  className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
+                  className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#A0CE4E] text-indigo-600"
                   onClick={handleEdit}
                 >
-                  <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
-                  <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Edit</span>
+                  <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-[#A0CE4E] top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+                  <span className="relative text-[#A0CE4E] transition duration-300 group-hover:text-white ease">Edit</span>
                 </a>
 
                 <a
                   href="#_"
-                  className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-indigo-600 text-indigo-600"
+                  className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#A0CE4E] text-indigo-600"
                   onClick={handleDelete}
                 >
-                  <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-indigo-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
-                  <span className="relative text-indigo-600 transition duration-300 group-hover:text-white ease">Delete</span>
+                  <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-red-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+                  <span className="relative text-[#A0CE4E] transition duration-300 group-hover:text-white ease">Delete</span>
                 </a>
               </div>
             )}
