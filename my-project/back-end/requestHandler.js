@@ -373,39 +373,51 @@ export async function updateStaff(req,res) {
 
 export async function addMarks(req, res) {
   try {
-  
-    const { semester, studentid, subject } = req.body;
+      const { semester, studentid, subject } = req.body;
     
-
     if (!subject || !subject.name || !subject.mark) {
       return res.status(400).json({ message: 'Subject name and mark are required.' });
     }
-
-
     let markRecord = await Mark.findOne({ semester, studentid });
 
     if (markRecord) {
           markRecord.subjects.push(subject);
     } else {
-      // If no record exists, create a new one with the provided data
-      markRecord = new Mark({
+         markRecord = new Mark({
         semester,
         studentid,
         subjects: [subject],
       });
     }
-
-    // Save the updated or new document to the database
     await markRecord.save();
-
-    // Send a success response
     res.status(201).json({ message: 'Subject added successfully', data: markRecord });
   } catch (error) {
-    // Handle errors
     console.error('Error adding subject:', error);
     res.status(500).json({ message: 'An error occurred while adding the subject', error: error.message });
   }
 }
+
+
+export async function getMarkEdit(req, res) {
+  const { studentid } = req.params; // Get studentid from the request parameters
+
+  try {
+    // Query the database for marks that match the provided studentid
+    const data = await Mark.find({ studentid });
+
+    // Check if data is empty
+    if (data.length === 0) {
+      return res.status(404).send("No marks found for the given student ID.");
+    }
+
+    // Send the marks data as a response
+    res.status(200).send(data);
+  } catch (error) {
+    console.error("Error fetching marks for student:", error);
+    return res.status(500).send("Error occurred while getting marks.");
+  }
+}
+
 
 
 

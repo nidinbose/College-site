@@ -75,18 +75,19 @@ function AddMarksForm() {
   };
 
   return (
-    <div className='bg-[#1B2C39] h-screen p-12 '>
-    <div className="p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto border border-gray-200 ">
-      <h2 className="text-3xl font-semibold mb-6 text-center text-blue-600">Add Marks</h2>
+    <div className="bg-[#1B2C39] min-h-screen p-4 sm:p-8 md:p-12 pb-[20vh] lg:pb-[45vh]">
+      <h1 className='text-center mb-12 text-[#A0CE4E] text-4xl font-semibold'>Students Acadamics</h1>
+    <div className="p-6 bg-white/10 rounded-lg shadow-lg max-w-full sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl mx-auto border border-[#A0CE4E]">
+      <h2 className="text-3xl font-semibold mb-6 text-center text-[#A0CE4E]">Enter Marks</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="semester" className="block text-gray-700 font-medium">Semester</label>
+          <label htmlFor="semester" className="block text-[#A0CE4E] font-medium">Semester</label>
           <select
             id="semester"
             name="semester"
             value={formData.semester}
             onChange={handleChange}
-            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-[#A0CE4E] focus:ring-2 focus:ring-[#A0CE4E]"
             required
           >
             <option value="">Select Semester</option>
@@ -95,41 +96,41 @@ function AddMarksForm() {
             ))}
           </select>
         </div>
-
+  
         <div className="mb-4">
-          <label htmlFor="studentid" className="block text-gray-700 font-medium">Student ID</label>
+          <label htmlFor="studentid" className="block text-[#A0CE4E] font-medium">Student ID</label>
           <input
             type="text"
             id="studentid"
             name="studentid"
             value={formData.studentid}
             onChange={handleChange}
-            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-[#A0CE4E] focus:ring-2 focus:ring-[#A0CE4E]"
             required
           />
         </div>
-
+  
         {formData.subjects.map((subject, index) => (
           <div key={index} className="mb-4">
-            <div className="flex justify-between">
-              <div className="w-3/4">
-                <label className="block text-gray-700 font-medium">{subject.name || 'Subject'}</label>
+            <div className="flex flex-col sm:flex-row justify-between gap-4 sm:gap-8">
+              <div className="flex-1">
+                <label className="block text-[#A0CE4E] font-medium">{subject.name || 'Subject'}</label>
                 <input
                   type="text"
                   value={subject.name}
                   onChange={(e) => handleMarkChange(index, e.target.value)}
                   placeholder="Enter subject name"
-                  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-[#A0CE4E] focus:ring-2 focus:ring-[#A0CE4E]"
                 />
               </div>
-              <div className="w-1/4 ml-2">
+              <div className="flex-1">
                 <label className="block text-gray-700 font-medium">Mark</label>
                 <input
                   type="number"
                   value={subject.mark}
                   onChange={(e) => handleMarkChange(index, e.target.value)}
                   placeholder="Enter mark"
-                  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-[#A0CE4E] focus:ring-2 focus:ring-[#A0CE4E]"
                 />
               </div>
             </div>
@@ -142,28 +143,31 @@ function AddMarksForm() {
             </button>
           </div>
         ))}
-
-        <button
+  
+  <div className='grid grid-cols-1 sm:grid-cols-2 gap-12 '>
+  <button
           type="button"
           onClick={addSubject}
-          className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-md shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+          className="w-full py-3 px-4 bg-[#A0CE4E] text-white font-semibold rounded-md shadow-lg hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-[#A0CE4E] focus:ring-opacity-50 mt-4"
         >
           Add Subject
         </button>
-
-        <button
+  
+           <button
           type="submit"
-          className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mt-4"
+          className="w-full py-3 px-4 bg-[#A0CE4E] text-white font-semibold rounded-md shadow-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-[#A0CE4E] focus:ring-opacity-50 mt-4"
         >
           Submit
         </button>
+  </div>
       </form>
 
       {responseMessage && (
-        <div className="mt-6 text-center text-green-600 font-semibold">{responseMessage}</div>
+        <div className="mt-6 text-center text-[#A0CE4E] font-semibold">{responseMessage}</div>
       )}
     </div>
-    </div>
+  </div>
+  
   );
 }
 
