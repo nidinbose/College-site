@@ -5,7 +5,7 @@ import pkg from 'jsonwebtoken'
 import nodemailer from 'nodemailer'
 import studentsSchema from './models/students.model.js'
 import staffSchema from './models/staff.model.js'
-import marksSchema from './models/marks.model.js'
+import Mark from './models/marks.model.js'
 
 
 
@@ -369,35 +369,44 @@ export async function updateStaff(req,res) {
 
 // marks
 
-export async function addMarks(req,res){
-  try{
-      console.log(req.body);
-      const {...FormData} = req.body;
 
-      await marksSchema
-      .create({...FormData})
-          .then(()=>{
-              res.status(200).send({msg:"sucessfully created"})
-          })
-          .catch((error)=>{
-              res.status(400).send({error:error})
-          });
-  }catch(error){
-      res.status(500).send(error)
-  }
-}
 
-export async function getMarkEdit(req,res) {
+export async function addMarks(req, res) {
   try {
-      const {id}=req.params;
-      console.log(id);
-      const data = await marksSchema.findOne({_id:id})
-      console.log(data);
-      res.status(200).send(data)
+  
+    const { semester, studentid, subject } = req.body;
+    
+
+    if (!subject || !subject.name || !subject.mark) {
+      return res.status(400).json({ message: 'Subject name and mark are required.' });
+    }
+
+
+    let markRecord = await Mark.findOne({ semester, studentid });
+
+    if (markRecord) {
+          markRecord.subjects.push(subject);
+    } else {
+      // If no record exists, create a new one with the provided data
+      markRecord = new Mark({
+        semester,
+        studentid,
+        subjects: [subject],
+      });
+    }
+
+    // Save the updated or new document to the database
+    await markRecord.save();
+
+    // Send a success response
+    res.status(201).json({ message: 'Subject added successfully', data: markRecord });
   } catch (error) {
-      res.status(400).send(error)
+    // Handle errors
+    console.error('Error adding subject:', error);
+    res.status(500).json({ message: 'An error occurred while adding the subject', error: error.message });
   }
 }
+
 
 
 

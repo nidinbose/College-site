@@ -32,6 +32,7 @@ import ViewMark from './additionals/Staff/ViewMark';
 import AddMark from './additionals/Students/AddMark';
 import Navbar from './additionals/Navbar';
 import Admissions from './Components/Admissions';
+import AddMarksForm from './Components/Marks';
 
 
 
@@ -58,7 +59,7 @@ const App=()=>{
       <Route path='/addadmin' Component={AddAdmin}/>
       <Route path='/vstudent' Component={StudentView}/>
       <Route path='/vstaff' Component={StaffView}/>
-      <Route path='/addmarks' Component={AddMarks}/>
+      <Route path='/addmarks' Component={AddMarksForm}/>
       <Route path='/getmarks/:id' Component={ViewMark}/>
 
       <Route path='/editstudents/:id' Component={EditStudents}/>
@@ -70,7 +71,7 @@ const App=()=>{
          <Route path='/feedback' Component={Feedback}/>
       <Route path='/gallary' Component={Gallery}/>
       <Route path='/courses' Component={Corses}/>
-      <Route path='/addmark/:id' Component={AddMark}/>
+      {/* <Route path='/addmark' Component={AddMark}/> */}
       <Route path='/admissions' Component={Admissions}/>
 
 

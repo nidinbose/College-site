@@ -1,147 +1,157 @@
+// src/components/AddMarksForm.js
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import axios from 'axios';
 
-const AddMark = ({ studentid }) => { 
+function AddMarksForm() {
+  // State to hold form data
   const [formData, setFormData] = useState({
-    semesters: [{ semester: '', subjects: [{ subjectName: '', score: '' }] }]
+    semester: '',
+    studentid: '',
+    subject: {
+      name: '',
+      mark: '',
+    },
   });
 
-  const handleSemesterChange = (semesterIndex, e) => {
+  // State to hold response messages
+  const [responseMessage, setResponseMessage] = useState('');
+
+  // Define subjects based on semester
+  const subjectsBySemester = {
+    1: ['Math 101', 'English 101', 'Physics 101'],
+    2: ['Math 102', 'English 102', 'Chemistry 101'],
+    3: ['Calculus', 'Literature', 'Biology 101'],
+    4: ['Algebra', 'History 101', 'Physics 102'],
+    5: ['Statistics', 'Sociology', 'Computer Science 101'],
+    6: ['Geometry', 'Political Science', 'Biology 102'],
+    7: ['Advanced Calculus', 'Economics', 'Physics 201'],
+    8: ['Discrete Math', 'Philosophy', 'Chemistry 201'],
+    9: ['Linear Algebra', 'Anthropology', 'Physics 301'],
+    10: ['Differential Equations', 'Psychology', 'Biochemistry'],
+  };
+
+  // Handle input changes
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => {
-      const updatedSemesters = [...prevState.semesters];
-      updatedSemesters[semesterIndex] = {
-        ...updatedSemesters[semesterIndex],
+
+    if (name === 'name' || name === 'mark') {
+      setFormData((prevData) => ({
+        ...prevData,
+        subject: {
+          ...prevData.subject,
+          [name]: name === 'mark' ? Number(value) : value,
+        },
+      }));
+    } else {
+      setFormData({
+        ...formData,
         [name]: value,
-      };
-      return { ...prevState, semesters: updatedSemesters };
-    });
+      });
+    }
   };
 
-   const handleSubjectChange = (semesterIndex, subjectIndex, e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => {
-      const updatedSemesters = [...prevState.semesters];
-      const updatedSubjects = [...updatedSemesters[semesterIndex].subjects];
-      updatedSubjects[subjectIndex] = {
-        ...updatedSubjects[subjectIndex],
-        [name]: value,
-      };
-      updatedSemesters[semesterIndex].subjects = updatedSubjects;
-      return { ...prevState, semesters: updatedSemesters };
-    });
-  };
-
-  const addSubject = (semesterIndex) => {
-    setFormData((prevState) => {
-      const updatedSemesters = [...prevState.semesters];
-      updatedSemesters[semesterIndex].subjects.push({ subjectName: '', score: '' });
-      return { ...prevState, semesters: updatedSemesters };
-    });
-  };
-
-  const addSemester = () => {
-    setFormData((prevState) => ({
-      ...prevState,
-      semesters: [...prevState.semesters, { semester: '', subjects: [{ subjectName: '', score: '' }] }],
-    }));
-  };
-
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-   
-      const response = await axios.post(`http://localhost:3003/api/updatestudent/${studentid}`, formData);
-      console.log('Response:', response.data);
-      
-      setFormData({
-        semesters: [{ semester: '', subjects: [{ subjectName: '', score: '' }] }]
-      });
+      const response = await axios.post('http://localhost:3003/api/addmarks', formData); // Ensure this path matches your API route
+      setResponseMessage(response.data.message);
     } catch (error) {
-      console.error('Error submitting the form:', error);
+      setResponseMessage(
+        error.response?.data?.message || 'Error adding subject and mark'
+      );
     }
   };
 
   return (
-    <div className="min-h-screen bg-white/80 flex items-center justify-center p-6">
-      <motion.div
-        className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-2xl font-bold text-center text-gray-700 mb-6">
-          Add Student Marks
-        </h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-         
-          {formData.semesters.map((sem, semesterIndex) => (
-            <div key={semesterIndex} className="border p-4 rounded-lg mb-4">
-              <label className="text-gray-700">Semester</label>
-              <input
-                type="text"
-                name="semester"
-                value={sem.semester}
-                onChange={(e) => handleSemesterChange(semesterIndex, e)}
-                className="mt-1 p-2 border rounded-lg w-full"
-                placeholder="Enter semester name"
-              />
-
-              {sem.subjects.map((subject, subjectIndex) => (
-                <div key={subjectIndex} className="mt-4">
-                  <label className="text-gray-700">Subject Name</label>
-                  <input
-                    type="text"
-                    name="subjectName"
-                    value={subject.subjectName}
-                    onChange={(e) => handleSubjectChange(semesterIndex, subjectIndex, e)}
-                    className="mt-1 p-2 border rounded-lg w-full"
-                    placeholder="Enter subject name"
-                  />
-
-                  <label className="text-gray-700 mt-2">Score</label>
-                  <input
-                    type="number"
-                    name="score"
-                    value={subject.score}
-                    onChange={(e) => handleSubjectChange(semesterIndex, subjectIndex, e)}
-                    className="mt-1 p-2 border rounded-lg w-full"
-                    placeholder="Enter score"
-                    min="0"
-                    max="100"
-                  />
-                </div>
-              ))}
-
-              <button
-                type="button"
-                onClick={() => addSubject(semesterIndex)}
-                className="mt-4 py-1 px-3 bg-indigo-600 text-white rounded-lg"
-              >
-                Add Subject
-              </button>
-            </div>
-          ))}
-
-          <button
-            type="button"
-            onClick={addSemester}
-            className="w-full py-2 px-4 bg-indigo-600 text-white rounded-lg"
+    <div className="p-6 bg-gray-100 rounded shadow-md max-w-md mx-auto">
+      <h2 className="text-2xl font-bold mb-4">Add Marks</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="semester" className="block text-gray-700">
+            Semester
+          </label>
+          <select
+            id="semester"
+            name="semester"
+            value={formData.semester}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border rounded"
+            required
           >
-            Add Semester
-          </button>
+            <option value="">Select Semester</option>
+            {Array.from({ length: 10 }, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                Semester {i + 1}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <button
-            type="submit"
-            className="w-full py-2 px-4 bg-indigo-600 text-white rounded-lg"
+        <div className="mb-4">
+          <label htmlFor="studentid" className="block text-gray-700">
+            Student ID
+          </label>
+          <input
+            type="text"
+            id="studentid"
+            name="studentid"
+            value={formData.studentid}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border rounded"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="name" className="block text-gray-700">
+            Subject Name
+          </label>
+          <select
+            id="name"
+            name="name"
+            value={formData.subject.name}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border rounded"
+            required
           >
-            Submit
-          </button>
-        </form>
-      </motion.div>
+            <option value="">Select Subject</option>
+            {subjectsBySemester[formData.semester]?.map((subject) => (
+              <option key={subject} value={subject}>
+                {subject}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="mark" className="block text-gray-700">
+            Mark
+          </label>
+          <input
+            type="number"
+            id="mark"
+            name="mark"
+            value={formData.subject.mark}
+            onChange={handleChange}
+            className="mt-1 block w-full p-2 border rounded"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Submit
+        </button>
+      </form>
+
+      {responseMessage && (
+        <div className="mt-4 text-green-600 font-semibold">{responseMessage}</div>
+      )}
     </div>
   );
-};
+}
 
-export default AddMark;
+export default AddMarksForm;

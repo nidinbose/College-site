@@ -1,110 +1,170 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { motion } from 'framer-motion';
 
-const AddMarks = () => {
-  const [marks, setMarks] = useState({
-    physics: '',
-    chemistry: '',
-    maths: '',
-    stats: '',
-    dbms: '',
-    pbd: '',
-    studentid: ''
+function AddMarksForm() {
+  const [formData, setFormData] = useState({
+    semester: '',
+    studentid: '',
+    subjects: [], 
   });
 
-  const [errors, setErrors] = useState({});
+  const [responseMessage, setResponseMessage] = useState('');
+
+   const subjectsBySemester = {
+    1: [{ name: 'History' }, { name: 'Biology' }, { name: 'Math 101' }],
+    2: [{ name: 'Math 102' }, { name: 'English 102' }, { name: 'Chemistry 101' }],
+    3: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology 101' }],
+   };
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setMarks({ ...marks, [name]: value });
+
+    if (name === 'semester') {
+         setFormData({
+        ...formData,
+        semester: value,
+        subjects: subjectsBySemester[value]?.map((subject) => ({
+          name: subject.name,
+          mark: '',
+        })) || [],
+      });
+    } else if (name === 'studentid') {
+      setFormData({ ...formData, studentid: value });
+    }
   };
 
-  const validate = () => {
-    const errors = {};
-    Object.keys(marks).forEach((key) => {
-      if (!marks[key]) {
-        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} is required`;
-      } else if (key !== 'studentid' && (isNaN(marks[key]) || marks[key] < 0 || marks[key] > 100)) {
-        errors[key] = `${key.charAt(0).toUpperCase() + key.slice(1)} must be a number between 0 and 100`;
-      }
+  const handleMarkChange = (index, value) => {
+    const updatedSubjects = [...formData.subjects];
+    updatedSubjects[index].mark = value;
+    setFormData({ ...formData, subjects: updatedSubjects });
+  };
+
+   const addSubject = () => {
+    setFormData({
+      ...formData,
+      subjects: [...formData.subjects, { name: '', mark: '' }],
     });
-    return errors;
   };
 
+  const removeSubject = (index) => {
+    const updatedSubjects = formData.subjects.filter((_, i) => i !== index);
+    setFormData({ ...formData, subjects: updatedSubjects });
+  };
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
 
-    if (Object.keys(validationErrors).length === 0) {
+    for (const subject of formData.subjects) {
+      const payload = {
+        semester: formData.semester,
+        studentid: formData.studentid,
+        subject: subject,
+      };
+
       try {
-        const response = await axios.post('http://localhost:3003/api/addmarks', marks);
-        console.log('Marks submitted successfully:', response.data);
-       
+        const response = await axios.post('http://localhost:3003/api/addmarks', payload);
+        setResponseMessage(response.data.message || 'Marks added successfully');
       } catch (error) {
-        console.error('Error submitting marks:', error);
-        
+        setResponseMessage(
+          error.response?.data?.message || 'Error adding marks'
+        );
       }
     }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-lg mx-auto p-8 bg-white shadow-md rounded-lg"
-    >
-      <h2 className="text-2xl font-bold mb-6 text-center">Add Student Marks</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="studentid" className="block text-sm font-medium text-gray-700">
-            Student ID
-          </label>
+    <div className='bg-[#1B2C39] h-screen p-12 '>
+    <div className="p-6 bg-white rounded-lg shadow-lg max-w-md mx-auto border border-gray-200 ">
+      <h2 className="text-3xl font-semibold mb-6 text-center text-blue-600">Add Marks</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="mb-4">
+          <label htmlFor="semester" className="block text-gray-700 font-medium">Semester</label>
+          <select
+            id="semester"
+            name="semester"
+            value={formData.semester}
+            onChange={handleChange}
+            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option value="">Select Semester</option>
+            {Object.keys(subjectsBySemester).map((semester) => (
+              <option key={semester} value={semester}>Semester {semester}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="studentid" className="block text-gray-700 font-medium">Student ID</label>
           <input
             type="text"
             id="studentid"
             name="studentid"
-            value={marks.studentid}
+            value={formData.studentid}
             onChange={handleChange}
-            className={`mt-1 block w-full p-2 border rounded-md ${
-              errors.studentid ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+            required
           />
-          {errors.studentid && <p className="text-red-500 text-sm mt-1">{errors.studentid}</p>}
         </div>
 
-        {['physics', 'chemistry', 'maths', 'stats', 'dbms', 'pbd'].map((subject) => (
-          <div key={subject}>
-            <label htmlFor={subject} className="block text-sm font-medium text-gray-700">
-              {subject.charAt(0).toUpperCase() + subject.slice(1)}
-            </label>
-            <input
-              type="text"
-              id={subject}
-              name={subject}
-              value={marks[subject]}
-              onChange={handleChange}
-              className={`mt-1 block w-full p-2 border rounded-md ${
-                errors[subject] ? 'border-red-500' : 'border-gray-300'
-              }`}
-            />
-            {errors[subject] && <p className="text-red-500 text-sm mt-1">{errors[subject]}</p>}
+        {formData.subjects.map((subject, index) => (
+          <div key={index} className="mb-4">
+            <div className="flex justify-between">
+              <div className="w-3/4">
+                <label className="block text-gray-700 font-medium">{subject.name || 'Subject'}</label>
+                <input
+                  type="text"
+                  value={subject.name}
+                  onChange={(e) => handleMarkChange(index, e.target.value)}
+                  placeholder="Enter subject name"
+                  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <div className="w-1/4 ml-2">
+                <label className="block text-gray-700 font-medium">Mark</label>
+                <input
+                  type="number"
+                  value={subject.mark}
+                  onChange={(e) => handleMarkChange(index, e.target.value)}
+                  placeholder="Enter mark"
+                  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => removeSubject(index)}
+              className="mt-2 text-red-600 hover:text-red-700"
+            >
+              Remove Subject
+            </button>
           </div>
         ))}
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-semibold"
+        <button
+          type="button"
+          onClick={addSubject}
+          className="w-full py-3 px-4 bg-green-600 text-white font-semibold rounded-md shadow-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
         >
-          Submit Marks
-        </motion.button>
-      </form>
-    </motion.div>
-  );
-};
+          Add Subject
+        </button>
 
-export default AddMarks;
+        <button
+          type="submit"
+          className="w-full py-3 px-4 bg-blue-600 text-white font-semibold rounded-md shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 mt-4"
+        >
+          Submit
+        </button>
+      </form>
+
+      {responseMessage && (
+        <div className="mt-6 text-center text-green-600 font-semibold">{responseMessage}</div>
+      )}
+    </div>
+    </div>
+  );
+}
+
+export default AddMarksForm;
