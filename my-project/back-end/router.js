@@ -31,7 +31,7 @@ router.route('/staffcount').get(request.staffCount)
 
 
 router.route('/addmarks').post(request.addMarks)
-router.route('/getmarkedit/id').get(request.getMarkEdit)
+router.route('/getmarkedit/:studentid').get(request.getMarkEdit)
 // router.route('/getmark/:id').get(request.getMarkEdit)
 
 

@@ -59,7 +59,7 @@ const App=()=>{
       <Route path='/addadmin' Component={AddAdmin}/>
       <Route path='/vstudent' Component={StudentView}/>
       <Route path='/vstaff' Component={StaffView}/>
-      <Route path='/addmarks/id' Component={AddMarksForm}/>
+      <Route path='/addmarks' Component={AddMarksForm}/>
       <Route path='/getmarks/:id' Component={ViewMark}/>
 
       <Route path='/editstudents/:id' Component={EditStudents}/>
