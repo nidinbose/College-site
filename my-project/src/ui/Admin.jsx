@@ -27,16 +27,14 @@ const Admin = () => {
       axios
         .get("http://localhost:3003/api/home", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then((response) => {
           const { username, photo, role, token } = response.data.user;
-
-                localStorage.setItem("token", token);
+          localStorage.setItem("token", token);
           localStorage.setItem("user", JSON.stringify({ username, photo, role }));
 
-          // Check if the user is an admin
           if (role !== "admin") {
             alert("Unauthorized access. Admins only.");
             navigate("/login");
@@ -65,43 +63,41 @@ const Admin = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="flex justify-center items-center min-h-screen text-lg">Loading...</div>;
   }
 
   return (
-    <div className="flex min-h-screen bg-white">
-      <aside className="hidden md:flex md:w-64 bg-[] shadow-lg">
-        <div className="p-6">
-          <h1 className="text-2xl font-bold mb-6 text-[#1B2C39]">Admin Dashboard</h1>
-          <ul className="space-y-4">
-          <div className=" items-center space-y-4 text-center">
-            <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-12" />
-            <span className="text-md font-bold mr-9 text-[#1B2C39] mr-12">{user.username}</span>
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <aside className="hidden md:flex md:w-64 bg-[#1B2C39] shadow-lg text-white">
+        <div className="p-6 flex flex-col items-center">
+          <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+          <img src={user.image} alt="User profile" className="w-20 h-20 rounded-full mb-4" />
+          <span className="text-md font-bold mb-8">{user.username}</span>
 
-           
-          </div>
+          <ul className="w-full space-y-4">
             <li>
-              <Link to="/" className="flex text-center gap-4 font-semibold py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-              <FaHome className="w-7 h-7"/>Home
+              <Link to="/" className="flex gap-4 items-center font-semibold py-3 px-4 hover:bg-[#A0CE4E] rounded transition">
+                <FaHome className="w-6 h-6" /> Home
               </Link>
             </li>
             <li>
-              <Link to="/vstudent" className="flex text-center font-semibold gap-4 py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-              <PiStudentFill className="w-7 h-7"/> Students
+              <Link to="/vstudent" className="flex gap-4 items-center font-semibold py-3 px-4 hover:bg-[#A0CE4E] rounded transition">
+                <PiStudentFill className="w-6 h-6" /> Students
               </Link>
             </li>
             <li>
-              <Link to="/vstaff" className="flex text-center font-semibold gap-4 py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-              <HiMiniUserGroup  className="w-7 h-7" />  Staff
+              <Link to="/vstaff" className="flex gap-4 items-center font-semibold py-3 px-4 hover:bg-[#A0CE4E] rounded transition">
+                <HiMiniUserGroup className="w-6 h-6" /> Staff
               </Link>
             </li>
             <li>
-              <Link to="/courses" className="flex text-center font-semibold gap-4 py-3 px-4 bg-gray-100 hover:bg-[#A0CE4E] rounded transition w-[90%]">
-              <GiBookmarklet className="w-7 h-7" />  Courses
+              <Link to="/courses" className="flex gap-4 items-center font-semibold py-3 px-4 hover:bg-[#A0CE4E] rounded transition">
+                <GiBookmarklet className="w-6 h-6" /> Courses
               </Link>
             </li>
             <li>
-              <button onClick={handleLogout} className="w-[90%] py-3 px-4 bg-[#1B2C39] text-white hover:bg-red-500 rounded mt-6 transition items-end ">
+              <button onClick={handleLogout} className="w-full py-3 px-4 bg-red-500 rounded mt-6 font-semibold">
                 Logout
               </button>
             </li>
@@ -109,55 +105,38 @@ const Admin = () => {
         </div>
       </aside>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <nav className="bg-[#1B2C39] shadow-md p-4 flex justify-between items-center">
-         <Link to={`/`}> <div className="text-xl font-bold text-[#A0CE4E]"></div></Link>
-          
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Top Navbar */}
+        <nav className="bg-[#1B2C39] shadow-md p-4 flex justify-between items-center text-white">
+          <Link to="/" className="text-xl font-bold text-[#A0CE4E]">Welcome: {user.username}</Link>
 
-          <div className=" items-center space-x-4 text-center">
-            <img src={user.image} alt="User profile" className="w-12 h-12 rounded-full ml-[1vw]" />
-            <span className="text-sm font-bold text-[#A0CE4E] hover:text-white">{user.username}</span>
-
+          <div className="flex items-center space-x-4">
+            <img src={user.image} alt="User profile" className="w-10 h-10 rounded-full" />
+            <span className="font-semibold text-[#A0CE4E]">{user.username}</span>
             <button onClick={handleLogout} className="py-2 px-4 bg-[#A0CE4E] text-white rounded hover:bg-red-500">
               Logout
             </button>
           </div>
-          
         </nav>
 
-        <nav className="md:hidden bg-white p-4 flex justify-between items-center shadow-md">
-          <div className="text-xl font-bold">Admin Dashboard</div>
-          <button id="mobile-menu-button" className="text-black" onClick={toggleMobileMenu}>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-            </svg>
-          </button>
-        </nav>
-
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div id="mobile-menu" className="md:hidden bg-gray-800 text-white p-6 space-y-4 absolute top-16 left-0 w-full z-10">
-            <Link to="/admin" className="block py-2 hover:text-gray-400 transition-colors duration-200">
-              Home
-            </Link>
-            <Link to="/admin/students" className="block py-2 hover:text-gray-400 transition-colors duration-200">
-              Students
-            </Link>
-            <Link to="/admin/staff" className="block py-2 hover:text-gray-400 transition-colors duration-200">
-              Staff
-            </Link>
-            <Link to="/admin/courses" className="block py-2 hover:text-gray-400 transition-colors duration-200">
-              Courses
-            </Link>
+          <div className="md:hidden bg-gray-800 text-white p-6 space-y-4 absolute top-16 left-0 w-full z-10">
+            <Link to="/" className="block py-2 hover:text-gray-400">Home</Link>
+            <Link to="/vstudent" className="block py-2 hover:text-gray-400">Students</Link>
+            <Link to="/vstaff" className="block py-2 hover:text-gray-400">Staff</Link>
+            <Link to="/courses" className="block py-2 hover:text-gray-400">Courses</Link>
             <button onClick={handleLogout} className="w-full py-2 bg-red-600 text-white rounded">
               Logout
             </button>
           </div>
         )}
 
+        {/* Main Page Content */}
         <div className="flex-1 p-6 space-y-8 overflow-y-auto">
           <Addss />
           <Start />
-         
         </div>
       </div>
     </div>

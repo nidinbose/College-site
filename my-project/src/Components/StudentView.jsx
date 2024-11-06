@@ -30,6 +30,7 @@ const StudentView = () => {
 
   return (
     <section className="bg-[#1B2C39] py-10 px-12">
+            <h1 className="text-center text-4xl font-semibold text-[#A0CE4E]">Students Lists</h1>
       {/* Filter Inputs */}
       <div className="flex flex-col sm:flex-row sm:justify-between mb-6 gap-4">
   <input
@@ -56,6 +57,7 @@ const StudentView = () => {
 
       {/* Card Grid */}
       <div className="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-screen pb-12 sm:pb-[40vh]">
+
   
        
         {filteredStudents.map((student, index) => (
@@ -68,7 +70,7 @@ const StudentView = () => {
               <figure>
                 <img
                   src={student.photo}
-                  className="rounded-t h-96 w-full bg-cover p-2"
+                  className="rounded-t h-80 w-full bg-cover p-5"
                   alt={student.name}
                 />
                 <figcaption className="p-4">

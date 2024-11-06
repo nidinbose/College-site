@@ -75,7 +75,7 @@ const ViewStaff = () => {
         </div>
 
         {/* Staff Information Section */}
-        <div className="space-y-4 bg-[#A0CE4E] p-6 rounded shadow-lg">
+        <div className="space-y-4 bg-[#A0CE4E] p-6 rounded shadow-lg ">
           <h2 className="text-2xl font-semibold text-gray-700 text-center lg:text-left">Staff Information</h2>
           <div className="bg-violet-50 p-3 rounded-md border">
             <span className="text-gray-600">Name:</span>
@@ -86,8 +86,12 @@ const ViewStaff = () => {
             <span className="font-medium text-gray-900 ml-2">{data.staffid}</span>
           </div>
           <div className="bg-violet-50 p-3 rounded-md border">
-            <span className="text-gray-600">Class:</span>
-            <span className="font-medium text-gray-900 ml-2">{data.class}</span>
+            <span className="text-gray-600">Experience:</span>
+            <span className="font-medium text-gray-900 ml-2">{data.experience}</span>
+          </div>
+          <div className="bg-violet-50 p-3 rounded-md border">
+            <span className="text-gray-600">Qualification:</span>
+            <span className="font-medium text-gray-900 ml-2">{data.qualification}</span>
           </div>
           <div className="bg-blue-50 p-3 rounded-md border">
             <span className="text-gray-600">Department:</span>
@@ -108,12 +112,15 @@ const ViewStaff = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 mt-6 justify-center lg:justify-start">
-            <button
-              onClick={handleEdit}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition ease-in-out"
-            >
-              Edit Staff
-            </button>
+            <a
+                  href="#_"
+                  className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#A0CE4E] text-indigo-600 bg-[#1B2C39]"
+                  onClick={handleEdit}
+                >
+                  <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-emerald-500 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+                  <span className="relative text-white transition duration-300 group-hover:text-white ease">Edit </span>
+                </a>
+         
             <a
                   href="#_"
                   className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#A0CE4E] text-indigo-600 bg-[#1B2C39]"
@@ -122,12 +129,7 @@ const ViewStaff = () => {
                   <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-red-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
                   <span className="relative text-white transition duration-300 group-hover:text-white ease">Delete</span>
                 </a>
-            <button
-              onClick={() => navigate('/vstaff')}
-              className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition ease-in-out"
-            >
-              Go Back
-            </button>
+         
           </div>
         </div>
       </div>

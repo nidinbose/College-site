@@ -73,7 +73,7 @@ const StaffView = () => {
               <figure>
                 <img
                   src={staffMember.photo}
-                  className="rounded-t h-96 w-full bg-cover p-2"
+                   className="rounded-t h-80 w-full bg-cover p-5"
                   alt={staffMember.name}
                 />
                 <figcaption className="p-4">

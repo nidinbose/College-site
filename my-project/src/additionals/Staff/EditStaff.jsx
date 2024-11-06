@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import AdminNavbar from "../Admin/AdminNavbar";
+import AdminFooter from "../Admin/AdminFooter";
 
 const EditStaff = () => {
     const { id } = useParams();
@@ -47,23 +49,23 @@ const EditStaff = () => {
     }, []);
 
     return (
-        <>
-            <h1 className="text-center text-4xl font-semibold my-6">Edit Staff Data</h1>
-            <section className="text-gray-700 body-font bg-white h-full min-h-screen">
+        <div className="bg-[#1B2C39]">
+            <AdminNavbar/>
+            <h1 className="text-center text-4xl font-semibold text-[#A0CE4E] font-semibold pb-10 ">Edit Staff Data</h1>
+            <section className="text-gray-700 body-font bg-[#1B2C39] h-full min-h-screen">
                 <div className="container mx-auto px-5 py-12">
                     <div className="grid lg:grid-cols-2 gap-8">
-                        {/* Image Preview and Upload */}
-                        <div className="w-full">
+                    <div className="w-24 sm:w-32 md:w-48 lg:w-64 xl:w-80 2xl:w-96">
                             <img
                                 alt="Staff"
-                                className="w-full h-100 object-cover object-center rounded border border-gray-200"
+                                className="w-full h-100 object-cover object-center rounded border border-[#A0CE4E]"
                                 src={previewSource || data.photo || "https://via.placeholder.com/300"}
                             />
                             <input
                                 type="file"
                                 accept="image/*"
                                 onChange={handleFileChange}
-                                className="mt-4 w-full text-gray-700 border border-gray-300 rounded p-2"
+                                className="mt-4 w-full text-gray-700 border border-[#A0CE4E] rounded p-2"
                             />
                         </div>
 
@@ -71,7 +73,7 @@ const EditStaff = () => {
                         <div className="w-full">
                             <div className="space-y-6">
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Staff Name</label>
+                                    <label className="block text-sm font-semibold mb-2 text-[#A0CE4E]">Staff Name</label>
                                     <input
                                         type="text"
                                         name="name"
@@ -83,7 +85,7 @@ const EditStaff = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Staff ID</label>
+                                    <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Staff ID</label>
                                     <input
                                         type="text"
                                         name="staffid"
@@ -95,11 +97,11 @@ const EditStaff = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Class</label>
+                                    <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Experience</label>
                                     <input
                                         type="text"
-                                        name="class"
-                                        value={data.class || ""}
+                                        name="experience"
+                                        value={data.experience || ""}
                                         onChange={handleChange}
                                         className="w-full p-2 border rounded"
                                         placeholder="Class"
@@ -107,7 +109,21 @@ const EditStaff = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Department</label>
+                                    <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Qualification</label>
+                                    <input
+                                        type="text"
+                                        name="qualification"
+                                        value={data.qualification || ""}
+                                        onChange={handleChange}
+                                        className="w-full p-2 border rounded"
+                                        placeholder="Class"
+                                    />
+                                </div>
+
+                                
+
+                                <div>
+                                    <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Department</label>
                                     <select
                                         name="department"
                                         value={data.department || ""}
@@ -125,19 +141,30 @@ const EditStaff = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Semester</label>
-                                    <input
-                                        type="text"
-                                        name="semester"
-                                        value={data.semester || ""}
-                                        onChange={handleChange}
-                                        className="w-full p-2 border rounded"
-                                        placeholder="Semester"
-                                    />
-                                </div>
+  <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Semester</label>
+  <select
+    name="semester"
+    value={data.semester || ""}
+    onChange={handleChange}
+    className="w-full p-2 border rounded"
+  >
+    <option value="" disabled>Select Semester</option>
+    <option value="multyple">Multiple</option>
+    <option value="1">Semester 1</option>
+    <option value="2">Semester 2</option>
+    <option value="3">Semester 3</option>
+    <option value="4">Semester 4</option>
+    <option value="5">Semester 5</option>
+    <option value="6">Semester 6</option>
+    <option value="7">Semester 7</option>
+    <option value="8">Semester 8</option>
+  </select>
+</div>
+
+
 
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Blood Group</label>
+                                    <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Blood Group</label>
                                     <input
                                         type="text"
                                         name="bloodType"
@@ -149,7 +176,7 @@ const EditStaff = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-gray-500 text-sm font-semibold mb-2">Date of Birth</label>
+                                    <label className="block text-[#A0CE4E] text-sm font-semibold mb-2">Date of Birth</label>
                                     <input
                                         type="date"
                                         name="dateOfBirth"
@@ -163,13 +190,13 @@ const EditStaff = () => {
                             <div className="mt-6 flex justify-between">
                                 <button
                                     onClick={handleSubmit}
-                                    className="text-white bg-green-500 py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
+                                    className="text-white bg-[#A0CE4E] py-2 px-6 focus:outline-none hover:bg-green-600 rounded"
                                 >
                                     Save Changes
                                 </button>
                                 <button
                                     onClick={() => navigate('/vstaff')}
-                                    className="text-white bg-red-500 py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
+                                    className="text-white bg-[#A0CE4E] py-2 px-6 focus:outline-none hover:bg-red-600 rounded"
                                 >
                                     Cancel
                                 </button>
@@ -178,7 +205,8 @@ const EditStaff = () => {
                     </div>
                 </div>
             </section>
-        </>
+            <AdminFooter/>
+        </div>
     );
 };
 
