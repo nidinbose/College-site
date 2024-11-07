@@ -353,6 +353,22 @@ export async function getStaffEdit(req,res) {
   }
 }
 
+export async function getStaffOne(req,res){
+  try {
+    const username = req.query.username;
+    const staff = await staffSchema.findOne({ name: username }).lean();
+
+    if (!staff) {
+      return res.status(404).send({ message: "Staff not found" });
+    }
+
+    res.status(200).send(staff);
+  } catch (error) {
+    console.error("Error fetching staff data:", error);
+    res.status(500).send({ error: "Server error" });
+  }
+}
+
 export async function deleteStaff(req, res) {
   try {
       const { id } = req.params;

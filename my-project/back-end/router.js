@@ -24,6 +24,7 @@ router.route('/studentscount').get(request.studentsCount)
 
 
 router.route('/addstaff').post(request.addStaff)
+router.route('/getstaffone').get(request.getStaffOne)
 router.route('/getstaffedit/:id').get(request.getStaffEdit)
 router.route('/getstaff').get(request.getStaff)
 router.route('/deletestaff/:id').delete(request.deleteStaff)
