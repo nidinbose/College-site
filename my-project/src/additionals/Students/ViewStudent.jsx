@@ -5,7 +5,7 @@ import axios from 'axios';
 const ViewStudent = () => {
   const { id } = useParams();
   const [data, setData] = useState(null);
-  const [marks, setMarks] = useState(null);  // Added marks state
+  const [marks, setMarks] = useState(null);  // Corrected marks state usage
   const [loading, setLoading] = useState(true);
   const [userRole, setUserRole] = useState("");
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const ViewStudent = () => {
   const fetchMarks = async (studentid) => {
     try {
       const res = await axios.get(`http://localhost:3003/api/getmarkedit/${studentid}`);
-      setMarks(res.data);  // Set marks data
+      setMarks(res.data[0]);  // Set marks data (assuming it's an array with a single object)
     } catch (error) {
       console.error("Error fetching marks:", error);
     }
@@ -130,19 +130,23 @@ const ViewStudent = () => {
             </div>
 
             {/* Mark List Section */}
-            {marks && marks.length > 0 ? (
-              <div className="leading-relaxed bg-blue-50 p-3 rounded-md">
-                <ul>
-                  {marks.map((mark, index) => (
-                    <li key={index} className="mb-2">
-                      <span className="font-medium text-gray-900">{mark.name}:</span>
-                      <span className="text-gray-600 ml-2">{mark.mark}</span>
-                    </li>
-                  ))}
-                </ul>
+            {marks && (
+              <div className="p-6 w-full mx-auto bg-white rounded-xl shadow-md space-y-4">
+                <h2 className="text-xl font-semibold text-gray-800">Student Marks</h2>
+                <p><strong>Student ID:</strong> {marks.studentid}</p>
+                <p><strong>Semester:</strong> {marks.semester}</p>
+                <div className="mt-4">
+                  <h3 className="text-lg font-semibold text-gray-700">Subjects</h3>
+                  <ul className="space-y-2">
+                    {marks.subjects.map((subject) => (
+                      <li key={subject._id} className="p-2 border rounded-md">
+                        <p><strong>Subject:</strong> {subject.name}</p>
+                        <p><strong>Mark:</strong> {subject.mark}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            ) : (
-              <p className="text-gray-600">No marks available for the selected semester.</p>
             )}
           </div>
         </div>
@@ -165,7 +169,7 @@ const ViewStudent = () => {
             className="rounded-md px-4 py-2 sm:px-5 sm:py-3 overflow-hidden relative group cursor-pointer border-2 font-medium border-[#A0CE4E] text-indigo-600"
             onClick={handleDelete}
           >
-            <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-red-600 top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
+            <span className="absolute w-64 h-0 transition-all duration-300 origin-center rotate-45 -translate-x-20 bg-[#A0CE4E] top-1/2 group-hover:h-64 group-hover:-translate-y-32 ease"></span>
             <span className="relative text-[#A0CE4E] transition duration-300 group-hover:text-white ease">Delete</span>
           </a>
         </div>
