@@ -33,6 +33,7 @@ import AddMark from './additionals/Students/AddMark';
 import Navbar from './additionals/Navbar';
 import Admissions from './Components/Admissions';
 import AddMarksForm from './Components/Marks';
+import StudentViewSD from './additionals/Staff/StudentViewSD';
 
 
 
@@ -73,6 +74,10 @@ const App=()=>{
       <Route path='/courses' Component={Corses}/>
       {/* <Route path='/addmark' Component={AddMark}/> */}
       <Route path='/admissions' Component={Admissions}/>
+
+      <Route path='/studentviewsd' Component={StudentViewSD}/>
+
+
 
 
      

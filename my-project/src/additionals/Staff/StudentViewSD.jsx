@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom'
-import AdminFooter from "../additionals/Admin/AdminFooter";
-import AdminNavbar from "../additionals/Admin/AdminNavbar";
 
-const StudentView = () => {
+
+const StudentViewSD = () => {
   const [students, setStudents] = useState([]);
   const [department, setDepartment] = useState("All");
   const [name, setName] = useState("");
@@ -31,7 +30,7 @@ const StudentView = () => {
   });
 
   return (
-    <>   <AdminNavbar/> <section className="bg-[#1B2C39] py-10 px-12">
+    <>  <section className="bg-[#1B2C39] py-10 px-12">
             <h1 className="text-center text-4xl font-semibold text-[#A0CE4E]">Students Lists</h1>
       {/* Filter Inputs */}
       <div className="flex flex-col sm:flex-row sm:justify-between mb-6 gap-4">
@@ -90,10 +89,10 @@ const StudentView = () => {
         ))}
       </div>
     </section>
-    <AdminFooter/>
+ 
     </>
 
   );
 };
 
-export default StudentView;
+export default StudentViewSD;

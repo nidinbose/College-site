@@ -16,6 +16,7 @@ router.route('/usercount').get(request.userCount)
 
 router.route('/addstudents').post(request.addStudents)
 router.route('/getstudent').get(request.getStudents)
+router.route('/getstudentone').get(request.getStudentsOne)
 router.route('/getstudentedit/:id').get(request.getStudentEdit)
 router.route('/deletestudent/:id').delete(request.deleteStudent)
 router.route('/updatestudent/:id').patch(request.updateStudent)

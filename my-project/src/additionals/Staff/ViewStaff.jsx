@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import AdminNavbar from "../Admin/AdminNavbar";
+import AdminFooter from "../Admin/AdminFooter";
 
 const ViewStaff = () => {
   const { id } = useParams();
@@ -54,7 +56,10 @@ const ViewStaff = () => {
   }
 
   return (
+    <>
+          <AdminNavbar/>
     <div className="p-6 sm:p-8 md:p-10 lg:p-12 bg-[#1B2C39] min-h-screen">
+
               <h1 className="flex items-center justify-start text-5xl font-semibold text-[#A0CE4E] mb-12">Staff Deatiles</h1>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
 
@@ -133,7 +138,10 @@ const ViewStaff = () => {
           </div>
         </div>
       </div>
+   
     </div>
+    <AdminFooter/>
+    </>
   );
 };
 

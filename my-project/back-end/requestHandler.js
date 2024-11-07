@@ -250,6 +250,23 @@ export async function getStudents(req,res){
   }
 }
 
+
+export async function getStudentsOne(req,res){
+  try {
+    const username = req.query.username; // Or req.body.username if using POST
+    const student = await studentsSchema.findOne({ name: username }).lean();
+
+    if (!student) {
+      return res.status(404).send({ message: "Student not found" });
+    }
+
+    res.status(200).send(student);
+  } catch (error) {
+    console.error("Error fetching student data:", error);
+    res.status(500).send({ error: "Server error" });
+  }
+}
+
 export async function getStudentEdit(req,res) {
   try {
       const {id}=req.params;

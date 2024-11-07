@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import AdminFooter from "../additionals/Admin/AdminFooter";
+import AdminNavbar from "../additionals/Admin/AdminNavbar";
 
 const StaffView = () => {
   const [staff, setStaff] = useState([]);
@@ -38,6 +40,8 @@ const StaffView = () => {
   });
 
   return (
+    <>
+    <AdminNavbar/>
     <section className="bg-[#1B2C39] py-10 px-12 min-h-screen">
 
       <h1 className="text-center text-4xl font-semibold text-[#A0CE4E]">Staff Lists</h1>
@@ -90,6 +94,8 @@ const StaffView = () => {
         ))}
       </div>
     </section>
+    <AdminFooter/>
+    </>
   );
 };
 

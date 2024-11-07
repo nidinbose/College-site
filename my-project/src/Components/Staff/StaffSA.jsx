@@ -38,22 +38,14 @@ const StaffSA = () => {
           Create Account
         </motion.button>
 
-        {/* View Staff List Button */}
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-full h-56 text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
-          onClick={() => handleNavigate("/vstaff")}
-        >
-          Staff List
-        </motion.button>
+      
 
         {/* View Students List Button */}
         <motion.button
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           className="w-full text-center bg-[#1B2C39] text-white font-bold py-4 rounded-lg shadow-lg hover:bg-[#A0CE4E] transition duration-300"
-          onClick={() => handleNavigate("/vstudent")}
+          onClick={() => handleNavigate("/studentviewsd")}
         >
           Students List
         </motion.button>
