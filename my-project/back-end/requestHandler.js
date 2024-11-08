@@ -432,22 +432,28 @@ export async function addMarks(req, res) {
 
 
 export async function getMarkEdit(req, res) {
-  const { studentid } = req.params; // Get studentid from the request parameters
+  const { studentid } = req.params;
 
   try {
-    // Query the database for marks that match the provided studentid
-    const data = await Mark.find({ studentid });
+       const data = await Mark.find({ studentid });
 
-    // Check if data is empty
-    if (data.length === 0) {
+      if (data.length === 0) {
       return res.status(404).send("No marks found for the given student ID.");
     }
-
-    // Send the marks data as a response
     res.status(200).send(data);
   } catch (error) {
     console.error("Error fetching marks for student:", error);
     return res.status(500).send("Error occurred while getting marks.");
+  }
+}
+
+export async function getMarklist(req,res){
+  try {
+    const data=await Mark.find({}).then((data)=>{
+      return res.status(200).send(data)
+    })
+  } catch (error) {
+    return res.status(500).send("internal  errror in viewing Marklist")
   }
 }
 

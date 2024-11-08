@@ -34,6 +34,8 @@ import Navbar from './additionals/Navbar';
 import Admissions from './Components/Admissions';
 import AddMarksForm from './Components/Marks';
 import StudentViewSD from './additionals/Staff/StudentViewSD';
+import Marklist from './additionals/Admin/Marklist';
+
 
 
 
@@ -76,6 +78,7 @@ const App=()=>{
       <Route path='/admissions' Component={Admissions}/>
 
       <Route path='/studentviewsd' Component={StudentViewSD}/>
+      <Route path='/marklist' Component={Marklist}/>
 
 
 

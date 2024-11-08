@@ -6,6 +6,8 @@ const Students = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
+  const [marks, setMarks] = useState([]);
+  const [selectedSemester, setSelectedSemester] = useState(1);
   const navigate = useNavigate();
 
   const getData = async (username) => {
@@ -15,10 +17,20 @@ const Students = () => {
       });
       setData(res.data);
       console.log(res.data);
+      fetchMarks(res.data.studentid);
     } catch (error) {
       console.error("Error fetching student data:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchMarks = async (studentid) => {
+    try {
+      const res = await axios.get(`http://localhost:3003/api/getmarkedit/${studentid}`);
+      setMarks(res.data); 
+    } catch (error) {
+      console.error("Error fetching marks:", error);
     }
   };
 
@@ -60,100 +72,140 @@ const Students = () => {
 
   if (loading) return <p>Loading...</p>;
 
+  const filteredMarks = marks.filter((mark) => mark.semester === selectedSemester);
+
   return (
+    <div className='bg-[#1B2C39]'>
     <div className="flex min-h-screen bg-[#1B2C39] text-white flex-col md:flex-row">
-            <aside className="w-full md:w-64 bg-[#A0CE4E] p-6 flex flex-col items-center">
-        <div className="space-y-6 w-full">
-                   <div className="flex flex-col items-center text-center ">
-            <img
-              src={user.image || 'placeholder.jpg'}
-              alt="User Profile"
-              className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover"
-            />
-            <h2 className="text-lg font-bold mt-4">{user.username}</h2>
-            <p className="text-sm text-gray-300">{user.role}</p>
-          </div>
-          <button
-            className="w-full mt-6 px-4 py-2 bg-violet-500 text-white rounded-md hover:bg-red-600 transition"
-            
-          >
-            Fee Structure
-          </button>
-               <button
-            className="w-full mt-6 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
+    <aside className="w-full md:w-64 bg-[#A0CE4E] p-6 flex flex-col items-center">
+<div className="space-y-6 w-full">
+           <div className="flex flex-col items-center text-center ">
+    <img
+      src={user.image || 'placeholder.jpg'}
+      alt="User Profile"
+      className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover"
+    />
+    <h2 className="text-lg font-bold mt-4">{user.username}</h2>
+    <p className="text-sm text-gray-300">{user.role}</p>
+  </div>
+  <button
+    className="w-full mt-6 px-4 py-2 bg-violet-500 text-white rounded-md hover:bg-red-600 transition"
+    
+  >
+    Fee Structure
+  </button>
+       <button
+    className="w-full mt-6 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+    onClick={handleLogout}
+  >
+    Logout
+  </button>
+</div>
+</aside>
+
+
+<main className="flex-1 p-4 sm:p-6 md:p-8 lg:p-12">
+<header className="py-4">
+  <h1 className="text-2xl md:text-3xl font-bold text-[#A0CE4E]">
+    <span className='text-white'>Welcome :</span> {user.username}
+  </h1>
+</header>
+
+<section className="grid gap-6 lg:gap-10 mt-8">
+           {user.username === data?.name ? (
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+               <div className="p-6 rounded-lg bg-[#243B51] hover:shadow-lg transition-shadow duration-300">
+        <div className="flex justify-center items-center p-4">
+          <img
+            alt="Student Profile"
+            className="bg-cover object-center w-auto h-full max-h-96"
+            src={data?.photo || 'placeholder.jpg'}
+          />
         </div>
-      </aside>
-
-   
-      <main className="flex-1 p-4 sm:p-6 md:p-8 lg:p-12">
-        <header className="py-4">
-          <h1 className="text-2xl md:text-3xl font-bold text-[#A0CE4E]">
-            <span className='text-white'>Welcome :</span> {user.username}
-          </h1>
-        </header>
-
-        <section className="grid gap-6 lg:gap-10 mt-8">
-                   {user.username === data?.name ? (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                       <div className="p-6 rounded-lg bg-[#243B51] hover:shadow-lg transition-shadow duration-300">
-                <div className="flex justify-center items-center p-4">
-                  <img
-                    alt="Student Profile"
-                    className="bg-cover object-center w-auto h-full max-h-96"
-                    src={data?.photo || 'placeholder.jpg'}
-                  />
-                </div>
-                <h1 className="text-lg md:text-xl font-bold bg-[#A0CE4E] text-white py-2 px-4 rounded-lg mx-auto mt-4 w-fit">
-  {data?.name || 'Student Name'}
+        <h1 className="text-lg md:text-xl font-bold bg-[#A0CE4E] text-white py-2 px-4 rounded-lg mx-auto mt-4 w-fit">
+{data?.name || 'Student Name'}
 </h1>
 
-              </div>
+      </div>
 
-              <div className="rounded-lg p-6 bg-[#1F2D3D] shadow-lg">
-                <h2 className="text-md md:text-lg xl:text-xl font-semibold text-[#A0CE4E] mb-4">Student Information</h2>
-                <div className="space-y-2 md:space-y-4">
-  <div className="flex items-center border-b border-gray-600 pb-2 mb-2">
-    <span className="text-[#A0CE4E] font-semibold mr-2"> Name:</span>
-    <p className='font-semibold text-xl'>{data?.name || "N/A"}</p>
-  </div>
-  <div className="flex items-center border-b border-gray-600 pb-2 mb-2">
-    <span className="text-[#A0CE4E] font-semibold mr-2">Student ID:</span>
-    <p>{data?.studentid || "N/A"}</p>
-  </div>
-  <div className="flex items-center border-b border-gray-600 pb-2 mb-2">
-    <span className="text-[#A0CE4E] font-semibold mr-2">Class:</span>
-    <p>{data?.class || "N/A"}</p>
-  </div>
-  <div className="flex items-center border-b border-gray-600 pb-2 mb-2">
-    <span className="text-[#A0CE4E] font-semibold mr-2">Department:</span>
-    <p>{data?.department || "N/A"}</p>
-  </div>
-  <div className="flex items-center border-b border-gray-600 pb-2 mb-2">
-    <span className="text-[#A0CE4E] font-semibold mr-2">Semester:</span>
-    <p>{data?.semester || "N/A"}</p>
-  </div>
-  <div className="flex items-center border-b border-gray-600 pb-2 mb-2">
-    <span className="text-[#A0CE4E] font-semibold mr-2">Blood Type:</span>
-    <p>{data?.bloodType || "N/A"}</p>
-  </div>
-  <div className="flex items-center">
-    <span className="text-[#A0CE4E] font-semibold mr-2">Date of Birth:</span>
-    <p>{data?.dateOfBirth || "N/A"}</p>
-  </div>
+      <div className="rounded-lg p-6 bg-[#1F2D3D] shadow-lg">
+        <h2 className="text-md md:text-lg xl:text-xl font-semibold text-[#A0CE4E] mb-4">Student Information</h2>
+        <div className="space-y-2 md:space-y-4">
+<div className="flex items-center border-b border-gray-600 pb-2 mb-2">
+<span className="text-[#A0CE4E] font-semibold mr-2"> Name:</span>
+<p className='font-semibold text-xl'>{data?.name || "N/A"}</p>
+</div>
+<div className="flex items-center border-b border-gray-600 pb-2 mb-2">
+<span className="text-[#A0CE4E] font-semibold mr-2">Student ID:</span>
+<p>{data?.studentid || "N/A"}</p>
+</div>
+<div className="flex items-center border-b border-gray-600 pb-2 mb-2">
+<span className="text-[#A0CE4E] font-semibold mr-2">Class:</span>
+<p>{data?.class || "N/A"}</p>
+</div>
+<div className="flex items-center border-b border-gray-600 pb-2 mb-2">
+<span className="text-[#A0CE4E] font-semibold mr-2">Department:</span>
+<p>{data?.department || "N/A"}</p>
+</div>
+<div className="flex items-center border-b border-gray-600 pb-2 mb-2">
+<span className="text-[#A0CE4E] font-semibold mr-2">Semester:</span>
+<p>{data?.semester || "N/A"}</p>
+</div>
+<div className="flex items-center border-b border-gray-600 pb-2 mb-2">
+<span className="text-[#A0CE4E] font-semibold mr-2">Blood Type:</span>
+<p>{data?.bloodType || "N/A"}</p>
+</div>
+<div className="flex items-center">
+<span className="text-[#A0CE4E] font-semibold mr-2">Date of Birth:</span>
+<p>{data?.dateOfBirth || "N/A"}</p>
+</div>
 </div>
 
-              </div>
-            </div>
-          ) : (
-            <p className="text-center">You are not authorized to view this profile.</p>
-          )}
-        </section>
-      </main>
+      </div>
     </div>
+  ) : (
+    <p className="text-center">You are not authorized to view this profile.</p>
+  )}
+</section>
+</main>
+
+</div>
+<div className="p-6 w-full mx-auto border border-[#A0CE4E] rounded-xl shadow-md space-y-4 bg-transparent">
+        <h2 className="text-xl font-semibold text-[#A0CE4E]">Student Marks</h2>
+        <label htmlFor="semester" className="text-[#A0CE4E]">Select Semester:</label>
+        <select
+          id="semester"
+          value={selectedSemester}
+          onChange={(e) => setSelectedSemester(parseInt(e.target.value))}
+          className="w-full p-2 border rounded-md bg-white/80"
+        >
+          {[...Array(8)].map((_, index) => {
+            const semester = index + 1;
+            return (
+              <option key={semester} value={semester}>
+                Semester {semester}
+              </option>
+            );
+          })}
+        </select>
+
+        {filteredMarks.length > 0 ? (
+          <div className="mt-4">
+            <h3 className="text-lg font-semibold text-[#A0CE4E]">Subjects</h3>
+            <ul className="space-y-2">
+              {filteredMarks[0].subjects.map((subject) => (
+                <li key={subject._id} className="p-2 border border-[#A0CE4E] rounded-md">
+                  <p className="text-white font-bold"><strong className="text-[#A0CE4E]">Subject:</strong> {subject.subjectName}</p>
+                  <p className="text-white"><strong className="text-[#A0CE4E]">Mark:</strong> {subject.mark}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : (
+          <p>No marks found for the selected semester.</p>
+        )}
+      </div>
+</div>
   );
 };
 

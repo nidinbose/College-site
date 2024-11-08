@@ -11,9 +11,14 @@ function AddMarksForm() {
   const [responseMessage, setResponseMessage] = useState('');
 
    const subjectsBySemester = {
-    1: [{ name: 'History' }, { name: 'Biology' }, { name: 'Math 101' }],
-    2: [{ name: 'Math 102' }, { name: 'English 102' }, { name: 'Chemistry 101' }],
-    3: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology 101' }],
+    1: [{ name: 'History' }, { name: 'Biology' }, { name: 'Math' }],
+    2: [{ name: 'Math ' }, { name: 'English ' }, { name: 'Chemistry ' }],
+    3: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology ' }],
+    4: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology ' }],
+    5: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology ' }],
+    6: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology ' }],
+    7: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology ' }],
+    8: [{ name: 'Calculus' }, { name: 'Literature' }, { name: 'Biology ' }],
    };
 
 
@@ -83,18 +88,21 @@ function AddMarksForm() {
         <div className="mb-4">
           <label htmlFor="semester" className="block text-[#A0CE4E] font-medium">Semester</label>
           <select
-            id="semester"
-            name="semester"
-            value={formData.semester}
-            onChange={handleChange}
-            className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-[#A0CE4E] focus:ring-2 focus:ring-[#A0CE4E]"
-            required
-          >
-            <option value="">Select Semester</option>
-            {Object.keys(subjectsBySemester).map((semester) => (
-              <option key={semester} value={semester}>Semester {semester}</option>
-            ))}
-          </select>
+  id="semester"
+  name="semester"
+  value={formData.semester}
+  onChange={handleChange}
+  className="mt-2 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-[#A0CE4E] focus:ring-2 focus:ring-[#A0CE4E]"
+  required
+>
+  <option value="">Select Semester</option>
+  {Array.from({ length: 8 }, (_, i) => (
+    <option key={i + 1} value={i + 1}>
+      Semester {i + 1}
+    </option>
+  ))}
+</select>
+
         </div>
   
         <div className="mb-4">

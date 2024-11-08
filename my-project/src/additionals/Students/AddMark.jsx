@@ -1,4 +1,3 @@
-// src/components/AddMarksForm.js
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -18,16 +17,14 @@ function AddMarksForm() {
 
   // Define subjects based on semester
   const subjectsBySemester = {
-    1: ['Math 101', 'English 101', 'Physics 101'],
-    2: ['Math 102', 'English 102', 'Chemistry 101'],
+    1: ['Math', 'English 101', 'Physics 101'],
+    2: ['Math', 'English 102', 'Chemistry 101'],
     3: ['Calculus', 'Literature', 'Biology 101'],
     4: ['Algebra', 'History 101', 'Physics 102'],
     5: ['Statistics', 'Sociology', 'Computer Science 101'],
     6: ['Geometry', 'Political Science', 'Biology 102'],
     7: ['Advanced Calculus', 'Economics', 'Physics 201'],
     8: ['Discrete Math', 'Philosophy', 'Chemistry 201'],
-    9: ['Linear Algebra', 'Anthropology', 'Physics 301'],
-    10: ['Differential Equations', 'Psychology', 'Biochemistry'],
   };
 
   // Handle input changes
@@ -54,7 +51,7 @@ function AddMarksForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3003/api/addmarks', formData); // Ensure this path matches your API route
+      const response = await axios.post('http://localhost:3003/api/addmarks', formData);
       setResponseMessage(response.data.message);
     } catch (error) {
       setResponseMessage(
@@ -72,20 +69,22 @@ function AddMarksForm() {
             Semester
           </label>
           <select
-            id="semester"
-            name="semester"
-            value={formData.semester}
-            onChange={handleChange}
-            className="mt-1 block w-full p-2 border rounded"
-            required
-          >
-            <option value="">Select Semester</option>
-            {Array.from({ length: 10 }, (_, i) => (
-              <option key={i + 1} value={i + 1}>
-                Semester {i + 1}
-              </option>
-            ))}
-          </select>
+  id="semester"
+  name="semester"
+  value={formData.semester}
+  onChange={handleChange}
+  className="mt-1 block w-full p-2 border rounded overflow-auto"
+  required
+>
+  <option value="">Select Semester</option>
+  {Array.from({ length: 8 }, (_, i) => (
+    <option key={i + 1} value={i + 1}>
+      Semester {i + 1}
+    </option>
+  ))}
+</select>
+
+
         </div>
 
         <div className="mb-4">
@@ -155,3 +154,4 @@ function AddMarksForm() {
 }
 
 export default AddMarksForm;
+
