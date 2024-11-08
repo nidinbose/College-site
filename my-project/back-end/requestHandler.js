@@ -253,7 +253,7 @@ export async function getStudents(req,res){
 
 export async function getStudentsOne(req,res){
   try {
-    const username = req.query.username; // Or req.body.username if using POST
+    const username = req.query.username; 
     const student = await studentsSchema.findOne({ name: username }).lean();
 
     if (!student) {

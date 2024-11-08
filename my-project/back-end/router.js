@@ -42,7 +42,4 @@ router.route('/getmarklist').get(request.getMarklist)
 
 
 
-// router.route('/getstudentid/:studentid').get(request.getStudentbyid)
-
-
 export default router;
