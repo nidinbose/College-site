@@ -35,6 +35,7 @@ import Admissions from './Components/Admissions';
 import AddMarksForm from './Components/Marks';
 import StudentViewSD from './additionals/Staff/StudentViewSD';
 import Marklist from './additionals/Admin/Marklist';
+import Footer from './Components/Footer';
 
 
 
@@ -42,7 +43,7 @@ import Marklist from './additionals/Admin/Marklist';
 const App=()=>{
     return(
       <BrowserRouter>
-    {/* <Navbar/> */}
+    <Navbar/>
       <Routes>
 
 
@@ -86,7 +87,7 @@ const App=()=>{
      
 
       </Routes>
-      
+      <Footer/>
       </BrowserRouter>
     )
 }

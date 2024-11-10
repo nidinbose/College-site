@@ -496,3 +496,4 @@ export async function userCount(req, res) {
   }
 }
 
+// Courses add section

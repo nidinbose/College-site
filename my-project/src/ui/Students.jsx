@@ -76,7 +76,7 @@ const Students = () => {
 
   return (
     <div className='bg-[#1B2C39]'>
-    <div className="flex min-h-screen bg-[#1B2C39] text-white flex-col md:flex-row">
+    <div className="flex min-h-full bg-[#1B2C39] text-white flex-col md:flex-row">
     <aside className="w-full md:w-64 bg-[#A0CE4E] p-6 flex flex-col items-center">
 <div className="space-y-6 w-full">
            <div className="flex flex-col items-center text-center ">
@@ -89,13 +89,41 @@ const Students = () => {
     <p className="text-sm text-gray-300">{user.role}</p>
   </div>
   <button
-    className="w-full mt-6 px-4 py-2 bg-violet-500 text-white rounded-md hover:bg-red-600 transition"
+    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-emerald-500 transition"
+    
+  >
+    Student Home
+  </button>
+
+  <button
+    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-emerald-500 transition"
+    
+  >
+    Courses
+  </button>
+
+  <button
+    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-[#A0CE4E] transition"
     
   >
     Fee Structure
   </button>
+
+  <button
+    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-[#A0CE4E] transition"
+    
+  >
+    Notifications
+  </button>
+
+  <button
+    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-[#A0CE4E] transition"
+    
+  >
+    Messages
+  </button>
        <button
-    className="w-full mt-6 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-red-600 transition "
     onClick={handleLogout}
   >
     Logout
@@ -170,41 +198,53 @@ const Students = () => {
 </main>
 
 </div>
-<div className="p-6 w-full mx-auto border border-[#A0CE4E] rounded-xl shadow-md space-y-4 bg-transparent">
-        <h2 className="text-xl font-semibold text-[#A0CE4E]">Student Marks</h2>
-        <label htmlFor="semester" className="text-[#A0CE4E]">Select Semester:</label>
-        <select
-          id="semester"
-          value={selectedSemester}
-          onChange={(e) => setSelectedSemester(parseInt(e.target.value))}
-          className="w-full p-2 border rounded-md bg-white/80"
-        >
-          {[...Array(8)].map((_, index) => {
-            const semester = index + 1;
-            return (
-              <option key={semester} value={semester}>
-                Semester {semester}
-              </option>
-            );
-          })}
-        </select>
+<div className="w-full mx-auto border-[#A0CE4E] rounded-xl shadow-md space-y-4 bg-transparent p-10">
+  <h2 className="text-2xl font-semibold text-[#A0CE4E] text-center mb-5">Student Marks</h2>
+  
+  {/* Semester Selection */}
+  <label htmlFor="semester" className="text-[#A0CE4E]">Select Semester:</label>
+  <select
+    id="semester"
+    value={selectedSemester}
+    onChange={(e) => setSelectedSemester(parseInt(e.target.value))}
+    className="w-full p-2 border rounded-md bg-white/80"
+  >
+    {[...Array(8)].map((_, index) => {
+      const semester = index + 1;
+      return (
+        <option key={semester} value={semester}>
+          Semester {semester}
+        </option>
+      );
+    })}
+  </select>
 
-        {filteredMarks.length > 0 ? (
-          <div className="mt-4">
-            <h3 className="text-lg font-semibold text-[#A0CE4E]">Subjects</h3>
-            <ul className="space-y-2">
-              {filteredMarks[0].subjects.map((subject) => (
-                <li key={subject._id} className="p-2 border border-[#A0CE4E] rounded-md">
-                  <p className="text-white font-bold"><strong className="text-[#A0CE4E]">Subject:</strong> {subject.subjectName}</p>
-                  <p className="text-white"><strong className="text-[#A0CE4E]">Mark:</strong> {subject.mark}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ) : (
-          <p>No marks found for the selected semester.</p>
-        )}
-      </div>
+  {/* Marks Table */}
+  {filteredMarks.length > 0 ? (
+    <div className="mt-6 overflow-x-auto w-[50vw] mx-auto">
+      {/* <h3 className="text-lg font-semibold text-[#A0CE4E] mb-4">Subjects</h3> */}
+      <table className="min-w-full bg-transparent border border-[#A0CE4E] rounded-md">
+        <thead>
+          <tr>
+            <th className="px-4 py-2 border-b border-[#A0CE4E] text-left text-[#A0CE4E] font-semibold">Subject</th>
+            <th className="px-4 py-2 border-b border-[#A0CE4E] text-left text-[#A0CE4E] font-semibold">Mark</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredMarks[0].subjects.map((subject) => (
+            <tr key={subject._id}>
+              <td className="px-4 py-2 border-b border-[#A0CE4E] text-white">{subject.name}</td>
+              <td className="px-4 py-2 border-b border-[#A0CE4E] text-white">{subject.mark}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  ) : (
+    <p className="text-white">No marks found for the selected semester.</p>
+  )}
+</div>
+
 </div>
   );
 };

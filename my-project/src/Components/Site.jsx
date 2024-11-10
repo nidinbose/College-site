@@ -17,7 +17,7 @@ const Site = () => {
 
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
             <Start />
             <Feedback/>
             <Companies />
@@ -29,7 +29,7 @@ const Site = () => {
            
             <Slide1 />
             <Gallery />
-            <Footer />
+            {/* <Footer /> */}
             {/* <Overview/> */}
         </div>
     );
