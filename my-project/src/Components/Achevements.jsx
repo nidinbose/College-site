@@ -16,7 +16,7 @@ const Achievement = () => {
         viewport={{ once: true }}
       >
         <div className='flex flex-col justify-start gap-4'>
-          <h1 className='md:leading-[42px] py-2 text-3xl font-semibold'>
+          <h1 className='md:leading-[42px] py-2 text-4xl font-bold'>
             Our <span className='text-[#A0CE4E]'>Achievements</span>
           </h1>
           <p className='text-[#536e96] text-2xl'>
@@ -32,7 +32,7 @@ const Achievement = () => {
               viewport={{ once: true }}
             >
               <div className="p-4 bg-[#e9f8f3] rounded-xl">
-                <FaGraduationCap size={30} style={{ color:'#1a9068' }}/>
+                <FaGraduationCap size={30} style={{ color:'#A0CE4E' }}/>
               </div>
               <div className='px-3'>
                 <h1 className='text-2xl font-semibold'>100 +</h1>
@@ -48,7 +48,7 @@ const Achievement = () => {
               viewport={{ once: true }}
             >
               <div className="p-4 bg-[#e9f8f3] rounded-xl">
-                <AiFillVideoCamera size={30} style={{ color:'#1a9068' }}/>
+                <AiFillVideoCamera size={30} style={{ color:'#A0CE4E' }}/>
               </div>
               <div className='px-3'>
                 <h1 className='text-2xl font-semibold'>10,000 +</h1>
@@ -64,7 +64,7 @@ const Achievement = () => {
               viewport={{ once: true }}
             >
               <div className="p-4 bg-[#e9f8f3] rounded-xl">
-                <FaPeopleCarry size={30} style={{ color:'#1a9068' }}/>
+                <FaPeopleCarry size={30} style={{ color:'#A0CE4E' }}/>
               </div>
               <div className='px-3'>
                 <h1 className='text-2xl font-semibold'>20,000 +</h1>

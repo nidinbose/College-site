@@ -261,9 +261,9 @@ const Staff = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="flex min-h-screen bg-white/30 text-white flex-col sm:flex-row pb-[15vh] md:pb-[35vh] xl:pb-[1vh] lg:pb-[2vh]">
+    <div className="flex min-h-full bg-white/30 text-white flex-col sm:flex-row ">
 
-            <aside className="w-full md:w-64 bg-[#1B2C39] p-6 flex flex-col items-center h-screen">
+            <aside className="w-full md:w-64 bg-[#1B2C39] p-6 flex flex-col items-center h-full">
         <div className="space-y-6 w-full">
                    <div className="flex flex-col items-center text-center ">
             <img
@@ -284,13 +284,13 @@ const Staff = () => {
             Courses
           </button></Link>
 
-
+<Link to={`/fees`}>
           <button
             className="w-full mt-6 px-4 py-2 bg-[#A0CE4E] text-white rounded-md hover:bg-white/30 transition"
             
           >
             Fee Structure
-          </button>
+          </button></Link>
 
           <Link to={`/vstudent`}>
           <button
@@ -321,6 +321,14 @@ const Staff = () => {
             
           >
             Marklist
+          </button></Link>
+
+          <Link to={`/notify`}>
+          <button
+            className="w-full mt-6 px-4 py-2 bg-[#A0CE4E] text-white rounded-md hover:bg-white/30 transition"
+            
+          >
+            Notifications
           </button></Link>
           
 

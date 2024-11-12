@@ -36,6 +36,8 @@ import AddMarksForm from './Components/Marks';
 import StudentViewSD from './additionals/Staff/StudentViewSD';
 import Marklist from './additionals/Admin/Marklist';
 import Footer from './Components/Footer';
+import FeeStructure from './additionals/Students/FeeStructure';
+import Notifications from './additionals/Students/Noifications';
 
 
 
@@ -80,6 +82,9 @@ const App=()=>{
 
       <Route path='/studentviewsd' Component={StudentViewSD}/>
       <Route path='/marklist' Component={Marklist}/>
+      <Route path='/fees' Component={FeeStructure}/>
+      <Route path='/notify' Component={Notifications}/>
+
 
 
 

@@ -87,7 +87,7 @@ function Login() {
 
   return (
     <div className="container mx-auto p-4">
-      <Navbar/>
+     
       <div className="flex justify-center items-center flex-col md:flex-row xl:mt-[200px]">
         <div className="logo mb-6 md:mb-0">
           <img src="/images/pl.png" alt="logo" className="w-24 md:w-36 lg:w-48 xl:w-60" />

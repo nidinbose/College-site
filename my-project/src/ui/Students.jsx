@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate ,Link} from 'react-router-dom';
 
 const Students = () => {
   const [data, setData] = useState(null);
@@ -88,40 +88,35 @@ const Students = () => {
     <h2 className="text-lg font-bold mt-4">{user.username}</h2>
     <p className="text-sm text-gray-300">{user.role}</p>
   </div>
-  <button
+<Link to={`/students`}>  <button
     className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-emerald-500 transition"
     
   >
     Student Home
-  </button>
+  </button></Link>
 
-  <button
+  <Link to={`/courses`}><button
     className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-emerald-500 transition"
     
   >
     Courses
-  </button>
+  </button></Link>
 
-  <button
+<Link to={`/fees`}>  <button
     className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-[#A0CE4E] transition"
     
   >
     Fee Structure
-  </button>
+  </button></Link>
 
-  <button
+<Link to={`/notify`}>  <button
     className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-[#A0CE4E] transition"
     
   >
     Notifications
-  </button>
+  </button></Link>
 
-  <button
-    className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-[#A0CE4E] transition"
-    
-  >
-    Messages
-  </button>
+
        <button
     className="w-full mt-6 px-4 py-2 bg-[#1B2C39] text-white rounded-md hover:bg-red-600 transition "
     onClick={handleLogout}
@@ -207,7 +202,7 @@ const Students = () => {
     id="semester"
     value={selectedSemester}
     onChange={(e) => setSelectedSemester(parseInt(e.target.value))}
-    className="w-full p-2 border rounded-md bg-white/80"
+    className="w-full p-2 border border-[#A0CE4E] text-[#A0CE4E] rounded-md bg-[#1B2C39]"
   >
     {[...Array(8)].map((_, index) => {
       const semester = index + 1;
