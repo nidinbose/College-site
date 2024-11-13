@@ -14,7 +14,7 @@ const Feedback = () => {
     
          <h1 className='p-18  flex items-center justify-start text-2xl mb-9 mt-6 text-[#1B2C39] font-bold'>
            <span><FaGripLinesVertical className='text-[#A0CE4E] text-3xl mr-5'/></span>
-            WE WELCOME YOU TO CAMBRIDGE GROUP OF INSTITUTIONS</h1>
+            WE WELCOME YOU TO <span className='text-[#A0CE4E] ml-2'>CAMBRIDGE GROUP OF INSTITUTIONS</span></h1>
       <div className=" z-10 flex items-center justify-center h-full ">
         
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-4 py-8 w-full ">

@@ -1,56 +1,57 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { FaGripLinesVertical } from "react-icons/fa";
 
-const Gallery = () => {
-  const photos = [
-    {  src: 'https://t4.ftcdn.net/jpg/06/30/76/11/360_F_630761173_Hkeqf7J3DYfICjQQaMkTiSpCOK7XOq1q.jpg', large: true },
-    {  src: 'https://images.i3c.tech/2021/07/28/fd3d81396e8942d782e2d9ed0003a7be.jpg', large: false },
-    {  src: 'https://images.i3c.tech/2021/07/28/4499bce26f9e435dacc511101c02662f.jpg', large: false },
-    {  src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF1haOXlSx8F2A8Ijnk_o4b9qMRRkgHULSmmfAlsSSsVH7yQ2GqpGJVa3mDWjDrc5f3ak&usqp=CAU', large: false },
-    { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyIry1w7nZFd-_Jjl_3GaMVZKMcNp9f_gaj_o4tutovitXtmb8BrBDKY1dd0WJLooUylU&usqp=CAU', large: false },
-    {  src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4Q66NXzx6xDZagys9T7AP3sZ7ZMej6mZM4A&s', large: false },
-    {  src: 'https://images.i3c.tech/2021/07/28/9f03326b53f84578bdc7a05c5572b878.jpg', large: true },
-    { src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfRub-rWcXILLdXrjKXdYQNArSNhpOJK2rgk0TCI4CC3ZbjM0bL4kZfvjqIFIvA7rOzH0&usqp=CAU', large: false },
-    {  src: 'https://campusways.com/wp-content/uploads/2022/03/acharya-14-bg_11zon-1024x593.jpeg.webp', large: false },
-    {  src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTD8D_zjeccCG-1a7se_GEesRy04HAO14uoRQ1PSE4dW2bYkseZQghXYFqwweCh9f4hO4&usqp=CAU', large: false },
+const Gallary = () => {
+    const [active, setActive] = useState("https://www.gopalancolleges.com/gpuc/images/home-blog/gcc-campus.jpg");
+  const data = [
+    { imgelink: "https://zolostays.com/blog/wp-content/uploads/2024/02/acharya-institute-of-technology-bangalore.jpg" },
+    { imgelink: "https://www.acharya.ac.in/demo/about/img/overview/11.webp" },
+    { imgelink: "https://i.pinimg.com/736x/16/d8/f1/16d8f110b0cab10e274ffe24050594c3.jpg" },
+    { imgelink: "https://www.mbacollegesbangalore.in/wp-content/uploads/2017/08/Acharya-Institute-of-Technology-2.jpg" },
+    { imgelink: "https://lh3.googleusercontent.com/-gNnLnOosol0/WCI6r8n3nKI/AAAAAAAAABo/1I79pk_bkXItZyjNIBg8_lJbn5t5ApYhgCLIB/photo.jpg" },
   ];
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {photos.map((photo) => (
-          <motion.div
-            key={photo.id}
-            className={`relative ${
-              photo.large ? 'md:col-span-2 md:row-span-2' : ''
-            } overflow-hidden rounded-lg`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="w-full h-full">
+    <div className="relative h-full w-full">
+      <div className="absolute inset-0 bg-[url('https://www.gopalancolleges.com/gcem/images/gopalan-engineering-college.jpg')] bg-cover bg-center filter brightness-50">
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
+      <div className="relative z-10 text-white flex flex-col lg:flex-row items-start px-6 py-12 lg:px-12 lg:py-24 gap-8 xl:space-x-20">
+             <div className="text-start max-w-xl xl:ml-12">
+          <h1 className="text-4xl font-bold mb-4 flex items-center">
+            <FaGripLinesVertical className="text-[#A0CE4E] text-3xl mr-2" />
+            Our Gallery
+          </h1>
+          <h2 className="text-2xl font-semibold mb-4 font-semibold ml-10 text-[#A0CE4E]">Explore The Campus</h2>
+          <p className="text-base leading-relaxed text-md ml-10">
+            Students at  <span className='text-[#A0CE4E]'>Cambridge Institutions</span> are privy to a unique Wi-Fi campus. The Wi-Fi campus enables
+            the students to get online anywhere on campus without the hassle of wires and plug-ins. The campus,
+            truly, is the high-tech face of the new age.
+          </p>
+        </div>
+        <div className="flex flex-col w-full max-w-3xl gap-4">
+                  <div className="w-full">
+            <img
+              className="w-full h-auto max-h-[400px] rounded-lg object-cover"
+              src={active}
+              alt="Selected"
+            />
+          </div>
+                <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
+            {data.map(({ imgelink }, index) => (
               <img
-                src={photo.src}
-                alt={`Photo ${photo.id}`}
-                className="w-full h-full object-cover"
+                key={index}
+                onClick={() => setActive(imgelink)}
+                src={imgelink}
+                className="h-20 w-full cursor-pointer rounded-lg object-cover transition-transform duration-200 hover:scale-105"
+                alt="Gallery Thumbnail"
               />
-            </div>
-            <motion.div
-              className="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-50 flex items-center justify-center text-white font-bold text-xl"
-              initial={{ opacity: 0 }}
-              whileHover={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-            >
-              {photo.id}
-            </motion.div>
-          </motion.div>
-        ))}
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default Gallery;
-
+export default Gallary;
