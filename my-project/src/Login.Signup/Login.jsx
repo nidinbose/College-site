@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../additionals/Navbar";
 
 function Login() {
   const navigate = useNavigate();
@@ -7,7 +8,7 @@ function Login() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    role: "student", // Default role
+    role: "student", 
   });
 
   const [errors, setErrors] = useState({});
@@ -61,7 +62,7 @@ function Login() {
       }
 
       const { role, token } = result;
-      localStorage.setItem("token", token); // Store the token in localStorage
+      localStorage.setItem("token", token); 
 
       switch (role) {
         case "admin":
@@ -86,22 +87,23 @@ function Login() {
 
   return (
     <div className="container mx-auto p-4">
+     
       <div className="flex justify-center items-center flex-col md:flex-row xl:mt-[200px]">
         <div className="logo mb-6 md:mb-0">
-          <img src="" alt="logo" className="w-24 md:w-36 lg:w-48 xl:w-60" />
+          <img src="/images/pl.png" alt="logo" className="w-24 md:w-36 lg:w-48 xl:w-60" />
         </div>
 
         <div className="lp flex flex-col md:flex-row items-center md:items-start gap-8">
           <div className="image">
             <img
-              src="/"
+              src="/images/a.avif"
               alt=""
               className="w-80 h-auto md:w-96 md:h-[70vh] lg:w-[55vw] lg:h-[70vh] object-cover"
             />
           </div>
 
           <div className="field p-4 md:w-1/2">
-            <h1 className="text-lg font-semibold mb-4">Welcome Back :)</h1>
+            <h1 className="text-lg font-semibold mb-4 text-[#A0CE4E]">Welcome Back :)</h1>
             <b className="text-sm text-gray-500 mb-8">
               To keep connected with us, please login with your personal
               information using your email address and password.
@@ -143,7 +145,7 @@ function Login() {
               </div>
 
               <div className="forgot-password mb-4 text-right">
-                <Link to="/forgot-password" className="text-pink-500 text-sm hover:underline">
+                <Link to="/forgot-password" className="text-[#A0CE4E] text-sm hover:underline">
                   Forgot Password?
                 </Link>
               </div>
@@ -156,10 +158,12 @@ function Login() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600"
+                  className="w-[13vw] h-[7vh] py-3 bg-[#A0CE4E] text-white font-semibold rounded-full hover:bg-pink-600 text-center ml-[8vw]"
                 >
                   {loading ? "Logging in..." : "Login"}
                 </button>
+
+              {/* <Link to={`/signup`}>  <button className="w-[12vw] py-3 bg-[#A0CE4E] text-white font-semibold rounded-full hover:bg-pink-600">Create account</button></Link> */}
               </div>
             </form>
           </div>

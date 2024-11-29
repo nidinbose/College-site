@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import logoImage from '/images/a.avif';
 
 function Signup() {
@@ -12,16 +12,15 @@ function Signup() {
     password: '',
     cpassword: '',
     role: 'student',
+    photo: '', 
   });
+
+  const [photoPreview, setPhotoPreview] = useState(''); 
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {
-    // Logic for login validation and handling goes here
-
-    // Navigate to the target page
     navigate("/login");
   };
-  // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +28,21 @@ function Signup() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+  const handlePhotoChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevData) => ({
+          ...prevData,
+          photo: reader.result,
+        }));
+        setPhotoPreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const validatePassword = (password) => {
@@ -52,7 +66,7 @@ function Signup() {
     try {
       const response = await axios.post('http://localhost:3003/api/user', formData);
       alert('Signup successful!');
-      navigate('/login');  // Navigate to the login page after signup
+      navigate('/login');  
     } catch (error) {
       console.error('Error during signup:', error);
       alert('Signup failed!');
@@ -209,6 +223,28 @@ function Signup() {
                 </select>
               </div>
 
+              <div className="mb-4">
+                <label
+                  htmlFor="photo"
+                  className="block text-xs text-gray-400 mb-2"
+                >
+                  Upload Photo:
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handlePhotoChange}
+                  className="w-full p-2 border rounded-lg bg-white text-black"
+                />
+                {photoPreview && (
+                  <img
+                    src={photoPreview}
+                    alt="Photo Preview"
+                    className="mt-4 w-32 h-32 object-cover rounded-full"
+                  />
+                )}
+              </div>
+
               <div className="flex gap-4">
                 <button
                   type="submit"
@@ -233,3 +269,4 @@ function Signup() {
 }
 
 export default Signup;
+

@@ -7,7 +7,9 @@ const userSchema= new mongoose.Schema({
     password:{type:String},
     username:{type:String},
     role:{type:String},
-    otp:{type:String}
+    photo:{type:String},
+    otp:{type:String},
+    newPassword:{type:String}
    
 })
 

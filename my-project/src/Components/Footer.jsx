@@ -4,8 +4,8 @@ import { motion } from 'framer-motion';
 
 const Footer = () => {
   return (
-    <section className='w-full bg-white py-24 p-4'>
-      <div className='md:max-w-[1100px] m-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'>
+    <section className='w-full bg-white py-24 px-4'>
+      <div className='w-full max-w-screen-xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8'>
         
         <motion.div
           className='col-span-1'
@@ -13,7 +13,7 @@ const Footer = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <img src="" alt='logo-footer' className='h-[25px]' />
+          <img src="/images/pl.png" alt='logo-footer' className='h-[10vh]' />
           <h3 className="font-bold text-2xl mt-10">Contact us</h3>
           <h3 className="py-2 text-[#60737a]">call: 647 68658 86658</h3>
           <h3 className="py-2 text-[#60737a]">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam officia .</h3>

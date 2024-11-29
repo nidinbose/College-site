@@ -1,71 +1,53 @@
-import React, { useRef } from 'react'
-import { motion } from 'framer-motion'
+import React from 'react';
+import 'tailwindcss/tailwind.css'; 
+import '../Components/css/Courses.css';
 
 const Corses = () => {
   const cards = [
-    { id: 1, title: 'Computer Engineering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/11.jpeg', amount: 'INR : 4,50,000' },
-    { id: 2, title: 'Mechanical Engineering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/22.jpg', amount: 'INR : 5,00000' },
-    { id: 3, title: 'Civil Engeneering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/33.jpg', amount: 'INR : 4,00000' },
-    { id: 4, title: 'Electrical Engineering', content: 'Final fees with all excluded exam fee included food and accomadation.', image: '/images/44.jpg', amount: 'INR : 3,50,000 ' },
-
+    { id: 1, title: 'Computer Engineering', image: 'https://nietm.in/wp-content/uploads/2022/11/CSE2.png' },
+    { id: 2, title: 'Mechanical Engineering', image: '/images/22.jpg' },
+    { id: 3, title: 'Civil Engineering', image: '/images/33.jpg' },
+    { id: 4, title: 'Electrical Engineering', image: '/images/44.jpg' },
   ];
 
-  const carouselRef = useRef(null);
-
-  const scrollLeft = () => {
-    carouselRef.current.scrollBy({ left: -300, behavior: 'smooth' });
-  };
-
-  const scrollRight = () => {
-    carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
-  };
-
   return (
-    <section className="w-full bg-white py-10">
-      
-      <div className="w-full max-w-6xl mx-auto relative">
-      <h1 className='text-4xl font-semibold mb-12'>Preffered Courses</h1>
-        {/* Scroll buttons */}
-        <button 
-          onClick={scrollLeft} 
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white font-bold text-black p-2 rounded-full hover:bg-blue-700"
-        >
-          &lt;
-        </button>
-        <button 
-          onClick={scrollRight} 
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white text-black font-bold p-2 rounded-full hover:bg-blue-700"
-        >
-          &gt;
-        </button>
+    <div className="mx-auto xl:p-10 p-3">
+      <section className="relative mx-auto flex overflow-x-auto xl:overflow-x-hidden gap-6 xl:grid xl:grid-cols-4 xl:p-12 xl:gap-10">
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            className="group relative min-w-[16rem] sm:min-w-[18rem] md:min-w-[20rem] bg-white shadow-md rounded-xl overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          >
+            <img
+              src={card.image}
+              alt={card.title}
+              className="w-full h-60 object-cover rounded-t-xl"
+            />
+            <h1 className="mt-4 pb-7 text-start p-5 text-lg font-semibold text-gray-800">{card.title}</h1>
 
-        <div 
-          ref={carouselRef} 
-          className="flex space-x-8 overflow-x-hidden overflow-y-hidden scrollbar-hide snap-x snap-mandatory"
-        >
-          {cards.map(card => (
-            <motion.div 
-              key={card.id} 
-              className="min-w-[310px] bg-gray-100 rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow duration-300 h-[500px]"
-              whileHover={{ scale: 1.05 }}
-            >
-              <img 
-                src={card.image} 
-                alt={card.title} 
-                className="w-full h-[34vh] object-cover rounded-t-lg"
-              />
-              <h2 className="text-xl font-semibold mt-4 mb-6 ">{card.title}</h2>
-              <p className="text-gray-700 mt-2 mb-4">{card.content}</p>
-              <p className="text-blue-600 font-bold mt-4">{card.amount}</p>
-            </motion.div>
-          ))}
-        </div>
+            <div className="absolute bottom-0 right-0 flex items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button className="bg-[#A0CE4E] font-bold text-2xl text-white px-3 py-2 h-20 w-11 text-center rounded-l-full transform translate-x-4 group-hover:translate-x-0 transition-transform duration-300">
+                →
+              </button>
+            </div>
+          </div>
+        ))}
+      </section>
+
+          <div className="flex justify-center mt-4 xl:hidden">
+        {cards.map((card, index) => (
+          <span
+            key={card.id}
+            className="mx-1 h-2 w-2 rounded-full bg-gray-400"
+            style={{
+              backgroundColor: index === 0 ? '#A0CE4E' : 'gray', 
+            }}
+          />
+        ))}
       </div>
-    </section>
+    </div>
   );
-}
+};
 
-export default Corses
-
-
+export default Corses;
 

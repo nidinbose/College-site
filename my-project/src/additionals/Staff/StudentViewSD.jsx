@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom'
-import AdminFooter from "../additionals/Admin/AdminFooter";
-import AdminNavbar from "../additionals/Admin/AdminNavbar";
 
-const StudentView = () => {
+
+const StudentViewSD = () => {
   const [students, setStudents] = useState([]);
   const [department, setDepartment] = useState("All");
   const [name, setName] = useState("");
 
-  // Fetch students data from API
   const getStudents = async () => {
     try {
       const res = await axios.get("http://localhost:3003/api/getstudent");
@@ -31,10 +29,9 @@ const StudentView = () => {
   });
 
   return (
-    <>   <AdminNavbar/> <section className="bg-[#1B2C39] py-10 px-12">
+    <>  <section className="bg-[#1B2C39] py-10 px-12">
             <h1 className="text-center text-4xl font-semibold text-[#A0CE4E]">Students Lists</h1>
-      {/* Filter Inputs */}
-      <div className="flex flex-col sm:flex-row sm:justify-between mb-6 gap-4">
+        <div className="flex flex-col sm:flex-row sm:justify-between mb-6 gap-4">
   <input
     type="text"
     placeholder="Search by name"
@@ -55,10 +52,7 @@ const StudentView = () => {
 
   </select>
 </div>
-
-
-      {/* Card Grid */}
-      <div className="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-screen pb-12 sm:pb-[40vh]">
+           <div className="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-screen pb-12 sm:pb-[40vh]">
 
   
        
@@ -90,10 +84,10 @@ const StudentView = () => {
         ))}
       </div>
     </section>
-    <AdminFooter/>
+ 
     </>
 
   );
 };
 
-export default StudentView;
+export default StudentViewSD;

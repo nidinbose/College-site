@@ -1,66 +1,112 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Typography, Input, Button } from "@material-tailwind/react";
+import axios from "axios";
 
-const ForgotEmail = () => {
-    const [email, setEmail] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
-    const navigate = useNavigate();
+const RequestOtp = () => {
+  const [formData, setFormData] = useState({ email: "" });
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setSuccess('');
+   const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-        try {
-            const response = await axios.post('/api/forgot-password', { email });
-            setSuccess('Please check your email for the password reset link.');
-            setEmail('');
-        } catch (error) {
-            setError('Error sending reset email. Please try again.');
-        }
-    };
+   const validateEmail = () => {
+    let formErrors = {};
+    if (!formData.email) {
+      formErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      formErrors.email = "Invalid email address";
+    }
+    return formErrors;
+  };
 
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                <h1 className="text-2xl font-bold mb-4 text-center">Forgot Password</h1>
-                <p className="text-gray-600 mb-4 text-center">Enter your email address to receive a password reset link.</p>
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formErrors = validateEmail();
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+      return;
+    }
 
-                {success && <div className="mb-4 p-4 bg-green-100 text-green-700 border border-green-300 rounded">{success}</div>}
-                {error && <div className="mb-4 p-4 bg-red-100 text-red-700 border border-red-300 rounded">{error}</div>}
+    setLoading(true);
+    setErrors({});
+    setSuccessMessage("");
 
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email Address</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                    </div>
+    try {
+      const response = await axios.post("http://localhost:3003/api/fpwd", {
+        email: formData.email,
+      });
 
-                    <button
-                        type="submit"
-                        className="w-full px-4 py-2 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                        Send Reset Link
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate('/login')}
-                        className="mt-4 w-full px-4 py-2 bg-gray-600 text-white font-semibold rounded hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    >
-                        Back to Login
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
+      setEmailSent(true);
+      setSuccessMessage("OTP has been sent to your email.");
+
+      setTimeout(() => {
+        navigate("/resetpassword");
+      }, 2000); 
+    } catch (error) {
+      setErrors({ submit: error.response?.data?.error || "Something went wrong." });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section className="grid h-screen place-items-center p-8 bg-white">
+      <div className="max-w-[24rem] mx-auto">
+        <Typography variant="h3" color="blue-gray" className="mb-2 text-center font-semibold">
+         Forgot Password
+        </Typography>
+        <Typography className="mb-16 text-center text-gray-600 font-normal text-[18px]">
+          Enter your email to receive an OTP for resetting your password.
+        </Typography>
+
+        {errors.submit && (
+          <Typography variant="small" className="mb-4 text-red-600 text-center">
+            {errors.submit}
+          </Typography>
+        )}
+        {successMessage && (
+          <Typography variant="small" className="mb-4 text-green-600 text-center">
+            {successMessage}
+          </Typography>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="mb-6">
+            <label htmlFor="email">
+              <Typography variant="small" className="mb-2 block font-medium text-gray-900">
+                Email
+              </Typography>
+            </label>
+            <Input
+              size="lg"
+              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full placeholder:opacity-100 focus:border-primary border-blue-gray-200"
+              type="email"
+              error={Boolean(errors.email)}
+            />
+            {errors.email && (
+              <Typography variant="small" color="red" className="mt-1">
+                {errors.email}
+              </Typography>
+            )}
+          </div>
+
+          <Button type="submit" color="" size="lg" className="mt-6 h-12 bg-gray-800" fullWidth disabled={loading}>
+            {loading ? "Sending OTP..." : "Send OTP"}
+          </Button>
+        </form>
+      </div>
+    </section>
+  );
 };
 
-export default ForgotEmail;
+export default RequestOtp;

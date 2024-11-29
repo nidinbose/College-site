@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom'; 
 import logoImage from '/images/a.avif';
 
 function SSignup() {
@@ -12,16 +12,15 @@ function SSignup() {
     password: '',
     cpassword: '',
     role: 'student',
+    photo: '',  
   });
+
+  const [photoPreview, setPhotoPreview] = useState(null); 
 
   const navigate = useNavigate(); 
   const handleLoginClick = () => {
-    // Logic for login validation and handling goes here
-
-    // Navigate to the target page
     navigate("/login");
   };
-  // Initialize useNavigate
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +28,21 @@ function SSignup() {
       ...prevData,
       [name]: value,
     }));
+  };
+
+    const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevData) => ({
+          ...prevData,
+          photo: reader.result, 
+        }));
+        setPhotoPreview(reader.result);
+      };
+      reader.readAsDataURL(file); //
+    }
   };
 
   const validatePassword = (password) => {
@@ -52,7 +66,7 @@ function SSignup() {
     try {
       const response = await axios.post('http://localhost:3003/api/user', formData);
       alert('Signup successful!');
-      navigate('/login');  // Navigate to the login page after signup
+      navigate('/login');  
     } catch (error) {
       console.error('Error during signup:', error);
       alert('Signup failed!');
@@ -203,10 +217,32 @@ function SSignup() {
                   onChange={handleInputChange}
                   value={formData.role}
                 >
-                  
                   <option value="student">Student</option>
                 </select>
               </div>
+
+              <div className="mb-4">
+                <label className="block text-xs text-gray-400 mb-2" htmlFor="photo">
+                  Upload Photo
+                </label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="photo"
+                  className="w-full bg-gray-100 p-2 rounded-lg mt-2 text-sm focus:outline-none"
+                  onChange={handlePhotoUpload}
+                />
+              </div>
+
+              {photoPreview && (
+                <div className="mb-4">
+                  <img
+                    src={photoPreview}
+                    alt="Photo Preview"
+                    className="w-32 h-32 object-cover rounded-full mx-auto"
+                  />
+                </div>
+              )}
 
               <div className="flex gap-4">
                 <button
@@ -232,3 +268,4 @@ function SSignup() {
 }
 
 export default SSignup;
+
